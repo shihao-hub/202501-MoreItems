@@ -65,10 +65,16 @@ local function _set_persist_data_on_init(component, persist_data)
         return
     end
 
+    -- 检查是否吃过强心素食堡，没有吃过则不继承
+    if not persist_data.eatnum or persist_data.eatnum <= 0 then
+        base.log.info("character hasn't eaten lifeinjector_vb, skip inheritance")
+        return
+    end
+
     --base.log.info("2")
 
     self.eatnum = persist_data.eatnum
-    self.save_currenthealth = self.inst.components.health.currenthealth
+    self.save_currenthealth = persist_data.save_currenthealth
     self.save_maxhealth = persist_data.save_maxhealth
 
     base.log.info("set save_maxhealth field success!")

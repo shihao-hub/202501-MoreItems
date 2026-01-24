@@ -54,8 +54,14 @@ local function _set_persist_data_on_init(component, persist_data)
         return
     end
 
+    -- 检查是否吃过汉堡，没有吃过则不继承
+    if not persist_data.eatnum or persist_data.eatnum <= 0 then
+        base.log.info("character hasn't eaten hamburger, skip inheritance")
+        return
+    end
+
     self.eatnum = persist_data.eatnum
-    self.save_currenthunger = self.inst.components.hunger.current
+    self.save_currenthunger = persist_data.save_currenthunger
     self.save_maxhunger = persist_data.save_maxhunger
 
     base.log.info("set save_maxhunger field success!")
