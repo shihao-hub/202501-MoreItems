@@ -109,7 +109,11 @@ end)
 
 function SWH:_get_persist_filename()
     base.log.info("call _get_persist_filename")
-    return "stomach_warming_hamburger_" .. (self.inst.userid or "default")
+    -- 只在主服务器存储，避免上下洞数据分离
+    if TheNet:GetIsServer() and TheShard and not TheShard:IsSecondary() then
+        return "stomach_warming_hamburger_" .. (self.inst.userid or "default")
+    end
+    return nil  -- 洞穴不使用文件存储
 end
 
 function SWH:_character_has_eaten()
@@ -149,9 +153,12 @@ function SWH:OnSave()
         save_currenthunger = self.save_currenthunger,
         save_maxhunger = self.save_maxhunger,
     }
-    -- 持久化
+    -- 只在主服务器持久化
     if self:_character_has_eaten() and _is_player_included(self.inst.prefab) then
-        interval.set_persist_data(self:_get_persist_filename(), data)
+        local filename = self:_get_persist_filename()
+        if filename then
+            interval.set_persist_data(filename, data)
+        end
     end
     return data
 end
