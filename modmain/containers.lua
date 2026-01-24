@@ -1110,28 +1110,28 @@ function DoFns.wardrobe()
                 fn = fn,
                 validfn = validfn;
             },
-            more_items_wardrobe_buttoninfo = {
-                text = "换装",
-                position = Vector3(0, 255, 0),
-                fn = function(inst, doer)
-                    if inst.components.container ~= nil then
-                        local prefab_skins = rawget(PREFAB_SKINS, doer.prefab) or {};
-                        for _, skin in pairs(prefab_skins) do
-                            local skindata = GetSkinData(skin)
-                            if (skindata == nil) or (type(skindata) == "table" and skindata.skins == nil) then
-                                doer.components.talker:Say("抱歉，由于目前获取不到模组人物的皮肤数据，所以模组人物无法在此处换皮肤！");
-                                return ;
-                            end
-                        end
-                        BufferedAction(doer, inst, ACTIONS.CHANGEIN):Do();
-                    elseif inst.replica.container ~= nil and not inst.replica.container:IsBusy() then
-                        SendModRPCToServer(MOD_RPC["more_items"]["wardrobe_reskin"], inst);
-                    end
-                end,
-                validfn = function(inst)
-                    return true;
-                end;
-            }
+            --more_items_wardrobe_buttoninfo = {
+            --    text = "换装",
+            --    position = Vector3(0, 255, 0),
+            --    fn = function(inst, doer)
+            --        if inst.components.container ~= nil then
+            --            local prefab_skins = rawget(PREFAB_SKINS, doer.prefab) or {};
+            --            for _, skin in pairs(prefab_skins) do
+            --                local skindata = GetSkinData(skin)
+            --                if (skindata == nil) or (type(skindata) == "table" and skindata.skins == nil) then
+            --                    doer.components.talker:Say("抱歉，由于目前获取不到模组人物的皮肤数据，所以模组人物无法在此处换皮肤！");
+            --                    return ;
+            --                end
+            --            end
+            --            BufferedAction(doer, inst, ACTIONS.CHANGEIN):Do();
+            --        elseif inst.replica.container ~= nil and not inst.replica.container:IsBusy() then
+            --            SendModRPCToServer(MOD_RPC["more_items"]["wardrobe_reskin"], inst);
+            --        end
+            --    end,
+            --    validfn = function(inst)
+            --        return true;
+            --    end;
+            --}
         },
         type = "chest",
         itemtestfn = function(container, item, slot)

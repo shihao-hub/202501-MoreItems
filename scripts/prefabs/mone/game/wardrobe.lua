@@ -157,13 +157,14 @@ local function fn()
     end
 
     inst:AddComponent("inspectable")
-    if not TUNING.MONE_TUNING.WARDROBE_DISABLED then
-        inst:AddComponent("wardrobe")
-        inst.components.wardrobe:SetChangeInDelay(20 * FRAMES)
-        inst.components.wardrobe.onchangeinfn = onchangein
-        inst.components.wardrobe.onopenfn = onopen
-        inst.components.wardrobe.onclosefn = onclose
-    end
+    -- 2026-01-24：取消换装功能
+    --if not TUNING.MONE_TUNING.WARDROBE_DISABLED then
+    --    inst:AddComponent("wardrobe")
+    --    inst.components.wardrobe:SetChangeInDelay(20 * FRAMES)
+    --    inst.components.wardrobe.onchangeinfn = onchangein
+    --    inst.components.wardrobe.onopenfn = onopen
+    --    inst.components.wardrobe.onclosefn = onclose
+    --end
 
 
     inst:AddComponent("lootdropper")
