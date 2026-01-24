@@ -6,11 +6,12 @@
 local base = require("moreitems.main").shihao.base
 
 -- 添加 Shard RPC Handlers
--- 注意：AddShardModRPCHandler 用于跨服务器 RPC，handler 函数不接收 inst 参数
+-- 注意：SendModRPCToShard 会将 shardid 作为第一个参数传递给 handler
+-- 所以 handler 的参数签名是：function(shardid, userid, eatnum, ...) 而不是 function(userid, eatnum, ...)
 
-AddShardModRPCHandler("more_items", "set_lifeinjector_data", function(userid, eatnum, save_currenthealth, save_maxhealth)
-    print("[Shard RPC Handler] Received set_lifeinjector_data for " .. tostring(userid))
-    base.log.info("[Shard RPC Handler] Received set_lifeinjector_data request for " .. tostring(userid))
+AddShardModRPCHandler("more_items", "set_lifeinjector_data", function(shardid, userid, eatnum, save_currenthealth, save_maxhealth)
+    print("[Shard RPC Handler] Received set_lifeinjector_data - shardid: " .. tostring(shardid) .. ", userid: " .. tostring(userid) .. ", eatnum: " .. tostring(eatnum))
+    base.log.info("[Shard RPC Handler] Received set_lifeinjector_data - userid=" .. tostring(userid) .. ", eatnum=" .. tostring(eatnum))
     if TheWorld then
         print("[Shard RPC Handler] TheWorld exists")
         if TheWorld.components.mone_shard_sync then
@@ -27,9 +28,9 @@ AddShardModRPCHandler("more_items", "set_lifeinjector_data", function(userid, ea
     return false
 end)
 
-AddShardModRPCHandler("more_items", "set_hamburger_data", function(userid, eatnum, save_currenthunger, save_maxhunger)
-    print("[Shard RPC Handler] Received set_hamburger_data for " .. tostring(userid))
-    base.log.info("[Shard RPC Handler] Received set_hamburger_data request for " .. tostring(userid))
+AddShardModRPCHandler("more_items", "set_hamburger_data", function(shardid, userid, eatnum, save_currenthunger, save_maxhunger)
+    print("[Shard RPC Handler] Received set_hamburger_data - shardid: " .. tostring(shardid) .. ", userid: " .. tostring(userid) .. ", eatnum: " .. tostring(eatnum))
+    base.log.info("[Shard RPC Handler] Received set_hamburger_data - userid=" .. tostring(userid) .. ", eatnum=" .. tostring(eatnum))
     if TheWorld and TheWorld.components.mone_shard_sync then
         local result = TheWorld.components.mone_shard_sync:SetHamburgerData(userid, eatnum, save_currenthunger, save_maxhunger)
         return result

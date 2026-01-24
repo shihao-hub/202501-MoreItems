@@ -33,6 +33,8 @@ local function send_to_master(rpc_name, ...)
         end
 
         base.log.info("[Shard RPC] Sending to master: " .. rpc_name .. " (id=" .. tostring(rpc_id) .. ")")
+        -- 注意：SendModRPCToShard 会将第二个参数（shardid）作为第一个参数传递给 handler
+        -- 所以我们的参数会从第二个位置开始
         SendModRPCToShard(rpc_id, nil, ...)
         base.log.info("[Shard RPC] Sent successfully")
     else
