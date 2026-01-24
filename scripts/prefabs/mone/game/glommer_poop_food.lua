@@ -41,6 +41,8 @@ local function fn()
     inst:AddComponent("stackable")
     inst.components.stackable.maxsize = TUNING.STACK_SIZE_MEDITEM;
 
+    inst:AddComponent("mone_glommer_poop_food")
+
     return inst;
 end
 

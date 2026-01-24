@@ -451,13 +451,13 @@ local component_actions = {
     },
     {
         actiontype = "USEITEM",
-        component = "inventoryitem",
+        component = "mone_glommer_poop_food",
         tests = {
             {
                 execute = custom_actions["MONE_FEED_GLOMMER"].execute,
                 id = "MONE_FEED_GLOMMER",
                 testfn = function(inst, doer, target, actions, right)
-                    return doer:HasTag("player") and inst.prefab == "mone_glommer_poop_food" and target.prefab == "glommer";
+                    return doer:HasTag("player") and target.prefab == "glommer";
                 end
             }
         }
