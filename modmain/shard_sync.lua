@@ -1,77 +1,9 @@
 ---
 --- @author zsh in 2025/1/24
---- Mod RPC 跨服务器数据同步 - 世界组件
+--- Mod RPC 跨服务器数据同步 - RPC 处理器注册
 ---
 
 local base = require("moreitems.main").shihao.base
-
--- 数据存储（主服务器专用）
-local SHARD_DATA = {
-    lifeinjector = {},  -- [userid] = {eatnum, save_currenthealth, save_maxhealth}
-    hamburger = {},    -- [userid] = {eatnum, save_currenthunger, save_maxhunger}
-}
-
-local SHARD_SYNC = Class(function(self, inst)
-    self.inst = inst
-end)
-
---- 获取强心素食堡数据
-function SHARD_SYNC:GetLifeinjectorData(userid)
-    local data = SHARD_DATA.lifeinjector[userid]
-    if data then
-        base.log.info("RPC: get_lifeinjector_data for " .. tostring(userid) .. " = " .. tostring(data.eatnum))
-    else
-        base.log.info("RPC: get_lifeinjector_data for " .. tostring(userid) .. " = nil")
-    end
-    return data
-end
-
---- 设置强心素食堡数据
-function SHARD_SYNC:SetLifeinjectorData(userid, eatnum, save_currenthealth, save_maxhealth)
-    -- 只在主服务器存储
-    if TheShard and TheShard:IsSecondary() then
-        base.log.info("RPC: secondary shard rejected data storage")
-        return false
-    end
-
-    SHARD_DATA.lifeinjector[userid] = {
-        eatnum = eatnum or 0,
-        save_currenthealth = save_currenthealth,
-        save_maxhealth = save_maxhealth
-    }
-
-    base.log.info("RPC: set_lifeinjector_data for " .. tostring(userid) .. " eatnum=" .. tostring(eatnum))
-    return true
-end
-
---- 获取暖胃汉堡包数据
-function SHARD_SYNC:GetHamburgerData(userid)
-    local data = SHARD_DATA.hamburger[userid]
-    if data then
-        base.log.info("RPC: get_hamburger_data for " .. tostring(userid) .. " = " .. tostring(data.eatnum))
-    else
-        base.log.info("RPC: get_hamburger_data for " .. tostring(userid) .. " = nil")
-    end
-    return data
-end
-
---- 设置暖胃汉堡包数据
-function SHARD_SYNC:SetHamburgerData(userid, eatnum, save_currenthunger, save_maxhunger)
-    -- 只在主服务器存储
-    if TheShard and TheShard:IsSecondary() then
-        base.log.info("RPC: secondary shard rejected data storage")
-        return false
-    end
-
-    SHARD_DATA.hamburger[userid] = {
-        eatnum = eatnum or 0,
-        save_currenthunger = save_currenthunger,
-        save_maxhunger = save_maxhunger
-    }
-
-    base.log.info("RPC: set_hamburger_data for " .. tostring(userid) .. " eatnum=" .. tostring(eatnum))
-    return true
-end
 
 -- 添加 RPC Handlers
 -- 注意：只有 Set 操作需要跨服务器 RPC
@@ -97,8 +29,6 @@ end)
 
 base.log.info("Mod RPC shard sync handlers loaded")
 
-return SHARD_SYNC
-
 -- 将组件添加到世界
 AddPrefabPostInit("world", function(inst)
     if not TheWorld.ismastersim then
@@ -110,3 +40,5 @@ AddPrefabPostInit("world", function(inst)
         base.log.info("Added mone_shard_sync component to world")
     end
 end)
+
+
