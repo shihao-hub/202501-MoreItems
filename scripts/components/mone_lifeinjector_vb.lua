@@ -175,20 +175,34 @@ end
 function VB:OnLoad(data)
     if data then
         if data.eatnum and data.save_currenthealth and data.save_maxhealth then
+            print("[Lifeinjector OnLoad] Initial data from save: eatnum=" .. tostring(data.eatnum) .. ", save_maxhealth=" .. tostring(data.save_maxhealth))
+            base.log.info("[Lifeinjector OnLoad] Initial data from save: eatnum=" .. tostring(data.eatnum) .. ", save_maxhealth=" .. tostring(data.save_maxhealth))
+
             self.eatnum = data.eatnum;
             self.save_currenthealth = data.save_currenthealth;
             self.save_maxhealth = data.save_maxhealth;
 
             -- 在主服务器上，优先从世界组件获取最新的跨服数据
             if TheWorld and TheWorld.components.mone_shard_sync and not (TheShard and TheShard:IsSecondary()) then
+                print("[Lifeinjector OnLoad] Trying to get data from world component...")
                 local shard_data = TheWorld.components.mone_shard_sync:GetLifeinjectorData(self.inst.userid)
-                if shard_data and shard_data.eatnum then
-                    -- 使用世界组件的数据（可能包含洞穴中吃的食物）
-                    self.eatnum = shard_data.eatnum
-                    self.save_currenthealth = shard_data.save_currenthealth
-                    self.save_maxhealth = shard_data.save_maxhealth
-                    base.log.info("Loaded lifeinjector data from world sync component for " .. tostring(self.inst.userid))
+                if shard_data then
+                    print("[Lifeinjector OnLoad] Shard data received: eatnum=" .. tostring(shard_data.eatnum) .. ", save_maxhealth=" .. tostring(shard_data.save_maxhealth))
+                    base.log.info("[Lifeinjector OnLoad] Shard data: eatnum=" .. tostring(shard_data.eatnum) .. ", save_maxhealth=" .. tostring(shard_data.save_maxhealth))
+
+                    if shard_data.eatnum then
+                        -- 使用世界组件的数据（可能包含洞穴中吃的食物）
+                        self.eatnum = shard_data.eatnum
+                        self.save_currenthealth = shard_data.save_currenthealth
+                        self.save_maxhealth = shard_data.save_maxhealth
+                        print("[Lifeinjector OnLoad] Applied shard data: eatnum=" .. tostring(self.eatnum) .. ", save_maxhealth=" .. tostring(self.save_maxhealth))
+                        base.log.info("Loaded lifeinjector data from world sync component for " .. tostring(self.inst.userid))
+                    end
+                else
+                    print("[Lifeinjector OnLoad] No shard data received")
                 end
+            else
+                print("[Lifeinjector OnLoad] World component not available or in secondary shard")
             end
 
             -- 没吃过就不会失效。
