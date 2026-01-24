@@ -59,3 +59,11 @@ tlogs
 *backup*
 *.bak
 backups/
+
+# Session files
+*-this-session-is-being-continued-from-a-previous-co.txt
+
+# User notes (optional - uncomment if you want to ignore them)
+# dst_note.lua
+# GIT_SETUP.md
+# git_push.bat
