@@ -179,9 +179,17 @@ function VB:OnLoad(data)
             self.save_currenthealth = data.save_currenthealth;
             self.save_maxhealth = data.save_maxhealth;
 
-            -- 注意：不再需要从主服务器加载数据
-            -- DST 的跨服机制已经通过 OnSave/OnLoad 自动传输玩家数据
-            -- 洞穴中吃食物时，会通过 RPC 同步到主服务器
+            -- 在主服务器上，优先从世界组件获取最新的跨服数据
+            if TheWorld and TheWorld.components.mone_shard_sync and not (TheShard and TheShard:IsSecondary()) then
+                local shard_data = TheWorld.components.mone_shard_sync:GetLifeinjectorData(self.inst.userid)
+                if shard_data and shard_data.eatnum then
+                    -- 使用世界组件的数据（可能包含洞穴中吃的食物）
+                    self.eatnum = shard_data.eatnum
+                    self.save_currenthealth = shard_data.save_currenthealth
+                    self.save_maxhealth = shard_data.save_maxhealth
+                    base.log.info("Loaded lifeinjector data from world sync component for " .. tostring(self.inst.userid))
+                end
+            end
 
             -- 没吃过就不会失效。
             if self:_character_has_eaten() then

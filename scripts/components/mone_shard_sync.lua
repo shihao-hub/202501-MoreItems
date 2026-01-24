@@ -4,6 +4,12 @@
 ---
 
 local base = require("moreitems.main").shihao.base
+local dst_utils = require("moreitems.main").dst.dst_utils
+
+local interval = {
+    get_persistent_data = dst_utils.get_persistent_data,
+    set_persist_data = dst_utils.set_persist_data
+}
 
 -- 数据存储（主服务器专用）
 local SHARD_DATA = {
@@ -41,6 +47,10 @@ function SHARD_SYNC:SetLifeinjectorData(userid, eatnum, save_currenthealth, save
     }
 
     base.log.info("RPC: set_lifeinjector_data for " .. tostring(userid) .. " eatnum=" .. tostring(eatnum))
+
+    -- 立即持久化到文件
+    self:SaveLifeinjectorData()
+
     return true
 end
 
@@ -70,7 +80,86 @@ function SHARD_SYNC:SetHamburgerData(userid, eatnum, save_currenthunger, save_ma
     }
 
     base.log.info("RPC: set_hamburger_data for " .. tostring(userid) .. " eatnum=" .. tostring(eatnum))
+
+    -- 立即持久化到文件
+    self:SaveHamburgerData()
+
     return true
+end
+
+--- 持久化强心素食堡数据到文件
+function SHARD_SYNC:SaveLifeinjectorData()
+    if TheShard and TheShard:IsSecondary() then
+        return
+    end
+
+    interval.set_persist_data("mone_shard_sync_lifeinjector", SHARD_DATA.lifeinjector)
+    base.log.info("Saved lifeinjector data to persistent storage")
+end
+
+--- 持久化暖胃汉堡包数据到文件
+function SHARD_SYNC:SaveHamburgerData()
+    if TheShard and TheShard:IsSecondary() then
+        return
+    end
+
+    interval.set_persist_data("mone_shard_sync_hamburger", SHARD_DATA.hamburger)
+    base.log.info("Saved hamburger data to persistent storage")
+end
+
+--- 从文件加载强心素食堡数据
+function SHARD_SYNC:LoadLifeinjectorData()
+    if TheShard and TheShard:IsSecondary() then
+        return
+    end
+
+    local data = interval.get_persistent_data("mone_shard_sync_lifeinjector")
+    if data then
+        SHARD_DATA.lifeinjector = data
+        base.log.info("Loaded lifeinjector data from persistent storage")
+    end
+end
+
+--- 从文件加载暖胃汉堡包数据
+function SHARD_SYNC:LoadHamburgerData()
+    if TheShard and TheShard:IsSecondary() then
+        return
+    end
+
+    local data = interval.get_persistent_data("mone_shard_sync_hamburger")
+    if data then
+        SHARD_DATA.hamburger = data
+        base.log.info("Loaded hamburger data from persistent storage")
+    end
+end
+
+--- 组件 OnSave：无需额外操作，数据已经在 Set 时持久化
+function SHARD_SYNC:OnSave()
+    -- 数据已在 Set 方法中实时持久化
+    return SHARD_DATA
+end
+
+--- 组件 OnLoad：从文件加载数据
+function SHARD_SYNC:OnLoad(data)
+    if data then
+        if data.lifeinjector then
+            SHARD_DATA.lifeinjector = data.lifeinjector
+        end
+        if data.hamburger then
+            SHARD_DATA.hamburger = data.hamburger
+        end
+        base.log.info("Loaded shard sync data from world save")
+    else
+        -- 如果没有保存的数据，从文件加载
+        self:LoadLifeinjectorData()
+        self:LoadHamburgerData()
+    end
+end
+
+--- 组件初始化时加载持久化数据
+function SHARD_SYNC:OnLoadPostPass()
+    self:LoadLifeinjectorData()
+    self:LoadHamburgerData()
 end
 
 return SHARD_SYNC
