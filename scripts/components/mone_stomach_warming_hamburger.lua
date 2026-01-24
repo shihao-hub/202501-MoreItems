@@ -86,22 +86,6 @@ local SWH = Class(function(self, inst)
 
             local old_save_maxhunger = self.save_maxhunger
 
-            -- 在主服务器上，优先检查世界组件的最新数据
-            if TheWorld and TheWorld.components.mone_shard_sync and not (TheShard and TheShard:IsSecondary()) then
-                local shard_data = TheWorld.components.mone_shard_sync:GetHamburgerData(self.inst.userid)
-                if shard_data and shard_data.eatnum and shard_data.eatnum > 0 then
-                    print("[Hamburger Inherit] Found shard data, using it instead of file data")
-                    base.log.info("[Hamburger Inherit] Found shard data: eatnum=" .. tostring(shard_data.eatnum))
-
-                    -- 直接使用世界组件的数据，不需要再读取文件
-                    self.eatnum = shard_data.eatnum
-                    self.save_currenthunger = shard_data.save_currenthunger
-                    self.save_maxhunger = shard_data.save_maxhunger
-                    self:VitIncreaseOnLoad()
-                    return
-                end
-            end
-
             local filename = self:_get_persist_filename()
             if not filename then
                 base.log.info("not in master shard, skip loading persistent data")
@@ -212,18 +196,6 @@ function SWH:OnLoad(data)
             self.eatnum = data.eatnum;
             self.save_currenthunger = data.save_currenthunger;
             self.save_maxhunger = data.save_maxhunger;
-
-            -- 在主服务器上，优先从世界组件获取最新的跨服数据
-            if TheWorld and TheWorld.components.mone_shard_sync and not (TheShard and TheShard:IsSecondary()) then
-                local shard_data = TheWorld.components.mone_shard_sync:GetHamburgerData(self.inst.userid)
-                if shard_data and shard_data.eatnum then
-                    -- 使用世界组件的数据（可能包含洞穴中吃的食物）
-                    self.eatnum = shard_data.eatnum
-                    self.save_currenthunger = shard_data.save_currenthunger
-                    self.save_maxhunger = shard_data.save_maxhunger
-                    base.log.info("Loaded hamburger data from world sync component for " .. tostring(self.inst.userid))
-                end
-            end
 
             -- 没吃过就不会失效。
             if self:_character_has_eaten() then

@@ -40,15 +40,23 @@ function SHARD_SYNC:SetLifeinjectorData(userid, eatnum, save_currenthealth, save
         return false
     end
 
-    SHARD_DATA.lifeinjector[userid] = {
+    local data = {
         eatnum = eatnum or 0,
         save_currenthealth = save_currenthealth,
         save_maxhealth = save_maxhealth
     }
 
+    -- 更新内存数据
+    SHARD_DATA.lifeinjector[userid] = data
+
     base.log.info("RPC: set_lifeinjector_data for " .. tostring(userid) .. " eatnum=" .. tostring(eatnum))
 
-    -- 立即持久化到文件
+    -- 立即持久化到玩家的 PersistentString 文件
+    -- 注意：这里使用玩家组件的文件名格式，确保玩家组件读取时是最新数据
+    interval.set_persist_data("lifeinjector_vb_" .. (userid or "default"), data)
+    base.log.info("Saved lifeinjector data to player's persistent file: lifeinjector_vb_" .. tostring(userid))
+
+    -- 同时保存到世界组件的文件（用于世界重启时恢复内存数据）
     self:SaveLifeinjectorData()
 
     return true
@@ -73,15 +81,22 @@ function SHARD_SYNC:SetHamburgerData(userid, eatnum, save_currenthunger, save_ma
         return false
     end
 
-    SHARD_DATA.hamburger[userid] = {
+    local data = {
         eatnum = eatnum or 0,
         save_currenthunger = save_currenthunger,
         save_maxhunger = save_maxhunger
     }
 
+    -- 更新内存数据
+    SHARD_DATA.hamburger[userid] = data
+
     base.log.info("RPC: set_hamburger_data for " .. tostring(userid) .. " eatnum=" .. tostring(eatnum))
 
-    -- 立即持久化到文件
+    -- 立即持久化到玩家的 PersistentString 文件
+    interval.set_persist_data("stomach_warming_hamburger_" .. (userid or "default"), data)
+    base.log.info("Saved hamburger data to player's persistent file: stomach_warming_hamburger_" .. tostring(userid))
+
+    -- 同时保存到世界组件的文件（用于世界重启时恢复内存数据）
     self:SaveHamburgerData()
 
     return true
