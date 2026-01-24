@@ -15,10 +15,28 @@ local RPC = {}
 -- 发送 RPC 到主服务器
 local function send_to_master(rpc_name, ...)
     if TheShard and TheShard:IsSecondary() then
-        -- 在洞穴服务器，通过 Shard RPC 发送到主服务器
-        -- 使用 SHARD_MOD_RPC 获取 RPC ID，传入 nil 发送到所有连接的世界（包括主服务器）
-        base.log.info("[Shard RPC] Sending to master: " .. rpc_name)
-        SendModRPCToShard(SHARD_MOD_RPC["more_items"][rpc_name], nil, ...)
+        -- 检查 SHARD_MOD_RPC 是否存在
+        if not SHARD_MOD_RPC then
+            base.log.info("[Shard RPC] ERROR: SHARD_MOD_RPC is nil!")
+            return
+        end
+
+        if not SHARD_MOD_RPC["more_items"] then
+            base.log.info("[Shard RPC] ERROR: SHARD_MOD_RPC['more_items'] is nil!")
+            return
+        end
+
+        local rpc_id = SHARD_MOD_RPC["more_items"][rpc_name]
+        if not rpc_id then
+            base.log.info("[Shard RPC] ERROR: SHARD_MOD_RPC['more_items']['" .. rpc_name .. "'] is nil!")
+            return
+        end
+
+        base.log.info("[Shard RPC] Sending to master: " .. rpc_name .. " (id=" .. tostring(rpc_id) .. ")")
+        SendModRPCToShard(rpc_id, nil, ...)
+        base.log.info("[Shard RPC] Sent successfully")
+    else
+        base.log.info("[Shard RPC] Not in secondary shard, skipping RPC")
     end
 end
 

@@ -9,16 +9,27 @@ local base = require("moreitems.main").shihao.base
 -- 注意：AddShardModRPCHandler 用于跨服务器 RPC，handler 函数不接收 inst 参数
 
 AddShardModRPCHandler("more_items", "set_lifeinjector_data", function(userid, eatnum, save_currenthealth, save_maxhealth)
-    base.log.info("[Shard RPC] Received set_lifeinjector_data request for " .. tostring(userid))
-    if TheWorld and TheWorld.components.mone_shard_sync then
-        local result = TheWorld.components.mone_shard_sync:SetLifeinjectorData(userid, eatnum, save_currenthealth, save_maxhealth)
-        return result
+    print("[Shard RPC Handler] Received set_lifeinjector_data for " .. tostring(userid))
+    base.log.info("[Shard RPC Handler] Received set_lifeinjector_data request for " .. tostring(userid))
+    if TheWorld then
+        print("[Shard RPC Handler] TheWorld exists")
+        if TheWorld.components.mone_shard_sync then
+            print("[Shard RPC Handler] Component exists, calling SetLifeinjectorData")
+            local result = TheWorld.components.mone_shard_sync:SetLifeinjectorData(userid, eatnum, save_currenthealth, save_maxhealth)
+            print("[Shard RPC Handler] Result: " .. tostring(result))
+            return result
+        else
+            print("[Shard RPC Handler] ERROR: mone_shard_sync component not found!")
+        end
+    else
+        print("[Shard RPC Handler] ERROR: TheWorld is nil!")
     end
     return false
 end)
 
 AddShardModRPCHandler("more_items", "set_hamburger_data", function(userid, eatnum, save_currenthunger, save_maxhunger)
-    base.log.info("[Shard RPC] Received set_hamburger_data request for " .. tostring(userid))
+    print("[Shard RPC Handler] Received set_hamburger_data for " .. tostring(userid))
+    base.log.info("[Shard RPC Handler] Received set_hamburger_data request for " .. tostring(userid))
     if TheWorld and TheWorld.components.mone_shard_sync then
         local result = TheWorld.components.mone_shard_sync:SetHamburgerData(userid, eatnum, save_currenthunger, save_maxhunger)
         return result
@@ -37,6 +48,7 @@ AddPrefabPostInit("world", function(inst)
     if not inst.components.mone_shard_sync then
         inst:AddComponent("mone_shard_sync")
         base.log.info("Added mone_shard_sync component to world")
+        print("[Shard Sync] Added mone_shard_sync component to world")
     end
 end)
 
