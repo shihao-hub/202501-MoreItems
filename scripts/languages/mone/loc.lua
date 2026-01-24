@@ -303,6 +303,11 @@ local prefabsInfo = {
         describe = "",
         recipe_desc = COMMON_RECIPE_DESC
     },
+    ["mone_sanity_hamburger"] = {
+        names = "强san素食堡",
+        describe = "",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
     ["mone_lifeinjector_vb"] = {
         names = "强心素食堡",
         describe = "",

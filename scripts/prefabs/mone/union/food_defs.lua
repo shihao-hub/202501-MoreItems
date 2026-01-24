@@ -210,6 +210,43 @@ foods["mone_stomach_warming_hamburger"] = {
     end
 }
 
+foods["mone_sanity_hamburger"] = {
+    CanMake = config_data.mone_sanity_hamburger,
+    name = "mone_sanity_hamburger",
+    assets = {
+        Asset("ANIM", "anim/bs_food_33.zip"),
+        Asset("IMAGE", "images/foodimages/bs_food_33.tex"),
+        Asset("ATLAS", "images/foodimages/bs_food_33.xml")
+    },
+    tags = { "mone_sanity_hamburger", "non_preparedfood" },
+    animdata = { bank = "bs_food_33", build = "bs_food_33", animation = "idle" },
+    cs_fn = function(inst)
+
+    end,
+    client_fn = function(inst)
+
+    end,
+    server_fn = function(inst)
+        inst.components.inventoryitem.imagename = "bs_food_33";
+        inst.components.inventoryitem.atlasname = "images/foodimages/bs_food_33.xml";
+
+        inst.components.edible.hungervalue = 0;
+        inst.components.edible.sanityvalue = 0;
+        inst.components.edible.healthvalue = 0;
+        inst.components.edible.foodtype = FOODTYPE.GOODIES;
+        inst.components.edible:SetOnEatenFn(function(inst, eater)
+            if eater and eater.components.mone_sanity_hamburger then
+                if eater.mone_sh_non_ban then
+                    eater.components.mone_sanity_hamburger:VitIncrease();
+                elseif eater.components.talker then
+                    eater.components.talker:Say("我吃了没有任何效果...");
+                end
+            end
+        end)
+        inst.components.stackable.maxsize = TUNING.STACK_SIZE_TINYITEM;
+    end
+}
+
 foods["mone_guacamole"] = {
     CanMake = config_data.mone_guacamole,
     name = "mone_guacamole",

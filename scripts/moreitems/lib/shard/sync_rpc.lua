@@ -74,6 +74,22 @@ function RPC.SetHamburgerData(userid, eatnum, save_currenthunger, save_maxhunger
     end
 end
 
+--- 设置强san素食堡数据到主服务器
+function RPC.SetSanityHamburgerData(userid, eatnum, save_currentsanity, save_maxsanity)
+    if TheWorld.ismastersim then
+        if TheShard and not TheShard:IsSecondary() then
+            -- 主服务器直接设置
+            if TheWorld.components.mone_shard_sync then
+                TheWorld.components.mone_shard_sync:SetSanityHamburgerData(userid, eatnum, save_currentsanity, save_maxsanity)
+            end
+        else
+            -- 洞穴服务器通过 RPC 发送（单向，不需要返回值）
+            base.log.info("[Shard RPC] Sending sanity hamburger data to master for " .. tostring(userid))
+            send_to_master("set_sanity_hamburger_data", userid, eatnum, save_currentsanity, save_maxsanity)
+        end
+    end
+end
+
 --- 从主服务器获取强心素食堡数据（仅用于主服务器本地读取）
 function RPC.GetLifeinjectorData(userid)
     if TheWorld.ismastersim and TheShard and not TheShard:IsSecondary() then
@@ -89,6 +105,16 @@ function RPC.GetHamburgerData(userid)
     if TheWorld.ismastersim and TheShard and not TheShard:IsSecondary() then
         if TheWorld.components.mone_shard_sync then
             return TheWorld.components.mone_shard_sync:GetHamburgerData(userid)
+        end
+    end
+    return nil
+end
+
+--- 从主服务器获取强san素食堡数据（仅用于主服务器本地读取）
+function RPC.GetSanityHamburgerData(userid)
+    if TheWorld.ismastersim and TheShard and not TheShard:IsSecondary() then
+        if TheWorld.components.mone_shard_sync then
+            return TheWorld.components.mone_shard_sync:GetSanityHamburgerData(userid)
         end
     end
     return nil

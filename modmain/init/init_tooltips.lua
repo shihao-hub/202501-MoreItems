@@ -625,6 +625,13 @@ STRINGS[upper("mone_stomach_warming_hamburger")] = L
         - 为了避免兼容性问题，限制了：仅原版，且排除机器人和小鱼人
         ]]
         or [[]];
+STRINGS[upper("mone_sanity_hamburger")] = L
+        and [[
+        - 【正在计划重构中】
+        - 永久增加1点理智值上限
+        - 为了避免兼容性问题，限制了：仅原版，且排除机器人和小鱼人
+        ]]
+        or [[]];
 --STRINGS[upper("mone_stomach_warming_hamburger_copy")] = L
 --        and [[
 --        - 一次制作十个

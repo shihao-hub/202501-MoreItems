@@ -15,6 +15,7 @@ local interval = {
 local SHARD_DATA = {
     lifeinjector = {},  -- [userid] = {eatnum, save_currenthealth, save_maxhealth}
     hamburger = {},    -- [userid] = {eatnum, save_currenthunger, save_maxhunger}
+    sanity_hamburger = {}, -- [userid] = {eatnum, save_currentsanity, save_maxsanity}
 }
 
 local SHARD_SYNC = Class(function(self, inst)
@@ -133,6 +134,56 @@ function SHARD_SYNC:SaveHamburgerData()
     base.log.info("Saved hamburger data to persistent storage")
 end
 
+--- 获取强san素食堡数据
+function SHARD_SYNC:GetSanityHamburgerData(userid)
+    local data = SHARD_DATA.sanity_hamburger[userid]
+    if data then
+        base.log.info("RPC: get_sanity_hamburger_data for " .. tostring(userid) .. " = " .. tostring(data.eatnum))
+    else
+        base.log.info("RPC: get_sanity_hamburger_data for " .. tostring(userid) .. " = nil")
+    end
+    return data
+end
+
+--- 设置强san素食堡数据
+function SHARD_SYNC:SetSanityHamburgerData(userid, eatnum, save_currentsanity, save_maxsanity)
+    -- 只在主服务器存储
+    if TheShard and TheShard:IsSecondary() then
+        base.log.info("RPC: secondary shard rejected data storage")
+        return false
+    end
+
+    local data = {
+        eatnum = eatnum or 0,
+        save_currentsanity = save_currentsanity,
+        save_maxsanity = save_maxsanity
+    }
+
+    -- 更新内存数据
+    SHARD_DATA.sanity_hamburger[userid] = data
+
+    base.log.info("RPC: set_sanity_hamburger_data for " .. tostring(userid) .. " eatnum=" .. tostring(eatnum))
+
+    -- 立即持久化到玩家的 PersistentString 文件
+    interval.set_persist_data("sanity_hamburger_" .. (userid or "default"), data)
+    base.log.info("Saved sanity hamburger data to player's persistent file: sanity_hamburger_" .. tostring(userid))
+
+    -- 同时保存到世界组件的文件（用于世界重启时恢复内存数据）
+    self:SaveSanityHamburgerData()
+
+    return true
+end
+
+--- 持久化强san素食堡数据到文件
+function SHARD_SYNC:SaveSanityHamburgerData()
+    if TheShard and TheShard:IsSecondary() then
+        return
+    end
+
+    interval.set_persist_data("mone_shard_sync_sanity_hamburger", SHARD_DATA.sanity_hamburger)
+    base.log.info("Saved sanity hamburger data to persistent storage")
+end
+
 --- 从文件加载强心素食堡数据
 function SHARD_SYNC:LoadLifeinjectorData()
     if TheShard and TheShard:IsSecondary() then
@@ -159,6 +210,19 @@ function SHARD_SYNC:LoadHamburgerData()
     end
 end
 
+--- 从文件加载强san素食堡数据
+function SHARD_SYNC:LoadSanityHamburgerData()
+    if TheShard and TheShard:IsSecondary() then
+        return
+    end
+
+    local data = interval.get_persistent_data("mone_shard_sync_sanity_hamburger")
+    if data then
+        SHARD_DATA.sanity_hamburger = data
+        base.log.info("Loaded sanity hamburger data from persistent storage")
+    end
+end
+
 --- 组件 OnSave：无需额外操作，数据已经在 Set 时持久化
 function SHARD_SYNC:OnSave()
     -- 数据已在 Set 方法中实时持久化
@@ -174,11 +238,15 @@ function SHARD_SYNC:OnLoad(data)
         if data.hamburger then
             SHARD_DATA.hamburger = data.hamburger
         end
+        if data.sanity_hamburger then
+            SHARD_DATA.sanity_hamburger = data.sanity_hamburger
+        end
         base.log.info("Loaded shard sync data from world save")
     else
         -- 如果没有保存的数据，从文件加载
         self:LoadLifeinjectorData()
         self:LoadHamburgerData()
+        self:LoadSanityHamburgerData()
     end
 end
 
@@ -186,6 +254,7 @@ end
 function SHARD_SYNC:OnLoadPostPass()
     self:LoadLifeinjectorData()
     self:LoadHamburgerData()
+    self:LoadSanityHamburgerData()
 end
 
 return SHARD_SYNC

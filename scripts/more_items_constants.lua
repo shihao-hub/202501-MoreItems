@@ -19,6 +19,15 @@ local module = {
         "monkey_king", "neza", "white_bone", "pigsy", "yangjian", "myth_yutu", "yama_commissioners", "madameweb",
     },
 
+    SANITY_HAMBURGER__INCLUDED_PLAYERS = {
+        -- 参考暖胃汉堡包，包含原版人物
+        "wilson", "willow", "wolfgang", "wendy", "wickerbottom", "woodie", "wes", "waxwell",
+        "wathgrithr", "webber", "winona", "warly", "wortox", "wormwood", "wonkey", "walter",
+        "wx78", "wurt", "wanda",
+        "jinx",
+        "monkey_king", "neza", "white_bone", "pigsy", "yangjian", "myth_yutu", "yama_commissioners", "madameweb",
+    },
+
     SINGLE_DOG__DETECTION__CYCLE_LENGTH = 2, -- 检测周期
     SINGLE_DOG__DETECTION__RADIUS = 4 * 2.5, -- 一块地皮 4
     SINGLE_DOG__DETECTION__PLACER_SCALE = 1.25, -- 4 * 2.5 / (1888 / 150 / 2), -- OnEnableHelper

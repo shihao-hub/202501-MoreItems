@@ -679,6 +679,7 @@ configuration_options = {
     fns.common_item("__mone_chicken_soup", "馊鸡汤"),
     fns.common_item("__mone_lifeinjector_vb", "强心素食堡", "请不要和其他也改变人物血量上限的模组一起使用\n不然肯定会出现奇怪的现象"),
     fns.common_item("__mone_stomach_warming_hamburger", "暖胃汉堡包", "请不要和其他也改变人物饥饿值上限的模组一起使用\n不然肯定会出现奇怪的现象"),
+    fns.common_item("__mone_sanity_hamburger", "强san素食堡", "请不要和其他也改变人物理智值上限的模组一起使用\n不然肯定会出现奇怪的现象"),
     fns.common_item("__mone_honey_ham_stick", "蜜汁大肉棒"),
     fns.common_item("__mone_guacamole", "超级鳄梨酱"),
     fns.common_item("__mone_beef_wellington", "惠灵顿风干牛排"),

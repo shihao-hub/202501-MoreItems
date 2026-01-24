@@ -212,6 +212,7 @@ TUNING.MONE_TUNING = {
         mone_chicken_soup = get_parition_config("moreitems_other", "__mone_chicken_soup");
         mone_lifeinjector_vb = get_parition_config("moreitems_other", "__mone_lifeinjector_vb");
         mone_stomach_warming_hamburger = get_parition_config("moreitems_other", "__mone_stomach_warming_hamburger");
+        mone_sanity_hamburger = get_parition_config("moreitems_other", "__mone_sanity_hamburger");
         mone_honey_ham_stick = get_parition_config("moreitems_other", "__mone_honey_ham_stick");
         mone_guacamole = get_parition_config("moreitems_other", "__mone_guacamole");
         mone_beef_wellington = get_parition_config("moreitems_other", "__mone_beef_wellington");

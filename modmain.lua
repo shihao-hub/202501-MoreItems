@@ -119,6 +119,7 @@ do
 
     env.modimport("modmain/PostInit/prefabs/mone_lifeinjector_vb.lua"); -- 关闭后可以等价于未导入
     env.modimport("modmain/PostInit/prefabs/mone_stomach_warming_hamburger.lua"); -- 关闭后可以等价于未导入
+    env.modimport("modmain/PostInit/prefabs/mone_sanity_hamburger.lua"); -- 关闭后可以等价于未导入
     env.modimport("modmain/PostInit/prefabs/mone_guacamole.lua"); -- 关闭后可以等价于未导入
 
     --[[ root ]]

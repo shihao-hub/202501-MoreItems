@@ -38,6 +38,16 @@ AddShardModRPCHandler("more_items", "set_hamburger_data", function(shardid, user
     return false
 end)
 
+AddShardModRPCHandler("more_items", "set_sanity_hamburger_data", function(shardid, userid, eatnum, save_currentsanity, save_maxsanity)
+    print("[Shard RPC Handler] Received set_sanity_hamburger_data - shardid: " .. tostring(shardid) .. ", userid: " .. tostring(userid) .. ", eatnum: " .. tostring(eatnum))
+    base.log.info("[Shard RPC Handler] Received set_sanity_hamburger_data - userid=" .. tostring(userid) .. ", eatnum=" .. tostring(eatnum))
+    if TheWorld and TheWorld.components.mone_shard_sync then
+        local result = TheWorld.components.mone_shard_sync:SetSanityHamburgerData(userid, eatnum, save_currentsanity, save_maxsanity)
+        return result
+    end
+    return false
+end)
+
 base.log.info("Mod RPC shard sync handlers loaded")
 
 -- 将组件添加到世界

@@ -1597,6 +1597,28 @@ Recipes[#Recipes + 1] = {
         "MONE_MORE_ITEMS1"
     }
 };
+
+Recipes_Locate["mone_sanity_hamburger"] = true;
+Recipes[#Recipes + 1] = {
+    CanMake = config_data.mone_sanity_hamburger,
+    name = "mone_sanity_hamburger",
+    ingredients = {
+        Ingredient("spoiled_food", 5)
+    },
+    tech = TECH.NONE,
+    config = {
+        placer = nil,
+        min_spacing = nil,
+        nounlock = nil,
+        numtogive = 1,
+        builder_tag = nil,
+        atlas = "images/foodimages/bs_food_33.xml",
+        image = "bs_food_33.tex"
+    },
+    filters = {
+        "MONE_MORE_ITEMS1"
+    }
+};
 --Recipes[#Recipes + 1] = {
 --    CanMake = config_data.mone_stomach_warming_hamburger,
 --    name = "mone_stomach_warming_hamburger_copy",
