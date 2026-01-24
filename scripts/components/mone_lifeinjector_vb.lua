@@ -21,20 +21,6 @@ local constants = require("more_items_constants")
 
 local addnum = constants.LIFE_INJECTOR_VB__PER_ADD_NUM
 
-local function oneatnum(self, eatnum)
-    local inst = self.inst; -- player
-
-    if inst.components.health and eatnum ~= 0 then
-        inst.components.health:SetCurrentHealth(self.currenthealth);
-        inst.components.health.maxhealth = self.maxhealth + eatnum * addnum;
-        inst.components.health:ForceUpdateHUD(true) --force update HUD
-
-        if inst.components.talker then
-            inst.components.talker:Say("当前最大生命值为： " .. inst.components.health.maxhealth)
-        end
-    end
-end
-
 local function _is_player_included(username)
     return stl_table.contains_value(constants.LIFE_INJECTOR_VB__INCLUDED_PLAYERS, username)
 end
@@ -134,9 +120,16 @@ function VB:HPIncrease()
         inst.components.health.maxhealth = inst.components.health.maxhealth + addnum;
         inst.components.health:ForceUpdateHUD(true) --force update HUD
 
+        -- 保存当前状态
+        self.save_currenthealth = inst.components.health.currenthealth;
+        self.save_maxhealth = inst.components.health.maxhealth;
+
         if inst.components.talker then
             inst.components.talker:Say("当前最大生命值为： " .. inst.components.health.maxhealth)
         end
+
+        -- 同步到主服务器（通过 RPC）
+        self:SyncToMaster()
     end
 end
 
@@ -149,13 +142,27 @@ function VB:HPIncreaseOnLoad()
     end
 end
 
+--- 同步数据到主服务器
+function VB:SyncToMaster()
+    if self.eatnum > 0 and self.inst.userid then
+        local rpc = require("moreitems.lib.shard.sync_rpc")
+        rpc.SetLifeinjectorData(
+            self.inst.userid,
+            self.eatnum,
+            self.save_currenthealth,
+            self.save_maxhealth
+        )
+        base.log.info("Synced lifeinjector data to master for " .. tostring(self.inst.userid))
+    end
+end
+
 function VB:OnSave()
     local data = {
         eatnum = self.eatnum,
         save_currenthealth = self.save_currenthealth,
         save_maxhealth = self.save_maxhealth,
     }
-    -- 只在主服务器持久化
+    -- 只在主服务器持久化到文件
     if self:_character_has_eaten() and _is_player_included(self.inst.prefab) then
         local filename = self:_get_persist_filename()
         if filename then
@@ -171,9 +178,14 @@ function VB:OnLoad(data)
             self.eatnum = data.eatnum;
             self.save_currenthealth = data.save_currenthealth;
             self.save_maxhealth = data.save_maxhealth;
+
+            -- 注意：不再需要从主服务器加载数据
+            -- DST 的跨服机制已经通过 OnSave/OnLoad 自动传输玩家数据
+            -- 洞穴中吃食物时，会通过 RPC 同步到主服务器
+
             -- 没吃过就不会失效。
             if self:_character_has_eaten() then
-                self:HPIncreaseOnLoad();
+                self:HPIncreaseOnLoad()
             end
         end
     end

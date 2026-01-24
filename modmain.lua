@@ -58,6 +58,7 @@ env.modimport("modmain/init/init_tooltips.lua");
 env.modimport("modmain/recipes.lua");
 env.modimport("modmain/minimap.lua");
 env.modimport("modmain/actions.lua");
+env.modimport("modmain/shard_sync.lua"); -- Mod RPC 跨服务器数据同步
 env.modimport("modmain/reskin.lua");
 
 env.modimport("modmain/AUXmods/more_equipments/application.lua"); -- 关闭后可以等价于未导入

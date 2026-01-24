@@ -138,9 +138,16 @@ function SWH:VitIncrease()
         inst.components.hunger.max = inst.components.hunger.max + addnum;
         self:ForceUpdateHUD(true);
 
+        -- 保存当前状态
+        self.save_currenthunger = inst.components.hunger.current;
+        self.save_maxhunger = inst.components.hunger.max;
+
         if inst.components.talker then
             inst.components.talker:Say("当前最大饥饿度为： " .. inst.components.hunger.max)
         end
+
+        -- 同步到主服务器（通过 RPC）
+        self:SyncToMaster()
     end
 end
 
@@ -153,13 +160,27 @@ function SWH:VitIncreaseOnLoad()
     end
 end
 
+--- 同步数据到主服务器
+function SWH:SyncToMaster()
+    if self.eatnum > 0 and self.inst.userid then
+        local rpc = require("moreitems.lib.shard.sync_rpc")
+        rpc.SetHamburgerData(
+            self.inst.userid,
+            self.eatnum,
+            self.save_currenthunger,
+            self.save_maxhunger
+        )
+        base.log.info("Synced hamburger data to master for " .. tostring(self.inst.userid))
+    end
+end
+
 function SWH:OnSave()
     local data = {
         eatnum = self.eatnum,
         save_currenthunger = self.save_currenthunger,
         save_maxhunger = self.save_maxhunger,
     }
-    -- 只在主服务器持久化
+    -- 只在主服务器持久化到文件
     if self:_character_has_eaten() and _is_player_included(self.inst.prefab) then
         local filename = self:_get_persist_filename()
         if filename then
@@ -175,9 +196,14 @@ function SWH:OnLoad(data)
             self.eatnum = data.eatnum;
             self.save_currenthunger = data.save_currenthunger;
             self.save_maxhunger = data.save_maxhunger;
+
+            -- 注意：不再需要从主服务器加载数据
+            -- DST 的跨服机制已经通过 OnSave/OnLoad 自动传输玩家数据
+            -- 洞穴中吃食物时，会通过 RPC 同步到主服务器
+
             -- 没吃过就不会失效。
             if self:_character_has_eaten() then
-                self:VitIncreaseOnLoad();
+                self:VitIncreaseOnLoad()
             end
         end
     end
