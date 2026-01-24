@@ -5,23 +5,22 @@
 
 local base = require("moreitems.main").shihao.base
 
--- 添加 RPC Handlers
--- 注意：只有 Set 操作需要跨服务器 RPC
--- Get 操作直接从本地内存读取（主服务器）或使用玩家序列化数据（洞穴服务器）
+-- 添加 Shard RPC Handlers
+-- 注意：AddShardModRPCHandler 用于跨服务器 RPC，handler 函数不接收 inst 参数
 
-AddModRPCHandler("more_items", "set_lifeinjector_data", function(inst, userid, eatnum, save_currenthealth, save_maxhealth)
-    base.log.info("RPC: Received set_lifeinjector_data request for " .. tostring(userid))
-    if inst.components.mone_shard_sync then
-        local result = inst.components.mone_shard_sync:SetLifeinjectorData(userid, eatnum, save_currenthealth, save_maxhealth)
+AddShardModRPCHandler("more_items", "set_lifeinjector_data", function(userid, eatnum, save_currenthealth, save_maxhealth)
+    base.log.info("[Shard RPC] Received set_lifeinjector_data request for " .. tostring(userid))
+    if TheWorld and TheWorld.components.mone_shard_sync then
+        local result = TheWorld.components.mone_shard_sync:SetLifeinjectorData(userid, eatnum, save_currenthealth, save_maxhealth)
         return result
     end
     return false
 end)
 
-AddModRPCHandler("more_items", "set_hamburger_data", function(inst, userid, eatnum, save_currenthunger, save_maxhunger)
-    base.log.info("RPC: Received set_hamburger_data request for " .. tostring(userid))
-    if inst.components.mone_shard_sync then
-        local result = inst.components.mone_shard_sync:SetHamburgerData(userid, eatnum, save_currenthunger, save_maxhunger)
+AddShardModRPCHandler("more_items", "set_hamburger_data", function(userid, eatnum, save_currenthunger, save_maxhunger)
+    base.log.info("[Shard RPC] Received set_hamburger_data request for " .. tostring(userid))
+    if TheWorld and TheWorld.components.mone_shard_sync then
+        local result = TheWorld.components.mone_shard_sync:SetHamburgerData(userid, eatnum, save_currenthunger, save_maxhunger)
         return result
     end
     return false

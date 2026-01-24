@@ -4,11 +4,10 @@
 ---
 --- 核心机制：
 --- 1. 玩家跨服时，OnSave/OnLoad 自动传输玩家数据（已有的 DST 机制）
---- 2. 洞穴中吃食物时，通过 RPC 同步数据到主服务器
+--- 2. 洞穴中吃食物时，通过 Shard RPC 同步数据到主服务器
 --- 3. 主服务器持久化存储数据到 PersistentString
 ---
 
-local MOD_RPC = "more_items"
 local base = require("moreitems.main").shihao.base
 
 local RPC = {}
@@ -17,11 +16,9 @@ local RPC = {}
 local function send_to_master(rpc_name, ...)
     if TheShard and TheShard:IsSecondary() then
         -- 在洞穴服务器，通过 Shard RPC 发送到主服务器
-        local shard_id = TheShard:GetShardId()
-        if shard_id then
-            base.log.info("[Shard RPC] Sending to master: " .. rpc_name)
-            SendModRPCToShard(shard_id, MOD_RPC, rpc_name, TheWorld, ...)
-        end
+        -- 使用 SHARD_MOD_RPC 获取 RPC ID，传入 nil 发送到所有连接的世界（包括主服务器）
+        base.log.info("[Shard RPC] Sending to master: " .. rpc_name)
+        SendModRPCToShard(SHARD_MOD_RPC["more_items"][rpc_name], nil, ...)
     end
 end
 
@@ -36,7 +33,7 @@ function RPC.SetLifeinjectorData(userid, eatnum, save_currenthealth, save_maxhea
         else
             -- 洞穴服务器通过 RPC 发送（单向，不需要返回值）
             base.log.info("[Shard RPC] Sending lifeinjector data to master for " .. tostring(userid))
-            send_to_master("set_lifeinjector_data", TheWorld, userid, eatnum, save_currenthealth, save_maxhealth)
+            send_to_master("set_lifeinjector_data", userid, eatnum, save_currenthealth, save_maxhealth)
         end
     end
 end
@@ -52,7 +49,7 @@ function RPC.SetHamburgerData(userid, eatnum, save_currenthunger, save_maxhunger
         else
             -- 洞穴服务器通过 RPC 发送（单向，不需要返回值）
             base.log.info("[Shard RPC] Sending hamburger data to master for " .. tostring(userid))
-            send_to_master("set_hamburger_data", TheWorld, userid, eatnum, save_currenthunger, save_maxhunger)
+            send_to_master("set_hamburger_data", userid, eatnum, save_currenthunger, save_maxhunger)
         end
     end
 end
