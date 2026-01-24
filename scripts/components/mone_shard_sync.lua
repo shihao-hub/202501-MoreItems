@@ -49,12 +49,23 @@ function SHARD_SYNC:SetLifeinjectorData(userid, eatnum, save_currenthealth, save
     -- 更新内存数据
     SHARD_DATA.lifeinjector[userid] = data
 
-    base.log.info("RPC: set_lifeinjector_data for " .. tostring(userid) .. " eatnum=" .. tostring(eatnum))
+    local player_filename = "lifeinjector_vb_" .. (userid or "default")
+    base.log.info("RPC: set_lifeinjector_data for " .. tostring(userid) .. " eatnum=" .. tostring(eatnum) .. " maxhealth=" .. tostring(save_maxhealth))
+    print("[Shard Sync] Saving to player file: " .. player_filename .. " with maxhealth=" .. tostring(save_maxhealth))
 
     -- 立即持久化到玩家的 PersistentString 文件
     -- 注意：这里使用玩家组件的文件名格式，确保玩家组件读取时是最新数据
-    interval.set_persist_data("lifeinjector_vb_" .. (userid or "default"), data)
-    base.log.info("Saved lifeinjector data to player's persistent file: lifeinjector_vb_" .. tostring(userid))
+    interval.set_persist_data(player_filename, data)
+
+    -- 验证：立即读取确认数据已写入
+    local verify_data = interval.get_persistent_data(player_filename)
+    if verify_data then
+        print("[Shard Sync] Verified: file now has maxhealth=" .. tostring(verify_data.save_maxhealth))
+    else
+        print("[Shard Sync] ERROR: Failed to verify written data!")
+    end
+
+    base.log.info("Saved lifeinjector data to player's persistent file: " .. player_filename)
 
     -- 同时保存到世界组件的文件（用于世界重启时恢复内存数据）
     self:SaveLifeinjectorData()
