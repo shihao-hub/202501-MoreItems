@@ -72,6 +72,22 @@ local VB = Class(function(self, inst)
 
             local old_save_maxhealth = self.save_maxhealth
 
+            -- 在主服务器上，优先检查世界组件的最新数据
+            if TheWorld and TheWorld.components.mone_shard_sync and not (TheShard and TheShard:IsSecondary()) then
+                local shard_data = TheWorld.components.mone_shard_sync:GetLifeinjectorData(self.inst.userid)
+                if shard_data and shard_data.eatnum and shard_data.eatnum > 0 then
+                    print("[Lifeinjector Inherit] Found shard data, using it instead of file data")
+                    base.log.info("[Lifeinjector Inherit] Found shard data: eatnum=" .. tostring(shard_data.eatnum))
+
+                    -- 直接使用世界组件的数据，不需要再读取文件
+                    self.eatnum = shard_data.eatnum
+                    self.save_currenthealth = shard_data.save_currenthealth
+                    self.save_maxhealth = shard_data.save_maxhealth
+                    self:HPIncreaseOnLoad()
+                    return
+                end
+            end
+
             local filename = self:_get_persist_filename()
             if not filename then
                 base.log.info("not in master shard, skip loading persistent data")
