@@ -86,7 +86,13 @@ local SWH = Class(function(self, inst)
 
             local old_save_maxhunger = self.save_maxhunger
 
-            local persist_data = interval.get_persistent_data(self:_get_persist_filename())
+            local filename = self:_get_persist_filename()
+            if not filename then
+                base.log.info("not in master shard, skip loading persistent data")
+                return
+            end
+
+            local persist_data = interval.get_persistent_data(filename)
 
             utils.if_present(persist_data, function()
                 -- 判断是否换人
