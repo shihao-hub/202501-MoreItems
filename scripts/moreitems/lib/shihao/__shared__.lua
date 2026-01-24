@@ -1,0 +1,16 @@
+---
+--- DateTime: 2025/1/7 10:35
+---
+
+-- 同级文件间的函数共享区，因此该文件将不允许依赖除了 built-in 外的其他文件/函数
+-- 一般来说，这个共享区应该不会太大，对我而言，这个架构应该够了！
+-- 【架构？架构！】
+
+local mediator = {}
+
+function mediator.array_equals(array1, array2)
+    local stl_table = require("moreitems.lib.shihao.module.stl_table")
+    return stl_table.array_equals(array1, array2)
+end
+
+return mediator

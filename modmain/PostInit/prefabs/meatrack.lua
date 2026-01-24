@@ -1,0 +1,1 @@
+GLOBAL.AllRecipes.mone_meatrack.min_spacing = 0

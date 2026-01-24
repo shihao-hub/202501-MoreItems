@@ -1,0 +1,165 @@
+local base = require("moreitems.main").shihao.base
+local utils = require("moreitems.main").shihao.utils
+
+
+-- context, ctx, local, loc
+local internal = {
+    bool = base.bool,
+    switch = base.switch,
+
+    invoke = utils.invoke,
+    all_null = utils.all_null,
+    oneof_null = utils.oneof_null,
+}
+
+------------------------------------------------------------------------------------------------------------------------
+local constants = require("more_items_constants")
+
+local metadata = {
+    name = constants.SINGLE_DOG__PREFAB_NAME,
+    chinese_name = constants.SINGLE_DOG__PREFAB_CHINESE_NAME,
+    assets = {
+
+    }
+}
+
+local function onhammered(inst, worker)
+    utils.if_present(inst.components.lootdropper, function(lootdropper)
+        lootdropper:DropLoot()
+    end)
+
+    local x, y, z = inst.Transform:GetWorldPosition()
+    utils.if_present(x and y and z, function()
+        local fx = SpawnPrefab("collapse_small")
+        if fx then
+            fx.Transform:SetPosition(x, y, z)
+            fx:SetMaterial("wood")
+        end
+        inst:Remove()
+    end)
+end
+
+-- 这里的 invoke 体现的也是一种封装思想
+local kill_dogs_periodic = internal.invoke(function()
+    local function percentage_bleeding(dog)
+        local bleeding = false
+        if not bleeding then
+            dog.components.health:Kill()
+            return
+        end
+
+        local maxhealth = dog.components.health.maxhealth
+        local percentage = constants.SINGLE_DOG__DETECTION__BLEEDING_PERCENTAGE
+        dog.components.health:DoDelta(-maxhealth * percentage, nil, nil, nil, nil, true)
+    end
+
+    return function(inst, data)
+        local x, y, z = inst.Transform:GetWorldPosition()
+        if internal.oneof_null(x, y, z) then
+            return
+        end
+        local dogs = TheSim:FindEntities(x, y, z,
+                constants.SINGLE_DOG__DETECTION__RADIUS,
+                constants.SINGLE_DOG__DETECTION__MUST_TAGS,
+                constants.SINGLE_DOG__DETECTION__CANT_TAGS,
+                constants.SINGLE_DOG__DETECTION__MUST_ONE_OF_TAGS)
+        for _, dog in pairs(dogs) do
+            if dog.components.health then
+                percentage_bleeding(dog)
+                -- 生成特效
+                local fx = SpawnPrefab("mie_wanda_attack_pocketwatch_old_fx")
+                if fx then
+                    local x, y, z = dog.Transform:GetWorldPosition()
+                    if x and y and z and dog.GetPhysicsRadius then
+                        local radius = dog:GetPhysicsRadius(.5)
+                        local angle = (inst.Transform:GetRotation() - 90) * DEGREES
+                        fx.Transform:SetPosition(x + math.sin(angle) * radius, 0, z + math.cos(angle) * radius)
+                    end
+                end
+            end
+        end
+    end
+end)
+
+local PLACER_SCALE = constants.SINGLE_DOG__DETECTION__PLACER_SCALE
+
+local function OnEnableHelper(inst, enabled)
+    if enabled then
+        if inst.helper == nil then
+            inst.helper = CreateEntity()
+
+            --[[Non-networked entity]]
+            inst.helper.entity:SetCanSleep(false)
+            inst.helper.persists = false
+
+            inst.helper.entity:AddTransform()
+            inst.helper.entity:AddAnimState()
+
+            inst.helper:AddTag("CLASSIFIED")
+            inst.helper:AddTag("NOCLICK")
+            inst.helper:AddTag("placer")
+
+            inst.helper.Transform:SetScale(PLACER_SCALE, PLACER_SCALE, PLACER_SCALE)
+
+            inst.helper.AnimState:SetBank("firefighter_placement")
+            inst.helper.AnimState:SetBuild("firefighter_placement")
+            inst.helper.AnimState:PlayAnimation("idle")
+            inst.helper.AnimState:SetLightOverride(1)
+            inst.helper.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
+            inst.helper.AnimState:SetLayer(LAYER_BACKGROUND)
+            inst.helper.AnimState:SetSortOrder(1)
+            inst.helper.AnimState:SetAddColour(0, .2, .5, 0)
+
+            inst.helper.entity:SetParent(inst.entity)
+        end
+    elseif inst.helper ~= nil then
+        inst.helper:Remove()
+        inst.helper = nil
+    end
+end
+
+-- TODO: 熔炉的源代码非常值得阅读，似乎是很标准的 OOP，虽然阅读困难，接手也慢，但是熟悉之后肯定能大大增加开发效率，降低开发成本
+-- prefab 的 fn 中，最好不要出现匿名函数，建议在外面定义函数
+local function fn()
+    local inst = CreateEntity()
+
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
+    inst.entity:AddNetwork()
+    inst.entity:AddSoundEmitter()
+
+    MakeObstaclePhysics(inst, constants.SINGLE_DOG__OBSTACLE_PHYSICS_HEIGHT)
+
+    inst.AnimState:SetBank("clayhound")
+    inst.AnimState:SetBuild("clayhound")
+    inst.AnimState:PlayAnimation("idle")
+
+    --Dedicated server does not need deployhelper
+    if not TheNet:IsDedicated() then
+        inst:AddComponent("deployhelper")
+        inst.components.deployhelper.onenablehelper = OnEnableHelper
+    end
+
+    inst.entity:SetPristine()
+
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
+    inst:AddComponent("inspectable")
+
+    inst:AddComponent("lootdropper")
+
+    -- 这个 onhammered 函数显然是通用性极强的函数，为什么这么多重复代码
+    inst:AddComponent("workable")
+    inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
+    inst.components.workable:SetWorkLeft(constants.SINGLE_DOG__WORK_LEFT)
+    inst.components.workable:SetOnFinishCallback(onhammered)
+
+    inst:DoPeriodicTask(constants.SINGLE_DOG__DETECTION__CYCLE_LENGTH, kill_dogs_periodic)
+
+    return inst
+end
+
+return Prefab(metadata.name, fn, metadata.assets),
+MakePlacer(metadata.name .. "_placer", "clayhound", "clayhound", "idle", nil, nil, nil)

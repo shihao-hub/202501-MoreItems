@@ -1,0 +1,1 @@
+GLOBAL.AllRecipes.mone_chiminea.min_spacing = 1.5
