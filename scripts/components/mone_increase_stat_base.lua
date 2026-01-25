@@ -14,7 +14,7 @@ local constants = require("more_items_constants")
 
 local STAT_CONFIG = {
     stomach_warming_hamburger = {
-        config_key = "stomach_warming__inherit_when_change_character",
+        config_key = "stomach_warming_hamburger__inherit_when_change_character",
         component_name = "hunger",
         save_fields = {"save_currenthunger", "save_maxhunger"},
         add_num = 1,
