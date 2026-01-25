@@ -291,7 +291,8 @@ function IncreaseStatBase.new(stat_type)
         end
     end
 
-    function ComponentClass[config.increase_method](self)
+    -- 动态定义类函数，第一个参数为 self
+    ComponentClass[config.increase_method] = function(self)
         self:_apply_stat_increase()
     end
 
