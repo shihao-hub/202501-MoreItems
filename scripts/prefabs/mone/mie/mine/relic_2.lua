@@ -38,26 +38,35 @@ function fns._onclosefn(inst)
     -- 对每个格子分别进行赌博
     for slot_idx, item in pairs(slots) do
         if item:IsValid() and item.persists then
+            local save_record = item:GetSaveRecord()
+            local x, y, z = inst.Transform:GetWorldPosition()
+            local offset_x = (slot_idx % 3) * 0.5 - 0.5
+            local offset_y = math.floor(slot_idx / 3) * 0.5 - 0.5
+            local drop_pos = Vector3(x + offset_x, y + 0.5, z + offset_y)
+
             if math.random() < 0.55 then
-                -- 赌博成功：翻倍
-                local save_record = item:GetSaveRecord()
-                if save_record then
-                    genericFX(inst)
-                    local x, y, z = inst.Transform:GetWorldPosition()
-                    local offset_x = (slot_idx % 3) * 0.5 - 0.5
-                    local offset_y = math.floor(slot_idx / 3) * 0.5 - 0.5
-                    SpawnSaveRecord(save_record).Transform:SetPosition(x + offset_x, y + 0.5, z + offset_y)
-                    success_count = success_count + 1
+                -- 赌博成功：翻倍（原物品掉落 + 创建副本）
+                genericFX(inst)
+                -- 先从容器移除原物品并掉落
+                local dropped_item = inst.components.container:RemoveItem(item, true)
+                if dropped_item then
+                    dropped_item.Transform:SetPosition(drop_pos.x, drop_pos.y, drop_pos.z)
                 end
+                -- 再创建副本掉落
+                if save_record then
+                    local spawned_item = SpawnSaveRecord(save_record)
+                    if spawned_item then
+                        spawned_item.Transform:SetPosition(drop_pos.x, drop_pos.y, drop_pos.z)
+                    end
+                end
+                success_count = success_count + 1
             else
-                -- 赌博失败：消失
+                -- 赌博失败：直接删除
+                item:Remove()
                 fail_count = fail_count + 1
             end
         end
     end
-
-    -- 清空容器
-    inst.components.container:DestroyContents()
 
     -- 显示结果
     if success_count > 0 and fail_count == 0 then
