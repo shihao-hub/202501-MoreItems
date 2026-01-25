@@ -189,6 +189,12 @@ do
 
     -- 五格装备栏
     local function extra_equip_slots()
+        -- 检测四格装备栏模组是否已启用（ID: 3574405615）
+        if IsModEnabled("3574405615") or IsModEnabled("四格装备栏") then
+            print("[更多物品] 检测到【四格装备栏】模组已启用，自动关闭本模组的五格装备栏功能")
+            return
+        end
+
         if config_data.extra_equip_slots then
             if config_data.extra_equip_slots == 4 then
                 env.modimport("modmain/AUXmods/other_auxiliary/extra_equip_slots/four_slots.lua");
