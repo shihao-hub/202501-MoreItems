@@ -199,6 +199,7 @@ TUNING.MONE_TUNING = {
         lifeinjector_vb__inherit_when_change_character = env.GetModConfigData("lifeinjector_vb__inherit_when_change_character");
         lifeinjector_vb__allow_universal_functionality_enable = env.GetModConfigData("lifeinjector_vb__allow_universal_functionality_enable");
         stomach_warming_hamburger__inherit_when_change_character = env.GetModConfigData("stomach_warming_hamburger__inherit_when_change_character");
+        sanity_hamburger__inherit_when_change_character = env.GetModConfigData("sanity_hamburger__inherit_when_change_character");
         bundle_irreplaceable = env.GetModConfigData("bundle_irreplaceable");
 
         -- . 其他 总开关

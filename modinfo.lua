@@ -62,7 +62,7 @@ local content = [[
 
 name = L and "更多物品" or "More Items"
 author = "心悦卿兮"
-version = "6.0.4"
+version = "6.0.5"
 description = _get_description(content)
 
 server_filter_tags = L and { "更多物品" } or { "More Items" }
@@ -639,6 +639,16 @@ configuration_options = {
         name = "stomach_warming_hamburger__inherit_when_change_character",
         label = "暖胃汉堡包换人继承饥饿度（原版人物）",
         hover = "参考强心素食堡的换人继承功能，切换角色时保留已增加的饥饿度上限",
+        options = {
+            option(vars.OPEN, true),
+            option(vars.CLOSE, false),
+        },
+        default = false
+    },
+    {
+        name = "sanity_hamburger__inherit_when_change_character",
+        label = "强san素食堡换人继承理智值（原版人物）",
+        hover = "参考强心素食堡的换人继承功能，切换角色时保留已增加的理智值上限",
         options = {
             option(vars.OPEN, true),
             option(vars.CLOSE, false),
