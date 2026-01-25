@@ -232,6 +232,32 @@ do
                 end
             end
             extra_equip_slots_optimization();
+
+            -- 定时通告：提示用户五格装备栏已过时
+            env.AddPlayerPostInit(function(inst)
+                if not inst.components.health then
+                    return
+                end
+
+                inst:DoTaskInTime(0, function()
+                    if TheWorld and TheWorld.ismastersim then
+                        local announcement_count = 0
+                        local max_announcements = 3
+                        local interval = 8 * 60 -- 8分钟
+
+                        local function send_announcement()
+                            announcement_count = announcement_count + 1
+                            TheNet:Announce("[五格装备栏] 此功能已过时，请订阅作者的【四格装备栏】模组（ID: 3574405615）以获得更好的体验")
+
+                            if announcement_count < max_announcements then
+                                inst:DoTaskInTime(interval, send_announcement)
+                            end
+                        end
+
+                        inst:DoTaskInTime(interval, send_announcement)
+                    end
+                end)
+            end)
         end
     end
     extra_equip_slots();
