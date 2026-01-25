@@ -386,8 +386,8 @@ local prefabsInfo = {
         recipe_desc = COMMON_RECIPE_DESC
     },
     ["mie_relic_2"] = {
-        names = "神秘的图腾",
-        describe = "古老而又神秘的存在",
+        names = "倾家荡产赌博机",
+        describe = "9格批量赌博机，每个格子55%概率翻倍，45%概率消失",
         recipe_desc = COMMON_RECIPE_DESC
     },
     ["mone_dummytarget"] = {

@@ -28,24 +28,38 @@ function fns._onclosefn(inst)
 
     -- 特殊效果：批量赌博
     if inst.components.container:IsEmpty() then
+        print("[倾家荡产赌博机] 容器为空，跳过赌博")
         return ;
     end
 
     local slots = inst.components.container.slots
     local success_count = 0
     local fail_count = 0
+    local roll = math.random(1, 100)  -- 生成1-100的随机数
+
+    print(string.format("[倾家荡产赌博机] 开始赌博，共%d个格子", #slots))
+    print(string.format("[倾家荡产赌博机] 赌博规则：1-55成功（55%%），56-100失败（45%%）"))
 
     -- 对每个格子分别进行赌博
     for slot_idx, item in pairs(slots) do
         if item:IsValid() and item.persists then
+            local item_name = item.prefab or "unknown"
+            local stack_size = item.components.stackable and item.components.stackable:StackSize() or 1
+            local roll = math.random(1, 100)
+
+            print(string.format("[倾家荡产赌博机] 格子%d: %s x%d，掷出%d点",
+                slot_idx, item_name, stack_size, roll))
+
             local save_record = item:GetSaveRecord()
             local x, y, z = inst.Transform:GetWorldPosition()
             local offset_x = (slot_idx % 3) * 0.5 - 0.5
             local offset_y = math.floor(slot_idx / 3) * 0.5 - 0.5
             local drop_pos = Vector3(x + offset_x, y + 0.5, z + offset_y)
 
-            if math.random() < 0.55 then
+            if roll <= 55 then
                 -- 赌博成功：翻倍（原物品掉落 + 创建副本）
+                print(string.format("[倾家荡产赌博机] 格子%d: 成功！翻倍 %s x%d",
+                    slot_idx, item_name, stack_size * 2))
                 genericFX(inst)
                 -- 先从容器移除原物品并掉落
                 local dropped_item = inst.components.container:RemoveItem(item, true)
@@ -62,6 +76,8 @@ function fns._onclosefn(inst)
                 success_count = success_count + 1
             else
                 -- 赌博失败：直接删除
+                print(string.format("[倾家荡产赌博机] 格子%d: 失败！%s x%d 消失",
+                    slot_idx, item_name, stack_size))
                 item:Remove()
                 fail_count = fail_count + 1
             end
@@ -69,6 +85,8 @@ function fns._onclosefn(inst)
     end
 
     -- 显示结果
+    print(string.format("[倾家荡产赌博机] 赌博结束 - 成功:%d 失败:%d", success_count, fail_count))
+
     if success_count > 0 and fail_count == 0 then
         inst.components.talker:Say("󰀁运气爆棚！全部翻倍！󰀁")
     elseif success_count > 0 then

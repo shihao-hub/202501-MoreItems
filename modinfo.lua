@@ -539,7 +539,7 @@ configuration_options = {
     fns.common_item("__dragonflyfurnace", "升级版·龙鳞火炉"),
     fns.common_item("__mie_icemaker", "制冰机"),
     fns.common_item("__mie_dummytarget", "皮痒傀儡"),
-    fns.common_item("__mie_relic_2", "神秘的图腾"),
+    fns.common_item("__mie_relic_2", "倾家荡产赌博机"),
     fns.common_item("__mie_obsidianfirepit", "黑曜石火坑"),
     fns.common_item("__mie_waterpump", "升级版·消防泵"),
 

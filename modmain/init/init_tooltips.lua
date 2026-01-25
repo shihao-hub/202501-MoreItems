@@ -349,7 +349,10 @@ STRINGS[upper("mone_poisonblam")] = L
         or [[]];
 STRINGS[upper("mie_relic_2")] = L
         and [[
-        - 关闭图腾后，55%概率物品翻倍，45%概率直接消失。买定离手！
+        - 倾家荡产赌博机：9格批量赌博
+        - 每个格子独立赌博，55%概率翻倍，45%概率消失
+        - 支持堆叠物品，每次赌博关闭时触发
+        - 日志会输出到控制台，便于查看详细结果
         ]]
         or [[]];
 STRINGS[upper("mie_icemaker")] = L
