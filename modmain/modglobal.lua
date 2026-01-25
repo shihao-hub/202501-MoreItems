@@ -638,6 +638,7 @@ local EnabledMods = getEnabledMods();
 ---模组是否开启：name/id 均可
 function IsModEnabled(name)
     for k, v in pairs(EnabledMods) do
+        -- 此处是部分匹配即可
         if v and (k:match(name) or v:match(name)) then
             return true;
         end
