@@ -23,121 +23,49 @@ local function genericFX(inst)
     fx.Transform:SetScale(scale, scale, scale);
 end
 
--- 这玩意只适用一个格子。。。。。。。
-local function count(inst, data)
-    local cnt = 0;
-    for _, v in ipairs(inst.components.container.slots) do
-        if v.components.stackable then
-            cnt = cnt + v.components.stackable.stacksize;
-        else
-            cnt = cnt + 1;
-        end
-    end
-    return cnt;
-end
-
-function fns._onclosefn(inst, data)
+function fns._onclosefn(inst)
     inst.SoundEmitter:PlaySound("dontstarve/wilson/chest_close");
 
-    -- 特殊效果
+    -- 特殊效果：批量赌博
     if inst.components.container:IsEmpty() then
         return ;
     end
-    local cnt = count(inst, data);
 
-    if math.random() < 0.55 then
-        local items_save_record = {};
-        -- paris!!!!!! slots虽然是序列但是存在空洞
-        for _, p in pairs(inst.components.container.slots) do
-            if p:IsValid() and p.persists then
-                table.insert(items_save_record, (p:GetSaveRecord())); -- GetSaveRecord 有两个返回值。。。
+    local slots = inst.components.container.slots
+    local success_count = 0
+    local fail_count = 0
+
+    -- 对每个格子分别进行赌博
+    for slot_idx, item in pairs(slots) do
+        if item:IsValid() and item.persists then
+            if math.random() < 0.55 then
+                -- 赌博成功：翻倍
+                local save_record = item:GetSaveRecord()
+                if save_record then
+                    genericFX(inst)
+                    local x, y, z = inst.Transform:GetWorldPosition()
+                    local offset_x = (slot_idx % 3) * 0.5 - 0.5
+                    local offset_y = math.floor(slot_idx / 3) * 0.5 - 0.5
+                    SpawnSaveRecord(save_record).Transform:SetPosition(x + offset_x, y + 0.5, z + offset_y)
+                    success_count = success_count + 1
+                end
+            else
+                -- 赌博失败：消失
+                fail_count = fail_count + 1
             end
-        end
-        if #items_save_record > 0 then
-            genericFX(inst, data);
-            inst.components.talker:Say("󰀁你的运气挺不错的嘛󰀁");
-            for _, v in ipairs(items_save_record) do
-                local x, y, z = inst.Transform:GetWorldPosition();
-                SpawnSaveRecord(v).Transform:SetPosition(x + 0.5, y + 0.5, z);
-            end
-            inst.components.container:DropEverything();
-        end
-    else
-        if cnt ~= 0 then
-            genericFX(inst, data);
-            inst.components.talker:Say("󰀐看样子你的赌运不佳哦󰀐");
-            inst.components.container:DestroyContents(); -- 移除所有预制物
         end
     end
-end
 
--- NEW!
--- 重制一下，之前是一个格子，且可以 acceptstacks ~= false。现在是多个格子，且 acceptstacks == false。
--- 2023-03-25：设定不太好，再说吧！
-local mie_relic_2_Remaking = false;
-if mie_relic_2_Remaking then
-    function fns._onclosefn(inst, doer)
-        inst.SoundEmitter:PlaySound("dontstarve/wilson/chest_close");
+    -- 清空容器
+    inst.components.container:DestroyContents()
 
-        if inst.components.container:IsEmpty() then
-            return ;
-        end
-        if doer == nil then
-            return ;
-        end
-
-        local old_number_slots = inst.components.container:GetNumSlots();
-        local items_save_record = {};
-        local rubbish_items = {};
-
-        -- paris!!!!!! slots虽然是序列但是存在空洞
-        for k, p in pairs(inst.components.container.slots) do
-            if p and p:IsValid() and p.persists then
-                if math.random() < 0.6 then
-                    table.insert(items_save_record, (p:GetSaveRecord())); -- GetSaveRecord 有两个返回值。。。
-                else
-                    table.insert(rubbish_items, inst.components.container:RemoveItemBySlot(k));
-                end
-            end
-        end
-        -- 删除预制物
-        for _, v in ipairs(rubbish_items) do
-            if v and v:IsValid() then
-                v:Remove();
-            end
-        end
-
-        if #items_save_record > 0 then
-            genericFX(inst);
-            local msg = "";
-            if #items_save_record > old_number_slots * 0.8 then
-                msg = "󰀁󰀁󰀁" .. tostring(doer.username) .. "的运气快爆棚了！󰀁󰀁󰀁";
-            elseif #items_save_record > old_number_slots * 0.5 then
-                msg = "󰀁󰀁" .. tostring(doer.username) .. "的运气挺不错的嘛󰀁󰀁";
-            elseif #items_save_record > old_number_slots * 0.3 then
-                msg = "󰀁" .. tostring(doer.username) .. "的运气还行吧󰀁";
-            else
-                msg = "" .. tostring(doer.username) .. "的运气不是太好";
-            end
-
-            TheNet:Announce(msg);
-
-            for _, v in ipairs(items_save_record) do
-                local x, y, z = inst.Transform:GetWorldPosition();
-                SpawnSaveRecord(v).Transform:SetPosition(x + 0.5, y + 0.5, z);
-            end
-            inst.components.container:DropEverything();
-        else
-            genericFX(inst);
-            TheNet:Announce("󰀐看样子" .. tostring(doer.username) .. "的赌运不佳哦󰀐");
-
-            -- TEST
-            print("GetNumSlots(): ", tostring(inst.components.container:GetNumSlots()));
-
-            inst.components.container:DestroyContents(); -- 移除所有预制物
-        end
-
-
+    -- 显示结果
+    if success_count > 0 and fail_count == 0 then
+        inst.components.talker:Say("󰀁运气爆棚！全部翻倍！󰀁")
+    elseif success_count > 0 then
+        inst.components.talker:Say(string.format("󰀁翻倍%d个，损失%d个󰀁", success_count, fail_count))
+    else
+        inst.components.talker:Say("󰀐运气太差了，全都没了󰀐")
     end
 end
 

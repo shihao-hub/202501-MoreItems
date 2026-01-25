@@ -2354,16 +2354,22 @@ end
 local function moreitems_expansion()
     params.mie_relic_2 = {
         widget = {
-            slotpos = {
-                Vector3(0 + 2, 0, 0)
-            },
-            animbank = "my_ui_cookpot_1x1",
-            animbuild = "my_ui_cookpot_1x1",
+            slotpos = {},
+            animbank = "ui_chest_3x3",
+            animbuild = "ui_chest_3x3",
             pos = Vector3(0, 200, 0),
             side_align_tip = 160
         },
         type = "chest",
+        acceptstacks = true,
     }
+
+    -- 生成9格位置（3x3布局）
+    for y = 2, 0, -1 do
+        for x = 0, 2 do
+            table.insert(params.mie_relic_2.widget.slotpos, Vector3(80 * x - 80 * 2 + 80, 80 * y - 80 * 2 + 80, 0))
+        end
+    end
 
     params.mie_relic_2.itemtestfn = function(container, item, slot)
         for _, v in ipairs({}) do
