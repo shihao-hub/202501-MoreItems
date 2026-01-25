@@ -99,14 +99,15 @@ local SWH = Class(function(self, inst)
                 local is_changing_character = old_save_maxhunger ~= persist_data.save_maxhunger
 
                 if not is_changing_character then
-                    base.log.info("not is_changing_character")
                     return
                 end
 
                 -- 如果是换人，才执行下面的逻辑。也就是继承之前保存的数据。
+                local userid = self.inst.userid or "unknown"
+                local prefab = self.inst.prefab or "unknown"
+                base.log.info(string.format("[暖胃汉堡包换人继承] 玩家:%s(%s) 饥饿度:%d->%d",
+                    userid, prefab, old_save_maxhunger or 0, persist_data.save_maxhunger))
                 _set_persist_data_on_init(self, persist_data)
-
-                base.log.info("is_changing_character", old_save_maxhunger, persist_data.save_maxhunger)
                 self:VitIncreaseOnLoad()
             end)
         end)
@@ -114,7 +115,6 @@ local SWH = Class(function(self, inst)
 end)
 
 function SWH:_get_persist_filename()
-    base.log.info("call _get_persist_filename")
     -- 只在主服务器存储，避免上下洞数据分离
     if TheNet:GetIsServer() and TheShard and not TheShard:IsSecondary() then
         return "stomach_warming_hamburger_" .. (self.inst.userid or "default")
