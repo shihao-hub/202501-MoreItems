@@ -189,13 +189,13 @@ do
 
     -- 五格装备栏
     local function extra_equip_slots()
-        -- 检测四格装备栏模组是否已启用（ID: 3574405615）
-        if IsModEnabled("3574405615") or IsModEnabled("四格装备栏") then
-            print("[更多物品] 检测到【四格装备栏】模组已启用，自动关闭本模组的五格装备栏功能")
-            return
-        end
-
         if config_data.extra_equip_slots then
+            -- 检测四格装备栏模组是否已启用（ID: 3574405615）
+            local mi_deprecated_feature = require("mi_modules.mi_deprecated_feature")
+            if mi_deprecated_feature.check_and_announce("五格装备栏", "3574405615", "四格装备栏", env) then
+                return
+            end
+
             if config_data.extra_equip_slots == 4 then
                 env.modimport("modmain/AUXmods/other_auxiliary/extra_equip_slots/four_slots.lua");
             elseif config_data.extra_equip_slots == 5 then
@@ -238,32 +238,6 @@ do
                 end
             end
             extra_equip_slots_optimization();
-
-            -- 定时通告：提示用户五格装备栏已过时
-            env.AddPlayerPostInit(function(inst)
-                if not inst.components.health then
-                    return
-                end
-
-                inst:DoTaskInTime(0, function()
-                    if TheWorld and TheWorld.ismastersim then
-                        local announcement_count = 0
-                        local max_announcements = 3
-                        local interval = 8 * 60 -- 8分钟
-
-                        local function send_announcement()
-                            announcement_count = announcement_count + 1
-                            TheNet:Announce("[五格装备栏] 此功能已过时，请订阅作者的【四格装备栏】模组（ID: 3574405615）以获得更好的体验")
-
-                            if announcement_count < max_announcements then
-                                inst:DoTaskInTime(interval, send_announcement)
-                            end
-                        end
-
-                        inst:DoTaskInTime(interval, send_announcement)
-                    end
-                end)
-            end)
         end
     end
     extra_equip_slots();
