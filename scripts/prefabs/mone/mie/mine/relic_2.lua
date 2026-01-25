@@ -35,7 +35,8 @@ function fns._onclosefn(inst)
     local slots = inst.components.container.slots
     local success_count = 0
     local fail_count = 0
-    local roll = math.random(1, 100)  -- 生成1-100的随机数
+    local success_items = {}
+    local fail_items = {}
 
     print(string.format("[倾家荡产赌博机] 开始赌博，共%d个格子", #slots))
     print(string.format("[倾家荡产赌博机] 赌博规则：1-55成功（55%%），56-100失败（45%%）"))
@@ -60,6 +61,7 @@ function fns._onclosefn(inst)
                 -- 赌博成功：翻倍（原物品掉落 + 创建副本）
                 print(string.format("[倾家荡产赌博机] 格子%d: 成功！翻倍 %s x%d",
                     slot_idx, item_name, stack_size * 2))
+                table.insert(success_items, string.format("%s x%d", item_name, stack_size * 2))
                 genericFX(inst)
                 -- 先从容器移除原物品并掉落
                 local dropped_item = inst.components.container:RemoveItem(item, true)
@@ -78,6 +80,7 @@ function fns._onclosefn(inst)
                 -- 赌博失败：直接删除
                 print(string.format("[倾家荡产赌博机] 格子%d: 失败！%s x%d 消失",
                     slot_idx, item_name, stack_size))
+                table.insert(fail_items, string.format("%s x%d", item_name, stack_size))
                 item:Remove()
                 fail_count = fail_count + 1
             end
@@ -93,6 +96,14 @@ function fns._onclosefn(inst)
         inst.components.talker:Say(string.format("󰀁翻倍%d个，损失%d个󰀁", success_count, fail_count))
     else
         inst.components.talker:Say("󰀐运气太差了，全都没了󰀐")
+    end
+
+    -- 输出详细的损失统计
+    if #success_items > 0 then
+        print("[倾家荡产赌博机] 翻倍物品: " .. table.concat(success_items, ", "))
+    end
+    if #fail_items > 0 then
+        print("[倾家荡产赌博机] 损失物品: " .. table.concat(fail_items, ", "))
     end
 end
 
