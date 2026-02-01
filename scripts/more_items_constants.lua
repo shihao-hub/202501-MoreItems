@@ -10,6 +10,7 @@ local module = {
     },
     LIFE_INJECTOR_VB__PER_ADD_NUM = 10,
 
+    STOMACH_WARMING_HAMBURGER__PER_ADD_NUM = 10,
     STOMACH_WARMING_HAMBURGER__INCLUDED_PLAYERS = {
         -- 参考强心素食堡，包含原版人物
         "wilson", "willow", "wolfgang", "wendy", "wickerbottom", "woodie", "wes", "waxwell",
@@ -19,6 +20,7 @@ local module = {
         "monkey_king", "neza", "white_bone", "pigsy", "yangjian", "myth_yutu", "yama_commissioners", "madameweb",
     },
 
+    SANITY_HAMBURGER__PER_ADD_NUM = 10,
     SANITY_HAMBURGER__INCLUDED_PLAYERS = {
         -- 参考暖胃汉堡包，包含原版人物
         "wilson", "willow", "wolfgang", "wendy", "wickerbottom", "woodie", "wes", "waxwell",

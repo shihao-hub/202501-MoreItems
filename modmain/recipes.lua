@@ -1581,7 +1581,7 @@ Recipes[#Recipes + 1] = {
     CanMake = config_data.mone_stomach_warming_hamburger,
     name = "mone_stomach_warming_hamburger",
     ingredients = {
-        Ingredient("spoiled_food", 5)
+        Ingredient("spoiled_food", 50)
     },
     tech = TECH.NONE,
     config = {
@@ -1603,7 +1603,7 @@ Recipes[#Recipes + 1] = {
     CanMake = config_data.mone_sanity_hamburger,
     name = "mone_sanity_hamburger",
     ingredients = {
-        Ingredient("spoiled_food", 5)
+        Ingredient("spoiled_food", 50)
     },
     tech = TECH.NONE,
     config = {
