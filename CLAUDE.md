@@ -200,12 +200,53 @@ end
 
 Primary language is Chinese (`locale == "zh" or "zht" or "zhr"`). English strings are provided but Chinese is the focus.
 
+## Constants System
+
+**scripts/more_items_constants.lua** centralizes magic numbers and configuration:
+
+```lua
+local constants = require("more_items_constants")
+
+-- Pattern: FEATURE__PARAM_NAME = value
+LIFE_INJECTOR_VB__PER_ADD_NUM = 10
+STOMACH_WARMING_HAMBURGER__PER_ADD_NUM = 10
+SANITY_HAMBURGER__PER_ADD_NUM = 10
+
+-- Use in recipes.lua:
+Ingredient("spoiled_food", 10 * constants.LIFE_INJECTOR_VB__PER_ADD_NUM)
+```
+
+**When adding new stat-increasing items:**
+1. Add `FEATURE__PER_ADD_NUM` constant to `more_items_constants.lua`
+2. Add `FEATURE__INCLUDED_PLAYERS` array for character compatibility
+3. Reference constant in both component config and recipe
+
+## Stat-Increasing Food Pattern
+
+The three stat hamburgers (health/hunger/sanity) use a unified base component:
+
+**Component:** `scripts/components/mone_increase_stat_base.lua`
+- Handles max stat increases, character swap inheritance, and shard sync
+- Configured via `STAT_CONFIG` table using constants
+- Each food type has dedicated component wrapper (e.g., `mone_stomach_warming_hamburger.lua`)
+
+**Pattern when adding similar items:**
+1. Define constant in `more_items_constants.lua`
+2. Create config entry in `mone_increase_stat_base.lua` STAT_CONFIG
+3. Create component wrapper in `scripts/components/`
+4. Add recipe in `modmain/recipes.lua` using constant for ingredient calculation
+
+**Recipe difficulty scaling:**
+- Use constants to link cost to effect: `Ingredient("material", multiplier * constants.FEATURE__PER_ADD_NUM)`
+- Example: 10 spoiled food × 10 points = 100 total (or adjust multiplier for balance)
+
 ## Important Constraints
 
 - Never modify stack limits for bullets/projectiles (reverse stacking bug)
 - Container arrange buttons only work with specific slot counts (6/8/12/14)
 - Some features disable automatically when conflicting mods are detected
 - PostInit files implement behaviors, prefab files define structure
+- Always use constants from `more_items_constants.lua` for item parameters
 
 ## Known Issues
 
