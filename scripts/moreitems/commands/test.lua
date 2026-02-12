@@ -25,6 +25,15 @@ local function CallHelper()
         if stl_string.endswith(directory, "tests") then
             return true
         end
+        if stl_string.endswith(directory, "chang_mone") then
+            return true
+        end
+        if stl_string.endswith(directory, "definitions") then
+            return true
+        end
+        if stl_string.endswith(directory, "new_scripts") then
+            return true
+        end
         return false
     end
 
