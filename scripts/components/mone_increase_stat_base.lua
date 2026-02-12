@@ -204,6 +204,13 @@ function IncreaseStatBase.new(stat_type)
 
         self:ForceUpdateHUD(true)
 
+        local field_map = {
+            save_currenthunger = "current",
+            save_maxhunger = "max",
+            save_currentsanity = "current",
+            save_maxsanity = "max"
+        }
+
         for _, field in ipairs(config.save_fields) do
             if config.component_name == "health" then
                 if field == "save_currenthealth" then
@@ -212,7 +219,7 @@ function IncreaseStatBase.new(stat_type)
                     self[field] = component.maxhealth
                 end
             else
-                self[field] = component[field:gsub("save_", "")]
+                self[field] = component[field_map[field] or field:gsub("save_", "")]
             end
         end
 
