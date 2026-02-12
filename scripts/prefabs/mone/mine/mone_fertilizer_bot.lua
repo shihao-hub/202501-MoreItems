@@ -387,7 +387,7 @@ local function fn()
     -- 初始化出生点
     if inst.components.knownlocations then
         local x, y, z = inst.Transform:GetWorldPosition()
-        inst.components.knownlocations:AddLocation("spawnpoint", x, y, z)
+        inst.components.knownlocations:RememberLocation("spawnpoint", Vector3(x, y, z))
     end
 
     MakeHauntable(inst)
