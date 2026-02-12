@@ -46,7 +46,7 @@ local function FindFertilizationAction(inst)
     -- 获取最近的目标
     local target = targets[1]
 
-    inst.brain:UnignoreItem()
+    UnignoreItem(inst)
 
     return BufferedAction(inst, target, ACTIONS.WALKTO, nil, nil, nil, nil, nil, 1)
 end
@@ -78,7 +78,7 @@ local function FertilizeAction(inst)
     end
 
     -- 施肥
-    inst.brain:UnignoreItem()
+    UnignoreItem(inst)
 
     -- 检查目标是否可施肥
     if not target.components.fertilizable then
@@ -105,7 +105,7 @@ local function GoHomeAction(inst)
         return nil
     end
 
-    inst.brain:UnignoreItem()
+    UnignoreItem(inst)
 
     -- 放下持有的物品
     local item = inst.components.inventory:GetFirstItemInAnySlot()
