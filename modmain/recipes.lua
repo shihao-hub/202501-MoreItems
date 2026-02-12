@@ -21,8 +21,6 @@ local key1 = "more_items1";
 RecipeTabs[key1] = {
     filter_def = {
         name = "MONE_MORE_ITEMS1",
-        atlas = "images/inventoryimages.xml",
-        image = "amulet.tex"
     },
     index = nil
 }
@@ -33,8 +31,6 @@ local key2 = "more_items2";
 RecipeTabs[key2] = {
     filter_def = {
         name = "MONE_MORE_ITEMS2",
-        atlas = "images/inventoryimages.xml",
-        image = "blueamulet.tex"
     },
     index = nil
 }
@@ -68,8 +64,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages1.xml",
-        image = "backpack.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -90,8 +84,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/inventoryimages/mandrake_backpack.xml",
-        image = "mandrake_backpack.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -112,8 +104,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages.xml",
-        image = "candybag.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -134,8 +124,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages2.xml",
-        image = "spicepack.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -156,8 +144,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages.xml",
-        image = "icepack.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -178,8 +164,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/inventoryimages/mone_piggybag.xml",
-        image = "mone_piggybag.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -200,8 +184,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages.xml",
-        image = "piggyback.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -222,8 +204,6 @@ Recipes[#Recipes + 1] = {
         min_spacing = nil,
         nounlock = nil,
         numtogive = nil,
-        atlas = "images/DLC/inventoryimages1.xml",
-        image = "bookstation.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -244,8 +224,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages2_250801/inventoryimages2.xml",
-        image = "rabbitkinghorn.tex"
     },
     filters = {
         "MONE_MORE_ITEMS2"
@@ -267,8 +245,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC0002/inventoryimages.xml",
-        image = "thatchpack.tex"
     },
     filters = {
         "CRAFTING_STATION" -- MONE_MORE_ITEMS1
@@ -289,8 +265,6 @@ Recipes[#Recipes + 1] = {
         nounlock = true, -- 所以这个到底啥意思？nounlock？锁住？感觉没啥用呀。
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC0002/inventoryimages.xml",
-        image = "waterchest.tex"
     },
     filters = {
         "CRAFTING_STATION"
@@ -311,8 +285,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = "battlesinger",
-        atlas = "images/inventoryimages/mone_wathgrithr_box.xml",
-        image = "mone_wathgrithr_box.tex"
     },
     filters = {
         "CHARACTER"
@@ -333,8 +305,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = "clockmaker",
-        atlas = "images/inventoryimages/mone_wanda_box.xml",
-        image = "mone_wanda_box.tex"
     },
     filters = {
         "CHARACTER"
@@ -362,8 +332,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC0002/inventoryimages.xml",
-        image = "spear_poison.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -407,8 +375,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = 1,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages.xml",
-        image = "hambat.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -429,8 +395,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages.xml",
-        image = "redlantern.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -451,8 +415,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = 1,
         builder_tag = nil,
-        atlas = "images/modules/uc/inventoryimages/uncompromising_fishingnet.xml",
-        image = "uncompromising_fishingnet.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -474,8 +436,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC0003/inventoryimages.xml",
-        image = "halberd.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -496,8 +456,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC0003/inventoryimages_2.xml",
-        image = "walkingstick.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -519,7 +477,6 @@ Recipes[#Recipes + 1] = {
         numtogive = 1,
         builder_tag = nil,
         atlas = "images/DLC/inventoryimages.xml", -- inventoryimages2
-        image = "boomerang.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -541,7 +498,6 @@ Recipes[#Recipes + 1] = {
         numtogive = 1,
         builder_tag = nil,
         atlas = "images/DLC/inventoryimages.xml", -- inventoryimages2
-        image = "orangestaff.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -562,8 +518,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC0002/inventoryimages.xml",
-        image = "machete.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -584,8 +538,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC0002/inventoryimages.xml",
-        image = "goldenmachete.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -607,8 +559,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = 1,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages2.xml",
-        image = "shieldofterror.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -629,8 +579,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = 6,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages.xml",
-        image = "waterballoon.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -653,8 +601,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages.xml",
-        image = "bushhat.tex",
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -675,8 +621,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages.xml",
-        image = "tophat.tex",
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -697,8 +641,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC0003/inventoryimages.xml",
-        image = "pithhat.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -720,8 +662,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC0002/inventoryimages.xml",
-        image = "brainjellyhat.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -743,8 +683,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC0003/inventoryimages.xml",
-        image = "gashat.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -765,8 +703,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC0002/inventoryimages.xml",
-        image = "double_umbrellahat.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -787,8 +723,6 @@ Recipes[#Recipes + 1] = {
         nounlock = true,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC0003/inventoryimages.xml",
-        image = "bathat.tex"
     },
     filters = {
         "CRAFTING_STATION"
@@ -810,7 +744,6 @@ Recipes[#Recipes + 1] = {
         numtogive = 1,
         builder_tag = nil,
         atlas = "images/DLC/inventoryimages1.xml", -- inventoryimages2
-        image = "eyemaskhat.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -832,8 +765,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC0003/inventoryimages.xml",
-        image = "armor_metalplate.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -858,8 +789,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = new_anim and "images/DLC/inventoryimages.xml" or "images/DLC0003/inventoryimages.xml",
-        image = new_anim and "krampus_sack.tex" or "seasack.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -880,8 +809,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/inventoryimages/ndnr_armorvortexcloak.xml",
-        image = "ndnr_armorvortexcloak.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -903,8 +830,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages2.xml",
-        image = "seedpouch.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -931,8 +856,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = 1,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages2.xml",
-        image = "lureplantbulb.tex"
     },
     filters = {
         "MONE_MORE_ITEMS2"
@@ -955,8 +878,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/inventoryimages/tap_buildingimages.xml",
-        image = "kyno_drawerchest.tex",
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -978,8 +899,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil, -- true
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/inventoryimages/tap_buildingimages.xml",
-        image = "kyno_safe.tex",
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1000,8 +919,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = config_data.mie_fish_box_animstate and "images/DLC/inventoryimages2.xml" or "images/inventoryimages1.xml",
-        image = config_data.mie_fish_box_animstate and "saltbox.tex" or "fish_box.tex",
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1023,8 +940,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/inventoryimages/tap_buildingimages.xml",
-        image = "kyno_bucket.tex",
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1045,8 +960,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/modules/architect_pack/tap_buildingimages.xml",
-        image = "kyno_skullchest.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1074,8 +987,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages.xml",
-        image = "treasurechest.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1101,8 +1012,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages.xml",
-        image = "dragonflychest.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1128,8 +1037,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages.xml",
-        image = "icebox.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1155,8 +1062,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages2.xml",
-        image = "saltbox.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1177,8 +1082,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages.xml",
-        image = "wardrobe.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1201,8 +1104,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC0003/inventoryimages.xml",
-        image = "relic_2.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1223,8 +1124,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC0002/inventoryimages.xml",
-        image = "obsidianfirepit.tex",
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1246,8 +1145,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages.xml",
-        image = "resurrectionstatue.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1269,8 +1166,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages3.xml",
-        image = "waterpump_item.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1291,8 +1186,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/inventoryimages/tall_pre.xml",
-        image = "tall_pre.tex",
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1313,8 +1206,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/inventoryimages/icemaker.xml",
-        image = "icemaker.tex",
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1335,8 +1226,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC0003/inventoryimages.xml",
-        image = "city_lamp.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1358,8 +1247,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages1.xml",
-        image = "chesspiece_clayhound.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1381,8 +1268,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/inventoryimages/garlic_bat.xml",
-        image = "garlic_bat.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1403,8 +1288,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC0002/inventoryimages.xml",
-        image = "chiminea.tex"
     },
     filters = {
         "MONE_MORE_ITEMS2"
@@ -1425,8 +1308,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC0002/inventoryimages.xml",
-        image = "sand_castle.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1447,8 +1328,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages.xml",
-        image = "moondial.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1469,8 +1348,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages1.xml",
-        image = "dragonflyfurnace.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1491,8 +1368,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages.xml",
-        image = "firesuppressor.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1513,8 +1388,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages.xml",
-        image = "meatrack.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1546,8 +1419,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = 1,
         builder_tag = nil,
-        atlas = "images/foodimages/mone_lifeinjector_vb.xml",
-        image = "mone_lifeinjector_vb.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1590,8 +1461,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = 1,
         builder_tag = nil,
-        atlas = "images/foodimages/bs_food_33.xml",
-        image = "bs_food_33.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1612,8 +1481,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = 1,
         builder_tag = nil,
-        atlas = "images/foodimages/bs_food_33.xml",
-        image = "bs_food_33.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1655,8 +1522,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = 5,
         builder_tag = nil,
-        atlas = "images/foodimages/bs_food_58.xml",
-        image = "bs_food_58.tex"
     },
     filters = {
         "MONE_MORE_ITEMS2"
@@ -1677,8 +1542,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = 4,
         builder_tag = nil,
-        atlas = "images/foodimages/mone_beef_wellington.xml",
-        image = "mone_beef_wellington.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1699,8 +1562,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = 5,
         builder_tag = nil,
-        atlas = "images/foodimages/mone_chicken_soup.xml",
-        image = "mone_chicken_soup.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1721,8 +1582,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = 1,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages1.xml",
-        image = "bananajuice.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1743,8 +1602,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = 5,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages.xml",
-        image = "guacamole.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1765,8 +1622,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages1.xml",
-        image = "beefalofeed.tex",
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1791,8 +1646,6 @@ Recipes[#Recipes + 1] = {
         nounlock = true,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC0003/inventoryimages.xml",
-        image = "pheromonestone.tex"
     },
     filters = {
         "CRAFTING_STATION"
@@ -1814,8 +1667,6 @@ Recipes[#Recipes + 1] = {
         nounlock = true,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC0003/inventoryimages.xml",
-        image = "relic_5.tex"
     },
     filters = {
         "CRAFTING_STATION"
@@ -1836,8 +1687,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = 1,
         builder_tag = nil,
-        atlas = "images/DLC0003/inventoryimages.xml",
-        image = "poisonbalm.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1859,8 +1708,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = 1,
         builder_tag = nil,
-        atlas = "images/inventoryimages/mone_beef_bell.xml",
-        image = "mone_beef_bell.tex"
     },
     filters = {
         "MONE_MORE_ITEMS2"
@@ -1884,8 +1731,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = 1,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages2.xml",
-        image = "pig_coin.tex"
     },
     filters = {
         "MONE_MORE_ITEMS2"
@@ -1906,8 +1751,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = 1,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages1.xml",
-        image = "farm_plow_item.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1928,8 +1771,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages.xml",
-        image = "giftwrap.tex",
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1950,8 +1791,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/DLC/inventoryimages.xml",
-        image = "bundlewrap.tex",
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1972,8 +1811,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/inventoryimages/mie_book_silviculture.xml",
-        image = "mie_book_silviculture.tex",
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -1994,8 +1831,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/inventoryimages/mie_book_horticulture.xml",
-        image = "mie_book_horticulture.tex",
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -2031,8 +1866,6 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/inventoryimages3.xml",
-        image = "storage_robot.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
