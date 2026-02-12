@@ -7,6 +7,10 @@ require "behaviours/standstill"
 
 local constants = require("more_items_constants")
 
+local MoneFertilizerBotBrain = Class(Brain, function(self, inst)
+    Brain._ctor(self, inst)
+end)
+
 local function ShouldIgnoreItem(item)
     return false
 end
