@@ -193,7 +193,8 @@ function IncreaseStatBase.new(stat_type)
             component:SetCurrentHealth(component.currenthealth)
             component.maxhealth = component.maxhealth + config.add_num
         else
-            component.current = component.current
+            -- 使用 DoDelta(0, false) 来触发 sanitydelta/hungerdelta 事件
+            component:DoDelta(0, false)
             component.max = component.max + config.add_num
         end
 
