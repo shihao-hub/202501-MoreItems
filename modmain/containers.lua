@@ -649,7 +649,7 @@ function DoFns.skull_chest()
         return item:HasTag("skull_chest_itemtestfn")
                 or item:HasTag("sketch")
                 or item:HasTag("wintersfeastfood")
-                or item:HasTag("fertilizerresearchable") -- 粪便
+                or item:HasTag("mone_fertilizer_bot_fertilizer") -- 粪便
 
                 or string.find(item.prefab, "^dug_")
                 or string.find(item.prefab, "^turf_")
