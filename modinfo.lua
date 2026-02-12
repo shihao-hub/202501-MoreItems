@@ -542,6 +542,7 @@ configuration_options = {
     fns.common_item("__mie_relic_2", "倾家荡产赌博机"),
     fns.common_item("__mie_obsidianfirepit", "黑曜石火坑"),
     fns.common_item("__mie_waterpump", "升级版·消防泵"),
+    fns.common_item("__mone_fertilizer_bot", "施肥瓦器人"),
 
 
     fns.blank();

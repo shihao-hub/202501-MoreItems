@@ -4,11 +4,12 @@
 
 local utils = require("more_items_utils")
 
-utils.add_prefab(
-        env,
-        utils.get_config("pig_coin"),
-        "rmi_pig_coin",
-        {},
-        {}
-)
+-- [2026-02-05] 暂未测试
+--utils.add_prefab(
+--        env,
+--        utils.get_config("pig_coin"),
+--        "rmi_pig_coin",
+--        {},
+--        {}
+--)
 

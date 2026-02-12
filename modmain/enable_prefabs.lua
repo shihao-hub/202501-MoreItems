@@ -368,4 +368,10 @@ AddEnabledItem("pheromonestone2", function()
     env.modimport("modmain/PostInit/prefabs/pheromonestone2.lua");
 end);
 
+-- 施肥瓦器人
+AddEnabledItem("mone_fertilizer_bot", function()
+    table.insert(env.PrefabFiles, "mone/mine/mone_fertilizer_bot");
+    env.modimport("modmain/PostInit/prefabs/mone_fertilizer_bot.lua");
+end);
+
 ExecuteEnabledItems();

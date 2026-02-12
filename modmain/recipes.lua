@@ -2016,6 +2016,28 @@ Recipes[#Recipes + 1] = {
 ---------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------
+-- 施肥瓦器人
+Recipes_Locate["mone_fertilizer_bot"] = true;
+Recipes[#Recipes + 1] = {
+    CanMake = config_data.mone_fertilizer_bot,
+    name = "mone_fertilizer_bot",
+    ingredients = {
+        Ingredient("transistor", 2), Ingredient("poop", 5), Ingredient("boards", 4),
+    },
+    tech = TECH.SCIENCE_TWO,
+    config = {
+        placer = nil,
+        min_spacing = nil,
+        nounlock = nil,
+        numtogive = nil,
+        builder_tag = nil,
+        atlas = "images/inventoryimages.xml",
+        image = "storage_robot.tex"
+    },
+    filters = {
+        "MONE_MORE_ITEMS1"
+    }
+};
 
 for _, v in pairs(Recipes) do
     if v.CanMake then

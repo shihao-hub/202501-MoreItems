@@ -548,6 +548,17 @@ STRINGS[upper("mie_waterpump")] = L
         - 可以给周围缺水的农田浇水，也可以和植物对话。也能灭火。
         ]]
         or [[]];
+
+-- 施肥瓦器人
+STRINGS[upper("mone_fertilizer_bot")] = L
+        and [[
+        - 自动检测周围需要施肥的作物和农场
+        - 走到目标后直接施肥（不发射投射物）
+        - 潮湿时消耗加快
+        - 可以用钨骨碎片修理
+        ]]
+        or [[]];
+
 STRINGS[upper("mie_bushhat")] = L
         and [[
         - 【正在计划重构中】

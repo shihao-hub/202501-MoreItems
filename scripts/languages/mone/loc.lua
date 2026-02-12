@@ -445,6 +445,11 @@ local prefabsInfo = {
         describe = "懒才是第一生产力！",
         recipe_desc = COMMON_RECIPE_DESC
     },
+    ["mone_fertilizer_bot"] = {
+        names = "施肥瓦器人",
+        describe = "自动为周围的作物和农场施肥",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
     ["mie_obsidianfirepit"] = {
         names = "黑曜石火坑",
         describe = "",

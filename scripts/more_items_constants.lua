@@ -42,6 +42,14 @@ local module = {
     SINGLE_DOG__PREFAB_NAME = "mone_single_dog",
     SINGLE_DOG__PREFAB_CHINESE_NAME = "单身狗",
 
+    -- 施肥瓦器人常量
+    MONE_FERTILIZER_BOT__RANGE = 15,              -- 施肥检测半径（单位）
+    MONE_FERTILIZER_BOT__MAX_TARGETS = 10,        -- 最多同时处理的目标数量
+    MONE_FERTILIZER_BOT__SCAN_INTERVAL = 5,         -- 扫描间隔（秒）
+    MONE_FERTILIZER_BOT__BATTERY_MAX = 600,         -- 最大电池/耐久（秒）
+    MONE_FERTILIZER_BOT__LOW_BATTERY = 100,        -- 低电量阈值（秒）
+    MONE_FERTILIZER_BOT__FUEL_DRAIN_RATE = 1,        -- 每次施肥消耗的耐久
+    MONE_FERTILIZER_BOT__WALK_SPEED = 4,            -- 移动速度
 
 }
 

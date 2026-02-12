@@ -163,6 +163,8 @@ TUNING.MONE_TUNING = {
         mie_obsidianfirepit = get_parition_config("moreitems_structure","__mie_obsidianfirepit");
         mie_waterpump = get_parition_config("moreitems_structure","__mie_waterpump");
 
+        mone_fertilizer_bot = get_parition_config("moreitems_structure", "__mone_fertilizer_bot");
+
 
         --[[ 更多物品·装备 ]]
         mone_boomerang_damage_multiple = env.GetModConfigData("mone_boomerang_damage_multiple");
