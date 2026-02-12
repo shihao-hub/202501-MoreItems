@@ -4,7 +4,7 @@
 
 local API = require("chang_mone.dsts.API");
 local constants = require("more_items_constants")
-local recipe_assets = require("recipe_assets")  -- 配方资源映射表（atlas 和 image）
+local recipe_assets = require("more_items_recipe_assets")  -- 配方资源映射表（atlas 和 image）
 
 local config_data = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA;
 
