@@ -216,10 +216,13 @@ M["mone_armor_metalplate"] = {
 }
 
 -- 海难背包：防潮背心（由 ai 在 2026-02-13 标注，仅供参考）
-M["mone_seasack"] = {
-    atlas = "images/DLC/inventoryimages.xml",
-    image = "krampus_sack.tex"
-}
+M["mone_seasack"] = function()
+    local new_anim = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA.mone_seasack_new_anim
+    return {
+        atlas = new_anim and "images/DLC/inventoryimages.xml" or "images/DLC0003/inventoryimages.xml",
+        image = new_anim and "krampus_sack.tex" or "seasack.tex"
+    }
+end
 
 -- 夜空披风：特殊身体装备（由 ai 在 2026-02-13 标注，仅供参考）
 M["mone_nightspace_cape"] = {
@@ -252,10 +255,14 @@ M["mie_bear_skin_cabinet"] = {
 }
 
 -- 鱼箱：储物容器（由 ai 在 2026-02-13 标注，仅供参考）
-M["mie_fish_box"] = {
-    atlas = "images/DLC/inventoryimages2.xml",
-    image = "saltbox.tex"
-}
+M["mie_fish_box"] = function()
+    local config_data = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA
+    local animstate = config_data.mie_fish_box_animstate
+    return {
+        atlas = animstate and "images/DLC/inventoryimages2.xml" or "images/inventoryimages1.xml",
+        image = animstate and "saltbox.tex" or "fish_box.tex"
+    }
+end
 
 -- 水源建筑：取水设施（由 ai 在 2026-02-13 标注，仅供参考）
 M["mie_watersource"] = {

@@ -1877,6 +1877,10 @@ for _, v in pairs(Recipes) do
         -- 从资源映射表中获取 atlas 和 image（如果存在）
         local assets = recipe_assets[v.name]
         if assets then
+            -- 支持函数形式（用于条件判断）
+            if type(assets) == "function" then
+                assets = assets()
+            end
             if assets.atlas then
                 v.config.atlas = assets.atlas
             end
