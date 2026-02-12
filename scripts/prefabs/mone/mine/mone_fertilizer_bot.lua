@@ -9,7 +9,7 @@ local assets =
     Asset("ANIM", "anim/storage_robot_med.zip"),
     Asset("ANIM", "anim/storage_robot_small.zip"),
     Asset("ANIM", "anim/ui_chest_3x3.zip"),
-    -- Asset("INV_IMAGE", "storage_robot"), -- TODO: 需要创建贴图文件
+    Asset("INV_IMAGE", "storage_robot"),
     Asset("MINIMAP_IMAGE", "storage_robot_broken"),
 }
 
