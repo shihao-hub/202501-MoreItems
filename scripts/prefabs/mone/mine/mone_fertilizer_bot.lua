@@ -48,7 +48,7 @@ local function ScanForFertilizationTargets(inst)
 
     -- 按距离排序
     table.sort(targets, function(a, b)
-        return inst:GetDistanceSqTo(a) < inst:GetDistanceSqTo(b)
+        return inst:GetDistanceSqToInst(a) < inst:GetDistanceSqToInst(b)
     end)
 
     return targets
@@ -194,10 +194,6 @@ end
 --- 拾起回调
 local function OnPickup(inst)
     inst.sg:GoToState("idle", true)
-
-    if inst.brain ~= nil then
-        inst.brain:UnignoreItem()
-    end
 
     inst.components.fueled:StopConsuming()
     inst.components.locomotor:Stop()
