@@ -1,6 +1,6 @@
 local base = require("moreitems.lib.shihao.base")
 
-local commands = require("moreitems.commands.__init__")
+local commands = require("moreitems.commands.init")
 
 local function run(command)
     xpcall(function()

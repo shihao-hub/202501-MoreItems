@@ -1,6 +1,6 @@
 return {
-    class = require("moreitems.lib.shihao.class.__init__"),
-    module = require("moreitems.lib.shihao.module.__init__"),
+    class = require("moreitems.lib.shihao.class.init"),
+    module = require("moreitems.lib.shihao.module.init"),
 
     base = require("moreitems.lib.shihao.base"),
     assertion = require("moreitems.lib.shihao.assertion"),

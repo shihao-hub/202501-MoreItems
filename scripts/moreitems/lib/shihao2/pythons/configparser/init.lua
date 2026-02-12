@@ -55,11 +55,11 @@ if select("#", ...) == 0 then
     local testcases = {}
 
     function testcases.test_ConfigParser()
-        local os_path = require("moreitems.lib.shihao2.pythons.os.path.__init__")
+        local os_path = require("moreitems.lib.shihao2.pythons.os.path.init")
 
         local settings = require("moreitems.settings")
 
-        local config = require("moreitems.lib.shihao2.pythons.configparser.__init__").ConfigParser()
+        local config = require("moreitems.lib.shihao2.pythons.configparser.init").ConfigParser()
 
         config:read(os_path.join(settings.SOURCE_DIR, { "moreitems", "lib", "shihao2", "resources", "tests", "config.ini" }))
         if config:get("settings", "ai_api_mode") ~= "deepseek-reasoner" then

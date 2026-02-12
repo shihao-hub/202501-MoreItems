@@ -27,7 +27,7 @@ if select("#", ...) == 0 then
 
     -- 文件处理
     local settings = require("moreitems.settings")
-    local os_path = require("moreitems.lib.shihao2.pythons.os.path.__init__")
+    local os_path = require("moreitems.lib.shihao2.pythons.os.path.init")
     local f = io.open(os_path.join(settings.SOURCE_DIR, { "moreitems", "lib", "shihao2", "instances", "uuids.txt" }))
     local lines = f:lines()
     --for line in lines do

@@ -151,13 +151,43 @@ end
 
 --[[ AUXmods ]]
 do
-    env.modimport("modmain/sundry.lua"); -- 关闭后可以等价于未导入
+    local function sundry()
+        -- 这里放那些我也不知道放哪里的东西
+
+        --[[ 不能攻击盟友 ]]
+        if config_data.forced_attack_lightflier then
+            local combat_replica = require "components/combat_replica";
+            local old_IsAlly = combat_replica.IsAlly;
+            function combat_replica:IsAlly(guy, ...)
+                if config_data.forced_attack_lightflier then
+                    if guy and guy.prefab and guy.prefab == "lightflier" then
+                        return true;
+                    end
+                end
+                return old_IsAlly(self, guy, ...);
+            end
+        end
+
+        --[[ Debug：控制台命令 ]]
+        if API.isDebug(env) then
+            env.AddClassPostConstruct("screens/consolescreen", function(self)
+                if self.console_edit then
+                    local commands = {
+                        "GetPrefabNumber"
+                    }
+                    local dictionary = self.console_edit.prediction_widget.word_predictor.dictionaries[3];
+                    for _, word in ipairs(commands) do
+                        table.insert(dictionary.words, word)
+                    end
+                end
+            end)
+        end
+    end
+    sundry()
 
     env.modimport("modmain/AUXmods/find_best_container.lua"); -- \\\\此处会必定导入\\\\
     env.modimport("modmain/AUXmods/button_containers2.lua"); -- \\\\此处会必定导入\\\\
     env.modimport("modmain/AUXmods/article_introduction.lua"); -- \\\\此处会必定导入\\\\
-
-    env.modimport("modmain/AUXmods/reference.lua"); -- 2023-05-02：此处目前没有内容
 
     local function AUXmods()
         local c = config_data;
@@ -253,11 +283,6 @@ do
             if config_data.maxsize_change then
                 env.modimport("modmain/AUXmods/other_auxiliary/maxsize_change.lua");
             end
-            -- 生物堆叠+其他堆叠：2023-06-22：想删掉...
-            -- 2024-10-30：删除该功能
-            --if config_data.creatures_stackable then
-            --    env.modimport("modmain/AUXmods/other_auxiliary/creatures_stackable.lua");
-            --end
         end
     end
     stackable_change();
@@ -283,8 +308,6 @@ end
 -- must be imported
 --env.modimport("new_modmain.lua")
 local function new_modmain()
-    local config_data = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA;
-
     ------------------------------------------------ 23/10/29 BEGIN NEW WORLD
 
     morel_add_PrefabFiles({ "new_prefabs/more_items_instruction_book" })
@@ -364,10 +387,6 @@ local function new_modmain()
     -- endregion
 end
 new_modmain()
-
--- 2024-12-05-16:35 创建
--- 2025-01-12 更新后，创意工坊总是卡在 modmain2.lua，不知为何。
---env.modimport("modmain2.lua")
 
 -- [2025-11-04]
 --env.modimport("modmain3.lua")
