@@ -88,8 +88,8 @@ end
 
 local simplebook_defs = {}
 
-simplebook_defs.mie_book_silviculture = require("definitions.mone.mie.simplebooks.mie_book_silviculture");
-simplebook_defs.mie_book_horticulture = require("definitions.mone.mie.simplebooks.mie_book_horticulture");
+simplebook_defs.mie_book_silviculture = require("moreitems.definitions.mone.mie.simplebooks.mie_book_silviculture");
+simplebook_defs.mie_book_horticulture = require("moreitems.definitions.mone.mie.simplebooks.mie_book_horticulture");
 
 local prefabs = {};
 

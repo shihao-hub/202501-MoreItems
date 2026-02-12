@@ -56,7 +56,7 @@ local function MakeFood(data)
     return Prefab(data.name, fn, data.assets);
 end
 
-local food_defs = require("definitions.mone.mie.food_defs");
+local food_defs = require("moreitems.definitions.mone.mie.food_defs");
 
 local prefabs = {};
 

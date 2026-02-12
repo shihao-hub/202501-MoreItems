@@ -160,7 +160,7 @@ local function MakeFx(t)
 end
 
 local prefs = {}
-local fx = require("definitions.mone.mie.fxs.game_fxs");
+local fx = require("moreitems.definitions.mone.mie.fxs.game_fxs");
 
 for k, v in pairs(fx) do
     table.insert(prefs, MakeFx(v))
