@@ -80,13 +80,18 @@ end
 --- 回到出生点
 local function GoHomeAction(inst)
     if inst.components.knownlocations == nil then
+        print("[MoneFertilizerBot] GoHome: knownlocations is nil")
         return nil
     end
 
     local spawnpoint = inst.components.knownlocations:GetLocation("spawnpoint")
     if spawnpoint == nil then
+        print("[MoneFertilizerBot] GoHome: spawnpoint is nil")
         return nil
     end
+
+    print(string.format("[MoneFertilizerBot] GoHome: spawnpoint=(%.2f, %.2f, %.2f)", spawnpoint.x, spawnpoint.y, spawnpoint.z))
+    print(string.format("[MoneFertilizerBot] GoHome: current pos=(%.2f, %.2f, %.2f)", inst.Transform:GetWorldPosition()))
 
     -- 放下持有的物品
     local item = inst.components.inventory:GetFirstItemInAnySlot()
@@ -94,8 +99,13 @@ local function GoHomeAction(inst)
         inst.components.inventory:DropItem(item, true, true)
     end
 
+    -- 使用正确的 y 坐标计算距离
+    local dist_sq = inst:GetDistanceSqToPoint(spawnpoint.x, spawnpoint.y or 0, spawnpoint.z)
+    print(string.format("[MoneFertilizerBot] GoHome: distance_sq=%.2f", dist_sq))
+
     -- 如果已经很近，不移动
-    if inst:GetDistanceSqToPoint(spawnpoint.x, 0, spawnpoint.z) < 0.25 then
+    if dist_sq < 0.25 then
+        print("[MoneFertilizerBot] GoHome: already home")
         return nil
     end
 
