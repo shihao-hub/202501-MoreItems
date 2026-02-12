@@ -11,18 +11,6 @@ local MoneFertilizerBotBrain = Class(Brain, function(self, inst)
     Brain._ctor(self, inst)
 end)
 
-local function ShouldIgnoreItem(item)
-    return false
-end
-
-local function IgnoreItem(inst, item)
-    -- 可以在这里添加忽略逻辑
-end
-
-local function UnignoreItem(inst)
-    -- 取消忽略
-end
-
 --------------------------------------------------------------------------------
 
 --- 寻找需要施肥的目标
@@ -45,8 +33,6 @@ local function FindFertilizationAction(inst)
 
     -- 获取最近的目标
     local target = targets[1]
-
-    UnignoreItem(inst)
 
     return BufferedAction(inst, target, ACTIONS.WALKTO, nil, nil, nil, nil, nil, 1)
 end
@@ -77,9 +63,6 @@ local function FertilizeAction(inst)
         return BufferedAction(inst, target, ACTIONS.WALKTO, nil, nil, nil, nil, nil, 1)
     end
 
-    -- 施肥
-    UnignoreItem(inst)
-
     -- 检查目标是否可施肥
     if not target.components.fertilizable then
         return nil
@@ -104,8 +87,6 @@ local function GoHomeAction(inst)
     if spawnpoint == nil then
         return nil
     end
-
-    UnignoreItem(inst)
 
     -- 放下持有的物品
     local item = inst.components.inventory:GetFirstItemInAnySlot()
@@ -150,10 +131,6 @@ function MoneFertilizerBotBrain:OnStart()
     }, .25)
 
     self.bt = BT(self.inst, root)
-end
-
-function MoneFertilizerBotBrain:OnStop()
-    self:UnignoreItem()
 end
 
 function MoneFertilizerBotBrain:OnInitializationComplete()
