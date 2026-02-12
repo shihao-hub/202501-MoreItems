@@ -59,7 +59,8 @@ local function FertilizeAction(inst)
     local target = targets[1]
 
     -- 走到目标附近
-    if inst:GetDistanceSqTo(target) > 4 then
+    local target_pos = target:GetPosition()
+    if inst:GetDistanceSqToPoint(target_pos) > 4 then
         return BufferedAction(inst, target, ACTIONS.WALKTO, nil, nil, nil, nil, nil, 1)
     end
 
