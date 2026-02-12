@@ -353,6 +353,8 @@ local function fn()
     inst.components.inventoryitem.nobounce = true
     inst.components.inventoryitem:SetOnDroppedFn(OnDropped)
     inst.components.inventoryitem:SetOnPickupFn(OnPickup)
+    inst.components.inventoryitem.imagename = "storage_robot"
+    inst.components.inventoryitem.atlasname = "images/inventoryimages.xml"
 
     inst:AddComponent("locomotor")
     inst.components.locomotor:SetTriggersCreep(false)
@@ -381,6 +383,12 @@ local function fn()
     inst.OnLoad = OnLoad
     inst.OnEntitySleep = OnEntitySleep
     inst.OnEntityWake = OnEntityWake
+
+    -- 初始化出生点
+    if inst.components.knownlocations then
+        local x, y, z = inst.Transform:GetWorldPosition()
+        inst.components.knownlocations:AddLocation("spawnpoint", x, y, z)
+    end
 
     MakeHauntable(inst)
 
