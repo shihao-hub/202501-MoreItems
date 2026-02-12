@@ -2,7 +2,7 @@
 --- @author zsh in 2023/1/10 20:01
 ---
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 
 -- 普通箱子、龙鳞宝箱、冰箱、盐盒关闭后自动整理
 for _, p in ipairs({

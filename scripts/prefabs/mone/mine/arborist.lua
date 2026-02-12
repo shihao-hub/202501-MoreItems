@@ -11,7 +11,7 @@
 -- 2023-02-27-10:22：目前就单纯地修改一下生效范围
 
 local TEXT = require("more_items_language_loc");
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 
 local containers = require "containers";
 local params = containers.params;

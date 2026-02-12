@@ -2,7 +2,7 @@
 --- @author zsh in 2023/4/30 0:27
 ---
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 ---@type Debug
 local Debug = API.Debug;
 

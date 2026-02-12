@@ -14,7 +14,7 @@
     ?刷子
 ]]
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 local TEXT = require("more_items_language_loc");
 local config_data = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA;
 local DATA = config_data.original_items_modifications_data;

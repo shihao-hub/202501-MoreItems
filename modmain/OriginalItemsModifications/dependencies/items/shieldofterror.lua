@@ -2,7 +2,7 @@
 --- @author zsh in 2023/4/25 1:07
 ---
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 
 -- 恐怖盾牌
 local function shieldofterror()

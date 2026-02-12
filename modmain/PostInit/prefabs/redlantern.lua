@@ -2,7 +2,7 @@
 --- @author zsh in 2023/5/5 16:45
 ---
 
-local UpvalueUtil = require("chang_mone.dsts.UpvalueUtil");
+local UpvalueUtil = require("moreitems.chang_mone.dsts.UpvalueUtil");
 
 -- 坎普斯不会偷
 local krampusbrain = require("brains/krampusbrain");

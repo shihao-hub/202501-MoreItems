@@ -55,7 +55,7 @@ if not MODULE_ON then
     return ;
 end
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 local TEXT = require("more_items_language_loc");
 
 local containers = require("containers");

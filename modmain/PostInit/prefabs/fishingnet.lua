@@ -6,7 +6,7 @@
 if EntityScript then
     local CollectActions = EntityScript.CollectActions;
     if CollectActions then
-        local UpvalueUtil = require("chang_mone.dsts.UpvalueUtil");
+        local UpvalueUtil = require("moreitems.chang_mone.dsts.UpvalueUtil");
         local COMPONENT_ACTIONS = UpvalueUtil.GetUpvalue(CollectActions, "COMPONENT_ACTIONS");
         if COMPONENT_ACTIONS and type(COMPONENT_ACTIONS) == "table" then
             local old_fishingnet = COMPONENT_ACTIONS.POINT and COMPONENT_ACTIONS.POINT.fishingnet;

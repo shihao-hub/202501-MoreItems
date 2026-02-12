@@ -2,7 +2,7 @@
 --- @author zsh in 2023/7/4 13:51
 ---
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 
 local Debug = API.Debug;
 local armor = require("components/armor");

@@ -2,7 +2,7 @@
 --- @author zsh in 2023/2/19 13:14
 ---
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 
 local MIE_HORTICULTURE_DIST = 15;
 local MIE_HORTICULTURE_MUST_TAGS = {

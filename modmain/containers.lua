@@ -13,7 +13,7 @@ local SCROLL = config_data.scroll_containers;
 
 local NEW_BUTTON = true; -- 不明显，算了？emm，纠结
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 local TEXT = require("more_items_language_loc");
 
 local cooking = require("cooking");
@@ -2341,7 +2341,7 @@ local function compatible_with_maxwell()
         log.info("playerhub == nil")
         return
     end
-    local UpvalueUtil = require("chang_mone.dsts.UpvalueUtil")
+    local UpvalueUtil = require("moreitems.chang_mone.dsts.UpvalueUtil")
     local old_fn = UpvalueUtil.GetUpvalue(playerhud.OpenSpellWheel, "CloseAllChestContainerWidgets")
     if old_fn == nil then
         log.info("The upvalue(CloseAllChestContainerWidgets) can't be found.")

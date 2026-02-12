@@ -2,7 +2,7 @@
 --- @author zsh in 2023/1/14 1:07
 ---
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 
 local fns = {} -- a table to store local functions in so that we don't hit the 60 upvalues limit
 

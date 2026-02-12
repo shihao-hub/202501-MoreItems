@@ -9,7 +9,7 @@
 local name_structure = "mone_waterchest";
 local name_inventoryitem = "mone_waterchest_inv";
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 
 local function ondropped(inst)
     if inst.components.container then

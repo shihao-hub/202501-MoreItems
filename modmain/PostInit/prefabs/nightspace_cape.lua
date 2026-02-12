@@ -2,7 +2,7 @@
 --- @author zsh in 2023/1/14 1:04
 ---
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 
 local function runningOnWater(inst, owner)
     if inst.running_on_water_task then

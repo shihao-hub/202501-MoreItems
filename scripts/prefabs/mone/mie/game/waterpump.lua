@@ -101,7 +101,7 @@ local function LaunchProjectile(inst)
     local DIST = DIST; -- 差不多也算是个九宫格范围吧！
     local ents = TheSim:FindEntities(x, y, z, DIST, nil, NOTAGS, ONEOFTAGS)
     local targetpos;
-    local upvaluedebug = require("chang_mone.mie.upvaluedebug");
+    local upvaluedebug = require("moreitems.chang_mone.mie.upvaluedebug");
     local _moisturegrid;
     if TheWorld and TheWorld.components and TheWorld.components.farming_manager then
         local old_IsSoilMoistAtPoint = TheWorld.components.farming_manager.IsSoilMoistAtPoint;

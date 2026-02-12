@@ -2,7 +2,7 @@
 --- @author zsh in 2023/4/24 14:42
 ---
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 local TEXT = require("more_items_language_loc");
 
 local config_data = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA;

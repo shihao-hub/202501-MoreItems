@@ -2,7 +2,7 @@
 --- @author zsh in 2023/1/9 20:26
 ---
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 local TEXT = require("more_items_language_loc");
 
 require "prefabutil"
@@ -491,7 +491,7 @@ local function fn()
         -- Question: 修改上值，确确实实修改了 NOTAGS 的值，但是这居然是永久修改。
         do
             -- upvaluehelper
-            local upvaluehelper = require("chang_mone.dsts.upvaluehelper");
+            local upvaluehelper = require("moreitems.chang_mone.dsts.upvaluehelper");
             local success = false;
             local old_Activate = inst.components.firedetector.Activate;
             local function SetNOTAGS()

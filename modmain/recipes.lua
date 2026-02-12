@@ -2,7 +2,7 @@
 --- @author zsh in 2023/1/8 17:34
 ---
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 local constants = require("more_items_constants")
 local recipe_assets = require("more_items_recipe_assets")  -- 配方资源映射表（atlas 和 image）
 

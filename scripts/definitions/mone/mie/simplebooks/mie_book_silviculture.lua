@@ -2,7 +2,7 @@
 --- @author zsh in 2023/2/14 13:45
 ---
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 
 local MIE_SILVICULTURE_DIST = 15;
 local MIE_SILVICULTURE_MUST_TAGS = {}

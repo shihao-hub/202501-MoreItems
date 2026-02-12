@@ -2,7 +2,7 @@
 --- @author zsh in 2023/1/12 1:05
 ---
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 
 local function MakeHat(prefabname, assets, animstate, overridesymbol)
     local swap_data = { bank = animstate[1], anim = animstate[3] }

@@ -2,7 +2,7 @@
 --- @author zsh in 2023/1/8 17:13
 --- 客户端 mod，班花的 looktietu，可以显示物品的代码、动画等，辅助测试用。
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 
 if API.hasBeenReleased(env) then
     return ;

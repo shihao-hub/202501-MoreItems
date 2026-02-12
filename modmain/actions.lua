@@ -2,7 +2,7 @@
 --- @author zsh in 2023/1/8 20:31
 ---
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 local locale = LOC.GetLocaleCode();
 local L = (locale == "zh" or locale == "zht" or locale == "zhr") and true or false;
 local old_actions_fn = require("definitions.mone.old_actions_fn");

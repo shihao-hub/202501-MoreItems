@@ -8,7 +8,7 @@ local SCROLL = config_data.scroll_containers;
 
 local NEW_BUTTON = true; -- 不明显，算了？emm，纠结
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 local TEXT = require("more_items_language_loc");
 
 local cooking = require("cooking");

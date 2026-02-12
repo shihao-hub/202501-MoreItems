@@ -2,7 +2,7 @@
 --- @author zsh in 2023/4/14 10:45
 ---
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 local Debug = API.Debug;
 
 local forceattack = env.GetModConfigData("Force_attack") -- 强制攻击

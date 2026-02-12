@@ -19,7 +19,7 @@ end });
 GLOBAL.morel_env = env
 GLOBAL.morel_DEBUG_DIR_NAME = "MoreItems"
 
-require("new_scripts.mod_a.main")
+require("moreitems.new_scripts.mod_a.main")
 
 ------------------------------------------------ 23/10/29 END NEW WORLD
 
@@ -38,7 +38,7 @@ env.modimport("modtuning.lua"); -- PS: 我应该将我的客户端和服务端�
 --end
 
 
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 local config_data = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA;
 
 env.modimport("modmain/preload.lua");

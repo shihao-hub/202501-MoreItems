@@ -16,7 +16,7 @@ local config_data = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA;
 config_data.arborist_light = true; -- 发光
 
 local TEXT = require("more_items_language_loc");
-local API = require("chang_mone.dsts.API");
+local API = require("moreitems.chang_mone.dsts.API");
 
 -----------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------
