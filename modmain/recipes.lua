@@ -2,9 +2,9 @@
 --- @author zsh in 2023/1/8 17:34
 ---
 
-
 local API = require("chang_mone.dsts.API");
 local constants = require("more_items_constants")
+local recipe_assets = require("recipe_assets")  -- 配方资源映射表（atlas 和 image）
 
 local config_data = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA;
 
@@ -2032,7 +2032,7 @@ Recipes[#Recipes + 1] = {
         numtogive = nil,
         builder_tag = nil,
         atlas = "images/inventoryimages3.xml",
-        image = "wagpunkbits_kit.tex"
+        image = "storage_robot.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"
@@ -2041,6 +2041,17 @@ Recipes[#Recipes + 1] = {
 
 for _, v in pairs(Recipes) do
     if v.CanMake then
+        -- 从资源映射表中获取 atlas 和 image（如果存在）
+        local assets = recipe_assets[v.name]
+        if assets then
+            if assets.atlas then
+                v.config.atlas = assets.atlas
+            end
+            if assets.image then
+                v.config.image = assets.image
+            end
+        end
+
         if all_items_one_recipetab then
             if not table.contains(v.filters, "CHARACTER")
                     and not table.contains(v.filters, "CRAFTING_STATION")
