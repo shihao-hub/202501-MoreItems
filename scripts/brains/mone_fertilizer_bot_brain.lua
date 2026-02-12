@@ -66,10 +66,10 @@ local function FertilizeAction(inst)
         return BufferedAction(inst, target, ACTIONS.WALKTO, nil, nil, nil, nil, nil, 1)
     end
 
-    -- 距离足够近，创建施肥动作
-    local action = BufferedAction(inst, target, ACTIONS.DEPLOY, nil, nil, nil, nil, 1)
-
-    return action
+    -- 距离足够近，直接施肥
+    inst:FertilizeTarget(target)
+    
+    return nil -- 返回nil让行为树继续下一个循环
 end
 
 --- 回到出生点
