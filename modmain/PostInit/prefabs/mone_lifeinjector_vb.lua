@@ -31,12 +31,6 @@ local function perform(inst)
     -- 给吃食物时使用的，这个命名很奇怪，需要优化
     inst.mone_vb_non_ban = true;
 
-    -- 立即初始化 save_fields，避免换人继承时因时序问题导致字段为 nil
-    if inst.components.health then
-        inst.components.mone_lifeinjector_vb.save_currenthealth = inst.components.health.currenthealth;
-        inst.components.mone_lifeinjector_vb.save_maxhealth = inst.components.health.maxhealth;
-    end
-
     inst:DoTaskInTime(0, function(inst)
         inst:ListenForEvent("healthdelta", function(inst, data)
             -- TODO: 学习 Java 进行封装
