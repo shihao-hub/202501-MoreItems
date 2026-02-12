@@ -41,11 +41,11 @@ MoreItems/
 
 ## 开发相关
 
-- [NOTES.md](NOTES.md) - 添加新物品的步骤说明
+- [NOTES.md](.achieved_files/NOTES.md) - 添加新物品的步骤说明
 - [CLAUDE.md](CLAUDE.md) - Claude Code 开发指南
 - [DEFECTS.md](DEFECTS.md) - 已知问题追踪
-- [TODOLISTS.md](TODOLISTS.md) - 功能计划
-- [UPDATELOGS.md](UPDATELOGS.md) - 版本更新日志
+- [TODOLISTS.md](.achieved_files/TODOLISTS.md) - 功能计划
+- [UPDATELOGS.md](.achieved_files/UPDATELOGS.md) - 版本更新日志
 
 ## 最近更新
 
@@ -56,7 +56,7 @@ MoreItems/
 - 完善跨服数据同步系统
 - 修复多个数据同步 bug
 
-完整更新日志请查看 [update_logs/2026-01-24-更新日志.md](update_logs/2026-01-24-更新日志.md)
+完整更新日志请查看 [update_logs/2026-01-24-更新日志.md](.achieved_files/update_logs/2026-01-24-更新日志.md)
 
 ## 许可证
 

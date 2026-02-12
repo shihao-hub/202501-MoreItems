@@ -9,7 +9,7 @@
 -- 4、周围较小圈内设置成盲区！
 
 
-local TEXT = require("languages.mone.loc");
+local TEXT = require("more_items_language_loc");
 local API = require("chang_mone.dsts.API");
 
 local containers = require "containers";

@@ -251,10 +251,6 @@ TUNING.MONE_TUNING = {
         trap_auto_reset = env.GetModConfigData("trap_auto_reset");
         spawn_wormholes_worldpostinit = env.GetModConfigData("spawn_wormholes_worldpostinit");
 
-
-        --[[ 仅限于我自己使用的功能：彩虹虫洞给小王者和我自己留个入口，假如和朋友一起玩的时候好打开 ]]
-        wormhole_marks = env.GetModConfigData("wormhole_marks");
-
         --[[ 正在开发中 ]]
         mie_fish_box_animstate = true;
         bundle_anything = false;

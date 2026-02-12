@@ -22,7 +22,7 @@ for _, p in ipairs(t) do
         end
 
         if inst.components.container then
-            --local TEXT = require("languages.mone.loc");
+            --local TEXT = require("more_items_language_loc");
             inst.components.container.onopenfn = function(inst)
                 if inst.mi_ignore_sound then
                     return ;

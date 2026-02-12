@@ -14,7 +14,14 @@ GLOBAL.setmetatable(env, { __index = function(_, k)
 end });
 
 -- NEW WORLD: must be imported at the head.
-env.modimport("new_modmain_preload.lua")
+--env.modimport("new_modmain_preload.lua")
+------------------------------------------------ 23/10/29 BEG NEW WORLD
+GLOBAL.morel_env = env
+GLOBAL.morel_DEBUG_DIR_NAME = "MoreItems"
+
+require("new_scripts.mod_a.main")
+
+------------------------------------------------ 23/10/29 END NEW WORLD
 
 env.modimport("modtuning.lua"); -- PS: 我应该将我的客户端和服务端部分代码区分一下的。
 
@@ -38,18 +45,14 @@ env.modimport("modmain/preload.lua");
 
 env.modimport("modmain/modglobal.lua"); -- must be imported with the highest priority
 env.modimport("modmain/global.lua"); -- must be imported after "modmain/modglobal.lua"
---env.modimport("modmain/logger.lua"); -- temp garbage
 
-
-
-env.modimport("modmain/Optimization/main.lua");
 
 env.modimport("modmain/compatibility.lua");
 
 env.modimport("modmain/prefabfiles.lua");
 env.modimport("modmain/assets.lua");
 
-require("languages.mone.loc"); -- 2023-05-20：找机会处理一下这里，太难看了
+require("more_items_language_loc")
 
 env.modimport("modmain/containers.lua");
 
@@ -70,7 +73,7 @@ env.modimport("modmain/OriginalItemsModifications/main.lua"); -- 关闭后可以
 
 --[[添加新物品
     init/init_tooltips.lua
-    languages.mone.loc
+    more_items_language_loc
     enable_prefabs.lua
     recipes.lua
 
@@ -268,10 +271,6 @@ end
 
 --[[ Debug ]]
 do
-    if config_data.wormhole_marks then
-        env.modimport("scripts/mi_modules/wormhole_marks/modmain.lua");
-    end
-
     if API.isDebug(env) then
         -- looktietu
         if env.GetModConfigData("looktietu") then
@@ -282,13 +281,99 @@ end
 
 
 -- must be imported
-env.modimport("new_modmain.lua")
+--env.modimport("new_modmain.lua")
+local function new_modmain()
+    local config_data = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA;
+
+    ------------------------------------------------ 23/10/29 BEGIN NEW WORLD
+
+    morel_add_PrefabFiles({ "new_prefabs/more_items_instruction_book" })
+    env.modimport("modmain/newworld/postinit/more_items_instruction_book.lua")
+
+    -- Add new prefabs, but they are still incomplete.
+    morel_add_PrefabFiles({ "new_prefabs/prefabs_inspiration_1" })
+    env.modimport("modmain/newworld/postinit/prefabs_inspiration_1.lua")
+    ------------------------------------------------ 23/10/29 END NEW WORLD
+
+
+    -- region 更多物品·拓展包
+    env.modimport("modmain/PostInit/prefabs/simplebooks.lua");
+    env.modimport("modmain/PostInit/prefabs/mie_bundle.lua");
+
+    if config_data.mie_wooden_drawer then
+        table.insert(env.PrefabFiles, "mone/mie/mine/wooden_drawer");
+    end
+
+    if config_data.mie_relic_2 then
+        table.insert(env.PrefabFiles, "mone/mie/mine/relic_2");
+    end
+
+    if config_data.mie_dummytarget then
+        table.insert(env.PrefabFiles, "mone/mie/game/dummytarget");
+    end
+
+    if config_data.mie_waterpump then
+        table.insert(env.PrefabFiles, "mone/mie/game/waterpump");
+        env.modimport("modmain/PostInit/prefabs/waterpump.lua");
+    end
+
+    if config_data.mie_sand_pit then
+        table.insert(env.PrefabFiles, "mone/mie/game/sand_pit");
+    end
+
+    if config_data.mie_icemaker then
+        table.insert(env.PrefabFiles, "mone/mie/mine/icemaker");
+    end
+
+    if config_data.mie_ordinary_bundle then
+        table.insert(env.PrefabFiles, "mone/mie/game/ordinary_bundle");
+    end
+    if config_data.mie_bundle then
+        table.insert(env.PrefabFiles, "mone/mie/game/bundle");
+    end
+
+    if config_data.mie_fish_box then
+        table.insert(env.PrefabFiles, "mone/mie/game/fish_box");
+        env.modimport("modmain/PostInit/prefabs/fish_box.lua");
+    end
+
+    if config_data.mie_bushhat then
+        env.modimport("modmain/PostInit/prefabs/bushhat.lua");
+    end
+
+    if config_data.mie_tophat then
+        env.modimport("modmain/PostInit/prefabs/tophat.lua");
+    end
+
+    if config_data.mie_obsidianfirepit then
+        table.insert(env.PrefabFiles, "mone/mie/mine/obsidianfirepit");
+        table.insert(env.PrefabFiles, "mone/mie/mine/obsidianfirefire");
+    end
+
+    if config_data.mie_bear_skin_cabinet then
+        table.insert(env.PrefabFiles, "mone/mie/mine/bear_skin_cabinet");
+        env.modimport("modmain/PostInit/prefabs/bear_skin_cabinet.lua");
+    end
+
+    if config_data.mie_watersource then
+        table.insert(env.PrefabFiles, "mone/mie/mine/watersource");
+    end
+
+    env.modimport("modmain/PostInit/prefabs/foods.lua");
+
+    -- endregion
+end
+new_modmain()
 
 -- 2024-12-05-16:35 创建
 -- 2025-01-12 更新后，创意工坊总是卡在 modmain2.lua，不知为何。
 --env.modimport("modmain2.lua")
 
 -- [2025-11-04]
-env.modimport("modmain3.lua")
+--env.modimport("modmain3.lua")
+-- 2025-01-12-23:00 发布的版本，此处的代码居然会导致游戏启动时卡在导入 modmain2.lua 文件处？注释掉就正常了。。。
+local dst = require("moreitems.main").dst
+local dst_utils = dst.class.DSTUtils(env)
+-- 2024-12-05-17:30 止于此，今日只是将模组整理了一番，本周暂且如此吧。接下来两天优先 java 和 js，但是这两天关于 Lua 可以总结一下。
 
 

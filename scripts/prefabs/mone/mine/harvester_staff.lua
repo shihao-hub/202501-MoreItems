@@ -3,7 +3,7 @@
 ---
 
 
-local TEXT = require("languages.mone.loc");
+local TEXT = require("more_items_language_loc");
 
 local names = {
     harvester = "mone_harvester_staff",

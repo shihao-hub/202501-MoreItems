@@ -15,7 +15,7 @@
 ]]
 
 local API = require("chang_mone.dsts.API");
-local TEXT = require("languages.mone.loc");
+local TEXT = require("more_items_language_loc");
 local config_data = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA;
 local DATA = config_data.original_items_modifications_data;
 local items_fns = DATA.items_fns;

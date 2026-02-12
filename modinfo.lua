@@ -953,16 +953,6 @@ configuration_options = {
         },
         default = 1
     },
-    {
-        name = "wormhole_marks",
-        label = "wormhole_marks",
-        hover = "Released",
-        options = {
-            option(vars.OPEN, true),
-            option(vars.CLOSE, false),
-        },
-        default = false
-    },
 
     fns.blank();
     fns.largeLabel("正在开发中（玩家无效）"),

@@ -7,7 +7,7 @@ local L = (locale == "zh" or locale == "zht" or locale == "zhr") and true or fal
 
 L = true; -- 暂时没有英译
 
-local TEXT = require("languages.mone.loc");
+local TEXT = require("more_items_language_loc");
 local prefabsInfo = TEXT.prefabsInfo;
 
 STRINGS.MONE_STRINGS = {};

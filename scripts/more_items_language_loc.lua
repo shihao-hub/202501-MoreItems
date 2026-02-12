@@ -6,6 +6,7 @@
 local locale = LOC.GetLocaleCode();
 local L = (locale == "zh" or locale == "zht" or locale == "zhr") and true or false;
 
+---@class DstText
 local TEXT = {
     HARVESTER_STAFF_USES = 100,
     HARVESTER_STAFF_SHADOW_LEVEL = 1,
@@ -31,9 +32,30 @@ local TEXT = {
 local COMMON_RECIPE_DESC = "鼠标放到右侧的气球图案上可以看到详细内容";
 
 local prefabsInfo = {
+    ["rmi_pig_coin"] = {
+        names = "升级版·猪鼻铸币",
+        describe = "",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["rmi_lureplant"] = {
+        names = "食人花宝箱",
+        describe = "",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+
+    ["mone_fishingnet"] = {
+        names = "渔网",
+        describe = "捕鱼达人",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
     ["mone_spear_poison"] = {
         names = "毒矛",
         describe = "蜘蛛都给我死！",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mone_redlantern"] = {
+        names = "灯笼",
+        describe = "",
         recipe_desc = COMMON_RECIPE_DESC
     },
     ["mone_storage_bag"] = {
@@ -49,6 +71,11 @@ local prefabsInfo = {
     ["mone_tool_bag"] = {
         names = "工具袋",
         describe = "携带工具！",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mone_spicepack"] = {
+        names = "小食物袋",
+        describe = "携带食物！",
         recipe_desc = COMMON_RECIPE_DESC
     },
     ["mone_icepack"] = {
@@ -91,9 +118,54 @@ local prefabsInfo = {
         describe = "想要解放双手吗？找我呀！",
         recipe_desc = COMMON_RECIPE_DESC
     },
+    ["mone_single_dog"] = {
+        names = "单身狗",
+        describe = "我只允许有我一条狗！",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mone_skull_chest"] = {
+        names = "杂物箱",
+        describe = nil,
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mone_bookstation"] = {
+        names = "小书架",
+        describe = "求知若渴的头脑应当永远有机会去图书馆博览群书",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
     ["mone_firesuppressor"] = {
         names = "升级版·雪球发射机",
-        describe = "一切都是为了便利！",
+        describe = nil,
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mone_orangestaff"] = {
+        names = "升级版·懒人魔杖",
+        describe = nil,
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mone_boomerang"] = {
+        names = "升级版·回旋镖",
+        describe = nil,
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mone_farm_plow_item"] = {
+        names = "升级版·耕地机",
+        describe = nil,
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mone_farm_plow"] = {
+        names = "升级版·耕地机",
+        describe = nil,
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mone_eyemaskhat"] = {
+        names = "升级版·眼面具",
+        describe = nil,
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mone_shieldofterror"] = {
+        names = "升级版·恐怖盾牌",
+        describe = nil,
         recipe_desc = COMMON_RECIPE_DESC
     },
     ["mone_treasurechest"] = {
@@ -131,9 +203,19 @@ local prefabsInfo = {
         describe = "草制护具。肯定不能持久。",
         recipe_desc = COMMON_RECIPE_DESC
     },
+    ["mone_armor_metalplate"] = {
+        names = "铁甲",
+        describe = "近乎无法穿透！",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
     ["mone_brainjelly"] = {
         names = "智慧帽",
         describe = "等等，有点痒，看样子我要长脑子了。",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mone_dragonflyfurnace"] = {
+        names = "升级版·龙鳞火炉",
+        describe = "我想我陷入爱情了",
         recipe_desc = COMMON_RECIPE_DESC
     },
     ["mone_moondial"] = {
@@ -172,8 +254,8 @@ local prefabsInfo = {
         recipe_desc = COMMON_RECIPE_DESC
     },
     ["mone_chiminea"] = {
-        names = "垃圾焚化炉",
-        describe = "我要吞噬一切！",
+        names = "腐化炉",
+        describe = "我要腐烂一切！",
         recipe_desc = COMMON_RECIPE_DESC
     },
     ["mone_waterballoon"] = {
@@ -221,6 +303,11 @@ local prefabsInfo = {
         describe = "",
         recipe_desc = COMMON_RECIPE_DESC
     },
+    ["mone_sanity_hamburger"] = {
+        names = "强san素食堡",
+        describe = "",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
     ["mone_lifeinjector_vb"] = {
         names = "强心素食堡",
         describe = "",
@@ -254,6 +341,145 @@ local prefabsInfo = {
     ["mone_guacamole"] = {
         names = "超级鳄梨酱",
         describe = "",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mone_glommer_poop_food"] = {
+        names = "格罗姆拉肚子奶昔",
+        describe = "",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mone_hambat"] = {
+        names = "腐化火腿棒",
+        describe = "",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mone_meatrack"] = {
+        names = "升级版·晾肉架",
+        describe = "",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mone_beef_bell"] = {
+        names = "超级牛铃",
+        describe = "",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mone_rabbitkinghorn"] = {
+        names = "升级版·挖洞兔号角",
+        describe = "",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mone_rabbitkinghorn_chest"] = {
+        names = "便携式巢穴",
+        describe = "",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+
+    -- region 更多物品·拓展包
+    ["mie_beefalofeed"] = {
+        names = "绝对吃不完的蒸树枝",
+        describe = "牛牛有福了~",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mie_wooden_drawer"] = {
+        names = "抽屉",
+        describe = "平平无奇",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mie_relic_2"] = {
+        names = "倾家荡产赌博机",
+        describe = "9格批量赌博机，每个格子55%概率翻倍，45%概率消失",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mone_dummytarget"] = {
+        names = "皮痒傀儡",
+        describe = "有没有人想打我的？最近皮子有点痒。",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mie_waterpump"] = {
+        names = "升级版·消防泵",
+        describe = "肥料掺了金坷垃，小麦亩产一千八。",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mie_bushhat"] = {
+        names = "升级版·灌木丛帽",
+        describe = "真的是掩耳盗铃吗？",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mie_tophat"] = {
+        names = "沃尔夫冈的高礼帽",
+        describe = "沃尔夫冈的高礼帽",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mie_sand_pit"] = {
+        names = "沙坑",
+        describe = "这里好像沉睡着什么？",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mie_icemaker"] = {
+        names = "制冰机",
+        describe = "它把火变成冰！",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mie_ordinary_bundle_state1"] = {
+        names = "普通版·万物打包带",
+        describe = "统统打包带走！",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mie_bundle_state1"] = {
+        names = "万物打包带",
+        describe = "统统打包带走！",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mie_fish_box"] = {
+        names = "贮藏室",
+        describe = "用于储藏的专用建筑",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mie_book_silviculture"] = {
+        names = "《论如何做一个懒人》",
+        describe = "懒才是第一生产力！",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mie_book_horticulture"] = {
+        names = "《论如何做一个懒人+》",
+        describe = "懒才是第一生产力！",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mone_fertilizer_bot"] = {
+        names = "施肥瓦器人",
+        describe = "自动为周围的作物和农场施肥",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mie_obsidianfirepit"] = {
+        names = "黑曜石火坑",
+        describe = "",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mie_bear_skin_cabinet"] = {
+        names = "熊皮保鲜柜",
+        describe = "熊皮保鲜柜！让新鲜度有保险！",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["mie_watersource"] = {
+        names = "水桶",
+        describe = "水资源！",
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    -- endregion
+
+    ["hivehat"] = {
+        names = nil,
+        describe = nil,
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["eyemaskhat"] = {
+        names = nil,
+        describe = nil,
+        recipe_desc = COMMON_RECIPE_DESC
+    },
+    ["shieldofterror"] = {
+        names = nil,
+        describe = nil,
         recipe_desc = COMMON_RECIPE_DESC
     },
 }

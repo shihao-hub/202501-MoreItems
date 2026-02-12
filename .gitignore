@@ -68,7 +68,9 @@ backups/
 # GIT_SETUP.md
 # git_push.bat
 
-references
 
 # Windows特殊文件
 nul
+
+.achieved_files
+.references
