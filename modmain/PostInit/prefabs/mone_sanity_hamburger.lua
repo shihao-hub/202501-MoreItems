@@ -28,6 +28,12 @@ local function perform(inst)
     -- 给吃食物时使用的
     inst.mone_sh_non_ban = true;
 
+    -- 立即初始化 save_fields，避免换人继承时因时序问题导致字段为 nil
+    if inst.components.sanity then
+        inst.components.mone_sanity_hamburger.save_currentsanity = inst.components.sanity.current;
+        inst.components.mone_sanity_hamburger.save_maxsanity = inst.components.sanity.max;
+    end
+
     inst:DoTaskInTime(0, function(inst)
         inst:ListenForEvent("sanitydelta", function(inst, data)
             inst.components.mone_sanity_hamburger.save_currentsanity = inst.components.sanity.current;
