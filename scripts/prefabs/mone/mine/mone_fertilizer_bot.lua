@@ -365,7 +365,8 @@ local function fn()
     inst.components.fueled.fueltype = FUELTYPE.MAGIC
     inst.components.fueled:InitializeFuelLevel(constants.MONE_FERTILIZER_BOT__BATTERY_MAX)
     inst.components.fueled:SetDepletedFn(OnBroken)
-    inst.components.fueled:SetUpdateFn(OnUpdateFueled)
+    -- TODO: 检查潮湿加速机制是否需要
+    -- inst.components.fueled:SetUpdateFn(OnUpdateFueled)
     inst.components.fueled:SetSectionCallback(FueledSectionCallback)
     inst.components.fueled:SetSections(NUM_FUELED_SECTIONS)
     inst.components.fueled:SetFirstPeriod(TUNING.TURNON_FUELED_CONSUMPTION, TUNING.TURNON_FULL_FUELED_CONSUMPTION)
