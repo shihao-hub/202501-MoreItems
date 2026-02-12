@@ -28,7 +28,7 @@ local SECTION_SMALL = 1
 local VISUAL_SCALE = 1.05
 local LIGHT_LIGHTOVERRIDE = 0.5
 
---- 扫描周围需要施肥的目标
+--- 扫描周围需要施肥的目标（移植的植物）
 local function ScanForFertilizationTargets(inst)
     if inst.components.fueled:IsEmpty() then
         return {}
@@ -39,9 +39,10 @@ local function ScanForFertilizationTargets(inst)
     local range = constants.MONE_FERTILIZER_BOT__RANGE
 
     for _, ent in ipairs(TheSim:FindEntities(x, y, z, range)) do
-        -- 判断是否需要施肥
-        if (ent.components.pickable and ent.components.pickable:IsBarren()) or
-           (ent.components.grower and ent.components.grower.cycles_left == 0) then
+        -- 只对移植的植物施肥（浆果丛、草、树枝等）
+        if ent.components.pickable 
+           and ent.components.pickable.IsBarren 
+           and ent.components.pickable:IsBarren() then
             table.insert(targets, ent)
         end
     end
@@ -54,9 +55,9 @@ local function ScanForFertilizationTargets(inst)
     return targets
 end
 
---- 直接对目标施肥
+--- 直接对目标施肥（只对移植植物）
 local function FertilizeTarget(inst, target)
-    if not target.components.fertilizable then
+    if target == nil or not target:IsValid() then
         return false
     end
 
@@ -69,17 +70,24 @@ local function FertilizeTarget(inst, target)
         return false
     end
 
-    -- 直接对目标使用肥料
-    local success = target.components.fertilizable:Fertilize(item, inst)
+    -- 只对移植的植物施肥（浆果丛、草、树枝等）
+    if not (target.components.pickable 
+       and target.components.pickable.IsBarren 
+       and target.components.pickable:IsBarren() 
+       and target.components.pickable.Fertilize) then
+        return false
+    end
+
+    local success = target.components.pickable:Fertilize(item, inst)
 
     if success then
+        print(string.format("[MoneFertilizerBot] Fertilized %s", target.prefab or "unknown"))
         -- 消耗肥料和耐久
         inst.components.container:ConsumeByName(item.prefab, 1)
         inst.components.fueled:DoDelta(-constants.MONE_FERTILIZER_BOT__FUEL_DRAIN_RATE)
-        return true
     end
 
-    return false
+    return success
 end
 
 --- 设置为破损状态
@@ -183,6 +191,12 @@ local function DoOnDroppedLogic(inst)
         return
     end
 
+    -- 每次放下时更新出生点位置（home）
+    if inst.components.knownlocations then
+        local x, y, z = inst.Transform:GetWorldPosition()
+        inst.components.knownlocations:RememberLocation("spawnpoint", Vector3(x, y, z))
+    end
+
     inst.sg:GoToState(inst.components.fueled:IsEmpty() and "idle_broken" or "idle", true)
 end
 
@@ -232,21 +246,6 @@ end
 local function OnEntitySleep(inst)
     if inst:IsInLimbo() or inst.components.fueled:IsEmpty() or inst.sg:HasAnyStateTag("drowning", "falling") then
         return
-    end
-
-    -- 更新出生点位置（只在第一次睡眠时更新）
-    if inst.components.knownlocations then
-        local x, y, z = inst.Transform:GetWorldPosition()
-        local pos = Vector3(x, y, z)
-
-        -- 检查是否需要更新
-        local current = inst.components.knownlocations:GetLocation("spawnpoint")
-        if current == nil then
-            print(string.format("[MoneFertilizerBot] OnEntitySleep: Initializing spawnpoint to (%.2f, %.2f, %.2f)", x, y, z))
-            inst.components.knownlocations:RememberLocation("spawnpoint", pos)
-        else
-            print(string.format("[MoneFertilizerBot] OnEntitySleep: Spawnpoint already set to (%.2f, %.2f, %.2f)", current.x, current.y, current.z))
-        end
     end
 
     inst.components.fueled:StopConsuming()

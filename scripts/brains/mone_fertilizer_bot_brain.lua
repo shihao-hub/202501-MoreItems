@@ -60,39 +60,28 @@ local function FertilizeAction(inst)
 
     -- 走到目标附近
     local target_pos = target:GetPosition()
-    if inst:GetDistanceSqToPoint(target_pos) > 4 then
+    local dist_sq = inst:GetDistanceSqToPoint(target_pos)
+    
+    if dist_sq > 4 then
         return BufferedAction(inst, target, ACTIONS.WALKTO, nil, nil, nil, nil, nil, 1)
     end
 
-    -- 检查目标是否可施肥
-    if not target.components.fertilizable then
-        return nil
-    end
-
-    -- 创建施肥动作
-    local action = BufferedAction(inst, target, ACTIONS.DEPLOY) -- 使用DEPLOY动作作为施肥动作
-    action:AddSuccessAction(function()
-        inst:FertilizeTarget(target)
-    end)
-
-    return action
+    -- 距离足够近，直接施肥
+    inst:FertilizeTarget(target)
+    
+    return nil -- 返回nil让行为树继续下一个循环
 end
 
 --- 回到出生点
 local function GoHomeAction(inst)
     if inst.components.knownlocations == nil then
-        print("[MoneFertilizerBot] GoHome: knownlocations is nil")
         return nil
     end
 
     local spawnpoint = inst.components.knownlocations:GetLocation("spawnpoint")
     if spawnpoint == nil then
-        print("[MoneFertilizerBot] GoHome: spawnpoint is nil")
         return nil
     end
-
-    print(string.format("[MoneFertilizerBot] GoHome: spawnpoint=(%.2f, %.2f, %.2f)", spawnpoint.x, spawnpoint.y, spawnpoint.z))
-    print(string.format("[MoneFertilizerBot] GoHome: current pos=(%.2f, %.2f, %.2f)", inst.Transform:GetWorldPosition()))
 
     -- 放下持有的物品
     local item = inst.components.inventory:GetFirstItemInAnySlot()
@@ -100,13 +89,9 @@ local function GoHomeAction(inst)
         inst.components.inventory:DropItem(item, true, true)
     end
 
-    -- 使用正确的 y 坐标计算距离
-    local dist_sq = inst:GetDistanceSqToPoint(spawnpoint.x, spawnpoint.y or 0, spawnpoint.z)
-    print(string.format("[MoneFertilizerBot] GoHome: distance_sq=%.2f", dist_sq))
-
     -- 如果已经很近，不移动
+    local dist_sq = inst:GetDistanceSqToPoint(spawnpoint.x, spawnpoint.y or 0, spawnpoint.z)
     if dist_sq < 0.25 then
-        print("[MoneFertilizerBot] GoHome: already home")
         return nil
     end
 
