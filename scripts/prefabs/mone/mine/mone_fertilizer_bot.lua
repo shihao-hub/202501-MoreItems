@@ -238,12 +238,23 @@ local function OnEntitySleep(inst)
         return
     end
 
+    -- 更新出生点位置（只在第一次睡眠时更新）
+    if inst.components.knownlocations then
+        local x, y, z = inst.Transform:GetWorldPosition()
+        local pos = Vector3(x, y, z)
+
+        -- 检查是否需要更新
+        local current = inst.components.knownlocations:GetLocation("spawnpoint")
+        if current == nil then
+            print(string.format("[MoneFertilizerBot] OnEntitySleep: Initializing spawnpoint to (%.2f, %.2f, %.2f)", x, y, z))
+            inst.components.knownlocations:RememberLocation("spawnpoint", pos)
+        else
+            print(string.format("[MoneFertilizerBot] OnEntitySleep: Spawnpoint already set to (%.2f, %.2f, %.2f)", current.x, current.y, current.z))
+        end
+    end
+
     inst.components.fueled:StopConsuming()
     inst.SoundEmitter:KillAllSounds()
-
-    if inst.brain ~= nil then
-        inst.brain:UnignoreItem()
-    end
 
     if inst._sleepteleporttask == nil then
         inst._sleepteleporttask = inst:DoTaskInTime(0, DoSleepTeleport)
@@ -354,7 +365,7 @@ local function fn()
     inst.components.inventoryitem:SetOnDroppedFn(OnDropped)
     inst.components.inventoryitem:SetOnPickupFn(OnPickup)
     inst.components.inventoryitem.imagename = "storage_robot"
-    inst.components.inventoryitem.atlasname = "images/inventoryimages.xml"
+    inst.components.inventoryitem.atlasname = "images/inventoryimages3.xml"
 
     inst:AddComponent("locomotor")
     inst.components.locomotor:SetTriggersCreep(false)
@@ -384,12 +395,6 @@ local function fn()
     inst.OnLoad = OnLoad
     inst.OnEntitySleep = OnEntitySleep
     inst.OnEntityWake = OnEntityWake
-
-    -- 初始化出生点
-    if inst.components.knownlocations then
-        local x, y, z = inst.Transform:GetWorldPosition()
-        inst.components.knownlocations:RememberLocation("spawnpoint", Vector3(x, y, z))
-    end
 
     MakeHauntable(inst)
 
