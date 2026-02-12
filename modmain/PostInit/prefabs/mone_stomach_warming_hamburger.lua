@@ -5,6 +5,7 @@
 local utils = require("moreitems.main").shihao.utils
 local invoke = utils.invoke
 
+local allow_universal_functionality_enable = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA["stomach_warming_hamburger__allow_universal_functionality_enable"]
 local constants = require("more_items_constants")
 
 local config_data = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA;
@@ -42,7 +43,8 @@ env.AddPlayerPostInit(function(inst)
 
     inst:AddComponent("mone_stomach_warming_hamburger")
 
-    if INCLUDE_PLAYERS[inst.prefab] then
+    if allow_universal_functionality_enable
+            or INCLUDE_PLAYERS[inst.prefab] then
         perform(inst)
     end
 end)

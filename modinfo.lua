@@ -657,6 +657,26 @@ configuration_options = {
         default = false
     },
     {
+        name = "sanity_hamburger__allow_universal_functionality_enable",
+        label = "允许强san素食堡对所有人物使用（谨慎开启）",
+        hover = "作者不对该功能造成的 bug 负责",
+        options = {
+            option(vars.OPEN, true),
+            option(vars.CLOSE, false),
+        },
+        default = false
+    },
+    {
+        name = "stomach_warming_hamburger__allow_universal_functionality_enable",
+        label = "允许暖胃汉堡包对所有人物使用（谨慎开启）",
+        hover = "作者不对该功能造成的 bug 负责",
+        options = {
+            option(vars.OPEN, true),
+            option(vars.CLOSE, false),
+        },
+        default = false
+    },
+    {
         name = "lifeinjector_vb__allow_universal_functionality_enable",
         label = "允许强心素食堡对所有人物使用（谨慎开启）",
         hover = "作者不对该功能造成的 bug 负责",
