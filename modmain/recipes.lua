@@ -2031,8 +2031,8 @@ Recipes[#Recipes + 1] = {
         nounlock = nil,
         numtogive = nil,
         builder_tag = nil,
-        atlas = "images/inventoryimages.xml",
-        image = "storage_robot.tex"
+        atlas = "images/inventoryimages3.xml",
+        image = "wagpunkbits_kit.tex"
     },
     filters = {
         "MONE_MORE_ITEMS1"

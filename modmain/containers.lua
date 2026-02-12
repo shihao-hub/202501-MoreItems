@@ -2097,6 +2097,29 @@ function DoFns.moondial()
     end
 end
 
+--- 施肥瓦器人
+function DoFns.mone_fertilizer_bot()
+    params.mone_fertilizer_bot = {
+        widget = {
+            slotpos = {},
+            animbank = "ui_chest_3x3",
+            animbuild = "ui_chest_3x3",
+            pos = Vector3(0, 200, 0),
+            side_align_tip = 160
+        },
+        type = "chest",
+        itemtestfn = function(container, item, slot)
+            return item:HasTag("mone_fertilizer_bot_fertilizer")
+        end
+    }
+
+    for y = 2, 0, -1 do
+        for x = 0, 2 do
+            table.insert(params.mone_fertilizer_bot.widget.slotpos, Vector3(80 * x - 80 * 2 + 80, 80 * y - 80 * 2 + 80, 0))
+        end
+    end
+end
+
 for _, do_fn in pairs(DoFns) do
     do_fn();
 end

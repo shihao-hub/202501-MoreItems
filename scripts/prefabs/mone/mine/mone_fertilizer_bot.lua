@@ -28,10 +28,6 @@ local SECTION_SMALL = 1
 local VISUAL_SCALE = 1.05
 local LIGHT_LIGHTOVERRIDE = 0.5
 
--- 从 container_widget_setup 获取参数
-local container_widget_setup = require("widgets/container_widget_setup")
-local container_params = container_widget_setup.params.mone_fertilizer_bot or {}
-
 --- 扫描周围需要施肥的目标
 local function ScanForFertilizationTargets(inst)
     if inst.components.fueled:IsEmpty() then
@@ -348,9 +344,6 @@ local function fn()
     inst.components.drownable:SetOnTakeDrowningDamageFn(OnTakeDrowningDamage)
 
     inst:AddComponent("container")
-    inst.components.container.widget = container_params.widget
-    inst.components.container.itemtestfn = container_params.itemtestfn
-    inst.components.container:SetNumSlots(container_params.widget.slotpos ~= nil and #container_params.widget.slotpos or 9)
     inst.components.container:WidgetSetup("mone_fertilizer_bot")
 
     inst:AddComponent("inventory")
