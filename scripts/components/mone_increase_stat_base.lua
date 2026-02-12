@@ -15,6 +15,7 @@ local constants = require("more_items_constants")
 local STAT_CONFIG = {
     stomach_warming_hamburger = {
         config_key = "stomach_warming_hamburger__inherit_when_change_character",
+        allow_universal_config_key = "stomach_warming_hamburger__allow_universal_functionality_enable",
         component_name = "hunger",
         save_fields = {"save_currenthunger", "save_maxhunger"},
         add_num = constants.STOMACH_WARMING_HAMBURGER__PER_ADD_NUM,
@@ -28,6 +29,7 @@ local STAT_CONFIG = {
 
     lifeinjector_vb = {
         config_key = "lifeinjector_vb__inherit_when_change_character",
+        allow_universal_config_key = "lifeinjector_vb__allow_universal_functionality_enable",
         component_name = "health",
         save_fields = {"save_currenthealth", "save_maxhealth"},
         add_num = constants.LIFE_INJECTOR_VB__PER_ADD_NUM,
@@ -41,6 +43,7 @@ local STAT_CONFIG = {
 
     sanity_hamburger = {
         config_key = "sanity_hamburger__inherit_when_change_character",
+        allow_universal_config_key = "sanity_hamburger__allow_universal_functionality_enable",
         component_name = "sanity",
         save_fields = {"save_currentsanity", "save_maxsanity"},
         add_num = constants.SANITY_HAMBURGER__PER_ADD_NUM,
@@ -64,6 +67,7 @@ function IncreaseStatBase.new(stat_type)
     end
 
     local inherit_when_change_character = dst_utils.get_mod_config_data(config.config_key)
+    local allow_universal_functionality_enable = dst_utils.get_mod_config_data(config.allow_universal_config_key)
     local interval = {
         get_persistent_data = dst_utils.get_persistent_data,
         set_persist_data = dst_utils.set_persist_data
@@ -73,13 +77,17 @@ function IncreaseStatBase.new(stat_type)
         return stl_table.contains_value(config.included_players, username)
     end
 
+    local function _should_enable_for_player(prefab)
+        return allow_universal_functionality_enable or _is_player_included(prefab)
+    end
+
     local function _set_persist_data_on_init(component, persist_data)
         base.log.info("call _set_persist_data_on_init")
 
         local self = component
         local user = self.inst
 
-        if not _is_player_included(user.prefab) then
+        if not _should_enable_for_player(user.prefab) then
             return
         end
 
@@ -116,7 +124,7 @@ function IncreaseStatBase.new(stat_type)
 
         if inherit_when_change_character then
             self.inst:DoTaskInTime(0, function()
-                if not _is_player_included(self.inst.prefab) then
+                if not _should_enable_for_player(self.inst.prefab) then
                     return
                 end
 
@@ -258,7 +266,7 @@ function IncreaseStatBase.new(stat_type)
             data[field] = self[field]
         end
 
-        if self:_character_has_eaten() and _is_player_included(self.inst.prefab) then
+        if self:_character_has_eaten() and _should_enable_for_player(self.inst.prefab) then
             local filename = self:_get_persist_filename()
             if filename then
                 interval.set_persist_data(filename, data)

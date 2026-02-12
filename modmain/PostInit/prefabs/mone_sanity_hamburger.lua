@@ -7,7 +7,7 @@ local invoke = utils.invoke
 
 local allow_universal_functionality_enable = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA["sanity_hamburger__allow_universal_functionality_enable"]
 local constants = require("more_items_constants")
-
+allow_universal_functionality_enable=true
 local config_data = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA;
 
 if not config_data.mone_sanity_hamburger then

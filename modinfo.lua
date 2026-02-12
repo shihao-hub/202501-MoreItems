@@ -979,7 +979,6 @@ configuration_options = {
 
     fns.blank(),
     fns.common_item("__ph__disguiser", "伪装者", "佩戴后，可以制作人物通用专属制作的物品"),
-    fns.common_item("__ph", "施肥瓦器人","搜索周围目标，施肥"),
 
     fns.blank(),
 
