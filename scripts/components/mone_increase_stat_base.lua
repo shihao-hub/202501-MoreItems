@@ -193,8 +193,12 @@ function IncreaseStatBase.new(stat_type)
             component:SetCurrentHealth(component.currenthealth)
             component.maxhealth = component.maxhealth + config.add_num
         else
-            -- 使用 DoDelta(0, false) 来触发 sanitydelta/hungerdelta 事件
-            component:DoDelta(0, false)
+            -- 尝试使用 SetCurrent 来触发 sanitydelta/hungerdelta 事件
+            if component.SetCurrent then
+                component:SetCurrent(component.current)
+            else
+                component.current = component.current
+            end
             component.max = component.max + config.add_num
         end
 
@@ -236,7 +240,12 @@ function IncreaseStatBase.new(stat_type)
                 component:SetCurrentHealth(self.save_currenthealth)
                 component.maxhealth = self.save_maxhealth
             else
-                component.current = self[config.save_fields[1]]
+                -- 尝试使用 SetCurrent 来正确触发事件
+                if component.SetCurrent then
+                    component:SetCurrent(self[config.save_fields[1]])
+                else
+                    component.current = self[config.save_fields[1]]
+                end
                 component.max = self[config.save_fields[2]]
             end
             self:ForceUpdateHUD(true)
