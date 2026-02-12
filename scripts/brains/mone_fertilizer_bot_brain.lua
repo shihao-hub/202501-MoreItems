@@ -133,12 +133,4 @@ function MoneFertilizerBotBrain:OnStart()
     self.bt = BT(self.inst, root)
 end
 
-function MoneFertilizerBotBrain:OnInitializationComplete()
-    -- 初始化出生点
-    if self.inst.components.knownlocations ~= nil then
-        local x, y, z = self.inst.Transform:GetWorldPosition()
-        self.inst.components.knownlocations:AddLocation("spawnpoint", x, y, z)
-    end
-end
-
 return MoneFertilizerBotBrain
