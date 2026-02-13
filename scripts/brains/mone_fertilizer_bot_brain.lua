@@ -13,44 +13,14 @@ end)
 
 --------------------------------------------------------------------------------
 
---- 检查是否有肥料
-local function HasFertilizer(inst)
-    return inst.components.container:FindItem(function(item)
-        return item:HasTag("mone_fertilizer_bot_fertilizer")
-    end) ~= nil
-end
-
---- 从周围容器获取肥料
-local function FetchFertilizerAction(inst)
-    -- 如果已经有肥料，不需要获取
-    if HasFertilizer(inst) then
-        return nil
-    end
-    
-    -- 扫描周围容器
-    local container, fertilizer = inst:ScanAndFetchFertilizer()
-    if container == nil or fertilizer == nil then
-        return nil
-    end
-    
-    -- 走到容器附近
-    local container_pos = container:GetPosition()
-    local dist_sq = inst:GetDistanceSqToPoint(container_pos)
-    
-    if dist_sq > 4 then
-        return BufferedAction(inst, container, ACTIONS.WALKTO, nil, nil, nil, nil, nil, 1)
-    end
-    
-    -- 距离足够近，取出肥料
-    inst:TakeFertilizerFromContainer(container, fertilizer)
-    
-    return nil
-end
-
 --- 寻找需要施肥的目标
 local function FindFertilizationAction(inst)
     -- 检查是否有肥料
-    if not HasFertilizer(inst) then
+    local has_fertilizer = inst.components.container:FindItem(function(item)
+        return item:HasTag("mone_fertilizer_bot_fertilizer")
+    end)
+
+    if not has_fertilizer then
         return nil
     end
 
@@ -70,7 +40,11 @@ end
 --- 对目标施肥
 local function FertilizeAction(inst)
     -- 检查是否有肥料
-    if not HasFertilizer(inst) then
+    local has_fertilizer = inst.components.container:FindItem(function(item)
+        return item:HasTag("mone_fertilizer_bot_fertilizer")
+    end)
+
+    if not has_fertilizer then
         return nil
     end
 
@@ -133,7 +107,6 @@ function MoneFertilizerBotBrain:OnStart()
             PriorityNode({
                 DoAction(self.inst, FertilizeAction, "Fertilize Target", true),
                 DoAction(self.inst, FindFertilizationAction, "Find Target", true),
-                DoAction(self.inst, FetchFertilizerAction, "Fetch Fertilizer", true),
                 DoAction(self.inst, GoHomeAction, "Return Home", true),
                 ParallelNode{
                     StandStill(self.inst),

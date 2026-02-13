@@ -28,63 +28,6 @@ local SECTION_SMALL = 1
 local VISUAL_SCALE = 1.05
 local LIGHT_LIGHTOVERRIDE = 0.5
 
--- 常见肥料列表（可以自动获取）
-local COMMON_FERTILIZERS = {
-    poop = true,           -- 便便
-    guano = true,          -- 鸟粪
-    rottenegg = true,      -- 臭蛋
-    fertilizer = true,     -- 桶装便便
-    compostwrap = true,    -- 堆肥包
-}
-
---- 检查是否是常见肥料
-local function IsCommonFertilizer(item)
-    if item == nil or not item:IsValid() then
-        return false
-    end
-    return COMMON_FERTILIZERS[item.prefab] == true
-end
-
---- 检查容器是否可以被搜索
-local function IsValidContainer(ent, inst)
-    -- 必须有效且可见
-    if ent == nil or not ent:IsValid() or ent:IsInLimbo() then
-        return false
-    end
-    
-    -- 必须有 container 组件
-    if ent.components.container == nil then
-        return false
-    end
-    
-    -- 排除自己
-    if ent == inst then
-        return false
-    end
-    
-    -- 排除玩家身上的容器（背包、物品栏等）
-    if ent:HasTag("player") then
-        return false
-    end
-    
-    -- 排除被玩家持有的容器
-    if ent.components.inventoryitem and ent.components.inventoryitem:IsHeld() then
-        return false
-    end
-    
-    -- 排除不可见的容器（如某些特殊容器）
-    if ent:HasTag("NOCLICK") or ent:HasTag("FX") then
-        return false
-    end
-    
-    -- 排除私人容器
-    if ent.components.container.opener ~= nil then
-        return false
-    end
-    
-    return true
-end
-
 --- 扫描周围需要施肥的目标（移植的植物）
 local function ScanForFertilizationTargets(inst)
     if inst.components.fueled:IsEmpty() then
@@ -110,77 +53,6 @@ local function ScanForFertilizationTargets(inst)
     end)
 
     return targets
-end
-
---- 扫描周围可用的容器并获取肥料
-local function ScanAndFetchFertilizer(inst)
-    if inst.components.fueled:IsEmpty() then
-        return nil, nil
-    end
-    
-    -- 检查自己的容器是否已满
-    if inst.components.container:IsFull() then
-        return nil, nil
-    end
-
-    local x, y, z = inst.Transform:GetWorldPosition()
-    local range = constants.MONE_FERTILIZER_BOT__RANGE
-    
-    -- 搜索周围容器
-    local containers = {}
-    for _, ent in ipairs(TheSim:FindEntities(x, y, z, range, nil, nil, {"structure", "chest"})) do
-        if IsValidContainer(ent, inst) then
-            table.insert(containers, ent)
-        end
-    end
-    
-    -- 按距离排序
-    table.sort(containers, function(a, b)
-        return inst:GetDistanceSqToInst(a) < inst:GetDistanceSqToInst(b)
-    end)
-    
-    -- 遍历容器查找常见肥料
-    for _, container in ipairs(containers) do
-        local fertilizer = container.components.container:FindItem(IsCommonFertilizer)
-        if fertilizer then
-            return container, fertilizer
-        end
-    end
-    
-    return nil, nil
-end
-
---- 从容器中取出肥料放入自己的容器
-local function TakeFertilizerFromContainer(inst, container, fertilizer)
-    if container == nil or fertilizer == nil then
-        return false
-    end
-    
-    if not container:IsValid() or not fertilizer:IsValid() then
-        return false
-    end
-    
-    -- 再次检查是否是常见肥料
-    if not IsCommonFertilizer(fertilizer) then
-        return false
-    end
-    
-    -- 从容器中移除肥料
-    local item = container.components.container:RemoveItem(fertilizer, false)
-    if item == nil then
-        return false
-    end
-    
-    -- 放入自己的容器
-    local success = inst.components.container:GiveItem(item)
-    if not success then
-        -- 如果放不进去，放回原容器
-        container.components.container:GiveItem(item)
-        return false
-    end
-    
-    print(string.format("[MoneFertilizerBot] Fetched %s from %s", item.prefab, container.prefab or "container"))
-    return true
 end
 
 --- 直接对目标施肥（只对移植植物）
@@ -463,8 +335,6 @@ local function fn()
 
     inst.ScanForFertilizationTargets = ScanForFertilizationTargets
     inst.FertilizeTarget = FertilizeTarget
-    inst.ScanAndFetchFertilizer = ScanAndFetchFertilizer
-    inst.TakeFertilizerFromContainer = TakeFertilizerFromContainer
     inst.GetFueledSectionMass = GetFueledSectionMass
     inst.GetFueledSectionSuffix = GetFueledSectionSuffix
     inst.SetBroken = SetBroken
