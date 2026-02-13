@@ -6,11 +6,8 @@
 local assets =
 {
     Asset("ANIM", "anim/storage_robot.zip"),
-    Asset("ANIM", "anim/storage_robot_med.zip"),
-    Asset("ANIM", "anim/storage_robot_small.zip"),
     Asset("ANIM", "anim/ui_chest_3x3.zip"),
     Asset("INV_IMAGE", "storage_robot"),
-    Asset("MINIMAP_IMAGE", "storage_robot_broken"),
 }
 
 local prefabs =
@@ -21,27 +18,18 @@ local prefabs =
 local brain = require "brains/mone_fertilizer_bot_brain"
 local constants = require("more_items_constants")
 
-local NUM_FUELED_SECTIONS = 5
-local SECTION_MED = 2
-local SECTION_SMALL = 1
-
 local VISUAL_SCALE = 1.05
-local LIGHT_LIGHTOVERRIDE = 0.5
 
 --- 扫描周围需要施肥的目标（移植的植物）
 local function ScanForFertilizationTargets(inst)
-    if inst.components.fueled:IsEmpty() then
-        return {}
-    end
-
     local x, y, z = inst.Transform:GetWorldPosition()
     local targets = {}
     local range = constants.MONE_FERTILIZER_BOT__RANGE
 
     for _, ent in ipairs(TheSim:FindEntities(x, y, z, range)) do
         -- 只对移植的植物施肥（浆果丛、草、树枝等）
-        if ent.components.pickable 
-           and ent.components.pickable.IsBarren 
+        if ent.components.pickable
+           and ent.components.pickable.IsBarren
            and ent.components.pickable:IsBarren() then
             table.insert(targets, ent)
         end
@@ -82,106 +70,11 @@ local function FertilizeTarget(inst, target)
 
     if success then
         print(string.format("[MoneFertilizerBot] Fertilized %s", target.prefab or "unknown"))
-        -- 消耗肥料和耐久
+        -- 只消耗肥料
         inst.components.container:ConsumeByName(item.prefab, 1)
-        inst.components.fueled:DoDelta(-constants.MONE_FERTILIZER_BOT__FUEL_DRAIN_RATE)
     end
 
     return success
-end
-
---- 设置为破损状态
-local function SetBroken(inst)
-    inst:AddTag("broken")
-    RemovePhysicsColliders(inst)
-    inst.MiniMapEntity:SetIcon("storage_robot_broken.png")
-    inst.components.inventoryitem:ChangeImageName("storage_robot_broken")
-end
-
---- 燃料耗尽回调
-local function OnBroken(inst)
-    inst:SetBroken()
-    if not inst.components.inventoryitem:IsHeld() and inst.sg.currentstate.name ~= "washed_ashore" then
-        inst.sg:GoToState("breaking")
-    end
-end
-
---- 修复回调
-local function OnRepaired(inst)
-    inst:RemoveTag("broken")
-    if inst.sg:HasStateTag("broken") then
-        inst.sg:GoToState(inst.components.inventoryitem:IsHeld() and "idle" or "repairing_pre")
-    end
-end
-
---- 获取状态文本
-local function GetStatus(inst)
-    return inst.components.fueled:IsEmpty() and "BROKEN" or nil
-end
-
---- 定期更新燃料消耗率（基于潮湿度）
-local function OnUpdateFueled(inst)
-    local moisture = inst.components.inventoryitem:GetMoistureClamped()
-    local moisture_pct = moisture / TUNING.MAX_WETNESS
-
-    inst.components.fueled.rate = 1 + moisture_pct
-
-    -- 潮湿时产生火花效果
-    if moisture_pct <= 0 then
-        return
-    end
-
-    if inst._last_spark_time == nil or
-       (inst._last_spark_time + 3 + (1 - moisture_pct) * 7 <= GetTime()) then
-        inst._last_spark_time = GetTime()
-        SpawnPrefab("sparks").Transform:SetPosition(inst.Transform:GetWorldPosition())
-    end
-end
-
---- 燃料段变化回调
-local function FueledSectionCallback(newsection, oldsection, inst)
-    if newsection <= SECTION_SMALL then
-        inst.AnimState:SetBuild("storage_robot_small")
-        inst.components.locomotor.walkspeed = constants.MONE_FERTILIZER_BOT__WALK_SPEED * 0.6
-        inst.Physics:SetMass(10)
-    elseif newsection <= SECTION_MED then
-        inst.AnimState:SetBuild("storage_robot_med")
-        inst.components.locomotor.walkspeed = constants.MONE_FERTILIZER_BOT__WALK_SPEED * 0.8
-        inst.Physics:SetMass(30)
-    elseif newsection >= NUM_FUELED_SECTIONS then
-        inst.components.locomotor.walkspeed = constants.MONE_FERTILIZER_BOT__WALK_SPEED
-        inst.Physics:SetMass(50)
-        ChangeToCharacterPhysics(inst)
-        inst.MiniMapEntity:SetIcon("storage_robot.png")
-        inst.components.inventoryitem:ChangeImageName()
-        if not inst.sg:HasStateTag("broken") or inst.components.inventoryitem:IsHeld() then
-            inst.AnimState:SetBuild("storage_robot")
-        end
-    end
-end
-
---- 获取当前段质量
-local function GetFueledSectionMass(inst)
-    local section = inst.components.fueled:GetCurrentSection()
-    if section <= SECTION_SMALL then
-        return 10
-    elseif section <= SECTION_MED then
-        return 30
-    else
-        return 50
-    end
-end
-
---- 获取当前段后缀
-local function GetFueledSectionSuffix(inst)
-    local section = inst.components.fueled:GetCurrentSection()
-    if section == SECTION_SMALL then
-        return "_small"
-    elseif section == SECTION_MED then
-        return "_med"
-    else
-        return ""
-    end
 end
 
 --- 放下时逻辑
@@ -197,7 +90,7 @@ local function DoOnDroppedLogic(inst)
         inst.components.knownlocations:RememberLocation("spawnpoint", Vector3(x, y, z))
     end
 
-    inst.sg:GoToState(inst.components.fueled:IsEmpty() and "idle_broken" or "idle", true)
+    inst.sg:GoToState("idle", true)
 end
 
 --- 放下回调
@@ -209,7 +102,6 @@ end
 local function OnPickup(inst)
     inst.sg:GoToState("idle", true)
 
-    inst.components.fueled:StopConsuming()
     inst.components.locomotor:Stop()
     inst.components.locomotor:Clear()
     inst:ClearBufferedAction()
@@ -218,10 +110,7 @@ end
 
 --- 加载回调
 local function OnLoad(inst, data)
-    if inst.components.fueled:IsEmpty() then
-        inst:SetBroken()
-        inst.sg:GoToState("idle_broken")
-    end
+    -- 不再需要处理破损状态
 end
 
 --- 睡眠时传送回家
@@ -231,7 +120,7 @@ local function DoSleepTeleport(inst)
         inst._sleepteleporttask = nil
     end
 
-    if inst:IsInLimbo() or inst.components.fueled:IsEmpty() or inst.sg:HasAnyStateTag("drowning", "falling") then
+    if inst:IsInLimbo() or inst.sg:HasAnyStateTag("drowning", "falling") then
         return
     end
 
@@ -244,11 +133,10 @@ end
 
 --- 实体睡眠回调
 local function OnEntitySleep(inst)
-    if inst:IsInLimbo() or inst.components.fueled:IsEmpty() or inst.sg:HasAnyStateTag("drowning", "falling") then
+    if inst:IsInLimbo() or inst.sg:HasAnyStateTag("drowning", "falling") then
         return
     end
 
-    inst.components.fueled:StopConsuming()
     inst.SoundEmitter:KillAllSounds()
 
     if inst._sleepteleporttask == nil then
@@ -271,7 +159,7 @@ local function OnReachDestination(inst, data)
     end
 
     if data.target.components.inventoryitem ~= nil and data.target.components.container == nil then
-        local x, y, z = data.pos:Get()
+        local x, _, z = data.pos:Get()
         inst.Physics:Teleport(x, 0, z)
     end
 end
@@ -285,8 +173,6 @@ local function OnTakeDrowningDamage(inst)
         end
     end
     inst.components.inventoryitem:MakeMoistureAtLeast(TUNING.MAX_WETNESS)
-    inst.components.fueled:SetPercent(0)
-    inst.sg:GoToState("idle_broken")
 end
 
 --- 容器物品变更回调（用于检查是否有肥料）
@@ -335,16 +221,12 @@ local function fn()
 
     inst.ScanForFertilizationTargets = ScanForFertilizationTargets
     inst.FertilizeTarget = FertilizeTarget
-    inst.GetFueledSectionMass = GetFueledSectionMass
-    inst.GetFueledSectionSuffix = GetFueledSectionSuffix
-    inst.SetBroken = SetBroken
     inst.OnInventoryChange = OnInventoryChange
 
     -- 组件
     inst:AddComponent("knownlocations")
 
     inst:AddComponent("inspectable")
-    inst.components.inspectable.getstatus = GetStatus
 
     inst:AddComponent("drownable")
     inst.components.drownable:SetOnTakeDrowningDamageFn(OnTakeDrowningDamage)
@@ -366,20 +248,6 @@ local function fn()
     inst.components.locomotor:SetTriggersCreep(false)
     inst.components.locomotor.pathcaps = { ignorecreep = true }
     inst.components.locomotor.walkspeed = constants.MONE_FERTILIZER_BOT__WALK_SPEED
-
-    inst:AddComponent("fueled")
-    inst.components.fueled.fueltype = FUELTYPE.MAGIC
-    inst.components.fueled:InitializeFuelLevel(constants.MONE_FERTILIZER_BOT__BATTERY_MAX)
-    inst.components.fueled:SetDepletedFn(OnBroken)
-    -- TODO: 检查潮湿加速机制是否需要
-    -- inst.components.fueled:SetUpdateFn(OnUpdateFueled)
-    inst.components.fueled:SetSectionCallback(FueledSectionCallback)
-    inst.components.fueled:SetSections(NUM_FUELED_SECTIONS)
-    inst.components.fueled:SetFirstPeriod(TUNING.TURNON_FUELED_CONSUMPTION, TUNING.TURNON_FULL_FUELED_CONSUMPTION)
-
-    inst:AddComponent("forgerepairable")
-    inst.components.forgerepairable:SetRepairMaterial(FORGEMATERIALS.WAGPUNKBITS)
-    inst.components.forgerepairable:SetOnRepaired(OnRepaired)
 
     inst:SetStateGraph("SGmone_fertilizer_bot")
     inst:SetBrain(brain)
