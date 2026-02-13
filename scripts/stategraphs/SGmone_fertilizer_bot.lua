@@ -35,11 +35,11 @@ local function MakeImmovable(inst)
 end
 
 local function RestoreMobility(inst)
-    inst.Physics:SetMass(inst:GetFueledSectionMass())
+    inst.Physics:SetMass(50)
 end
 
 local function PlaySectionSound(inst, sound, soundname)
-    inst.SoundEmitter:PlaySound("qol1/collector_robot/"..sound..inst:GetFueledSectionSuffix(), soundname)
+    inst.SoundEmitter:PlaySound("qol1/collector_robot/"..sound, soundname)
 end
 
 --------------------------------------------------------------------------------
@@ -51,16 +51,10 @@ local states =
         tags = { "idle" },
 
         onenter = function(inst, busy)
-            if inst.components.fueled:IsEmpty() then
-                inst.sg:GoToState("idle_broken")
-                return
-            end
-
             if busy then
                 inst.sg:AddStateTag("busy")
             end
 
-            inst.components.fueled:StopConsuming()
             inst.components.locomotor:StopMoving()
 
             inst.SoundEmitter:KillSound(WALK_SOUNDNAME)
@@ -76,26 +70,6 @@ local states =
         ontimeout = function(inst)
             inst.sg:GoToState("idle")
         end,
-    },
-
-    State{
-        name = "idle_broken",
-        tags = { "busy", "broken" },
-
-        onenter = function(inst)
-            inst.components.locomotor:Stop()
-            inst.AnimState:PlayAnimation("idle_broken", false)
-            inst.SoundEmitter:KillAllSounds()
-        end,
-
-        events =
-        {
-            EventHandler("animover", function(inst)
-                if inst.AnimState:IsCurrentAnimation("idle_broken") then
-                    inst.AnimState:PlayAnimation("idle_broken", false)
-                end
-            end),
-        },
     },
 
     State{
@@ -121,63 +95,9 @@ local states =
         events = idle_on_animover,
         onexit = RestoreMobility,
     },
-
-    State {
-        name = "repairing_pre",
-        tags = { "busy" },
-
-        onenter = function(inst)
-            inst.components.locomotor:Stop()
-            inst.AnimState:PlayAnimation("repair_pre", false)
-        end,
-
-        events =
-        {
-            EventHandler("animover", function(inst)
-                inst.sg:GoToState("repairing")
-            end),
-        },
-
-        onexit = function(inst)
-            inst.AnimState:SetBuild("storage_robot")
-        end,
-    },
-
-    State {
-        name = "repairing",
-        tags = { "busy" },
-
-        onenter = function(inst)
-            inst.components.locomotor:Stop()
-            inst.AnimState:PlayAnimation("repair", false)
-            inst.SoundEmitter:PlaySound("qol1/collector_robot/repair")
-        end,
-
-        events = idle_on_animover,
-    },
-
-    State {
-        name = "breaking",
-        tags = { "busy", "broken" },
-
-        onenter = function(inst)
-            inst.components.locomotor:Stop()
-            inst.components.inventory:DropEverything()
-            inst.AnimState:PlayAnimation("breaking")
-            inst.SoundEmitter:KillAllSounds()
-            inst.SoundEmitter:PlaySound("qol1/collector_robot/breakdown")
-        end,
-
-        events =
-        {
-            EventHandler("animover", function(inst)
-                inst.sg:GoToState("idle_broken")
-            end),
-        },
-    },
 }
 
-CommonStates.AddSinkAndWashAshoreStates(states, {washashore = "idle_broken"})
+CommonStates.AddSinkAndWashAshoreStates(states, {washashore = "idle"})
 
 CommonStates.AddWalkStates(
     states,
@@ -187,7 +107,6 @@ CommonStates.AddWalkStates(
     nil,
     {
         startonenter = function(inst)
-            inst.components.fueled:StartConsuming()
             inst.SoundEmitter:KillSound(ACTIVE_SOUNDNAME)
 
             if not inst.SoundEmitter:PlayingSound(WALK_SOUNDNAME) then
@@ -196,7 +115,6 @@ CommonStates.AddWalkStates(
         end,
 
         endonexit = function(inst)
-            inst.components.fueled:StopConsuming()
             inst.SoundEmitter:KillSound(WALK_SOUNDNAME)
             inst.SoundEmitter:KillSound(ACTIVE_SOUNDNAME)
         end,

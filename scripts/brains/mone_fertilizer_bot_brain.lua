@@ -103,24 +103,13 @@ end
 function MoneFertilizerBotBrain:OnStart()
     local root = PriorityNode(
     {
-        WhileNode(function() return not self.inst.sg:HasAnyStateTag("busy", "broken") end, "NO BRAIN WHEN BUSY OR BROKEN",
+        WhileNode(function() return not self.inst.sg:HasAnyStateTag("busy") end, "NO BRAIN WHEN BUSY",
             PriorityNode({
                 DoAction(self.inst, FertilizeAction, "Fertilize Target", true),
                 DoAction(self.inst, FindFertilizationAction, "Find Target", true),
                 DoAction(self.inst, GoHomeAction, "Return Home", true),
                 ParallelNode{
                     StandStill(self.inst),
-                    SequenceNode{
-                        ParallelNodeAny{
-                            WaitNode(6),
-                            ConditionWaitNode(function()
-                                return self.inst.components.fueled:GetPercent() < 0.2
-                            end),
-                        },
-                        ActionNode(function()
-                            self.inst:PushEvent("sleepmode")
-                        end),
-                    },
                 },
             }, .25)
         ),
