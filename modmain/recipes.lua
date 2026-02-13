@@ -44,6 +44,7 @@ local Recipes_Locate = {};
 ---------------------------------------------------------------------------------------------------------------
 --[[ 更多物品·便携容器 ]]
 ---------------------------------------------------------------------------------------------------------------
+-- 装备袋 (便携装备存储)
 Recipes_Locate["mone_backpack"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.backpack,
@@ -64,6 +65,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 工具袋 (便携工具存储)
 Recipes_Locate["mone_tool_bag"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.tool_bag,
@@ -84,6 +86,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 材料袋 (便携材料存储)
 Recipes_Locate["mone_candybag"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.candybag,
@@ -104,6 +107,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 小食物袋 (便携食物存储)
 Recipes_Locate["mone_spicepack"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.spicepack,
@@ -124,6 +128,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 食物袋 (保鲜便携食物存储)
 Recipes_Locate["mone_icepack"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.icepack,
@@ -144,6 +149,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 猪猪袋 (便携存储)
 Recipes_Locate["mone_piggybag"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.piggybag,
@@ -164,6 +170,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 收纳袋 (大容量便携存储)
 Recipes_Locate["mone_piggyback"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.piggyback,
@@ -184,6 +191,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 小书架 (书籍存储)
 Recipes_Locate["mone_bookstation"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.bookstation,
@@ -204,6 +212,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 升级版·挖洞兔号角 (召唤兔子)
 Recipes_Locate["mone_rabbitkinghorn"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.rabbitkinghorn,
@@ -224,6 +233,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 保鲜袋 (便携保鲜存储)
 Recipes_Locate["mone_storage_bag"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.storage_bag,
@@ -245,6 +255,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 海上箱子·便携 (水上便携存储)
 Recipes_Locate["mone_waterchest_inv"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.waterchest,
@@ -265,6 +276,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 薇格弗德歌谣盒 (音乐盒)
 Recipes_Locate["mone_wathgrithr_box"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.wathgrithr_box,
@@ -285,6 +297,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 旺达钟表盒 (时间存储)
 Recipes_Locate["mone_wanda_box"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.wanda_box,
@@ -312,6 +325,7 @@ Recipes[#Recipes + 1] = {
 
 -- HAND
 
+-- 毒矛 (毒属性武器)
 Recipes_Locate["mone_spear_poison"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.spear_poison,
@@ -354,6 +368,7 @@ Recipes[#Recipes + 1] = {
 --    }
 --};
 
+-- 腐化火腿棒 (食物武器)
 Recipes_Locate["mone_hambat"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mone_hambat,
@@ -375,6 +390,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 灯笼 (照明工具)
 Recipes_Locate["mone_redlantern"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.redlantern,
@@ -395,6 +411,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 渔网 (捕鱼工具)
 Recipes_Locate["mone_fishingnet"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.fishingnet,
@@ -415,6 +432,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 多功能·戟 (多功能武器)
 Recipes_Locate["mone_halberd"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.halberd,
@@ -436,6 +454,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 临时加速手杖 (移动加速)
 Recipes_Locate["mone_walking_stick"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.walking_stick,
@@ -456,6 +475,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 升级版·回旋镖 (远程武器)
 Recipes_Locate["mone_boomerang"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.boomerang,
@@ -477,6 +497,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 升级版·懒人魔杖 (传送工具)
 Recipes_Locate["mone_orangestaff"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.orangestaff,
@@ -498,6 +519,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 收割者的砍刀 (采集工具)
 Recipes_Locate["mone_harvester_staff"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.harvester_staff,
@@ -518,6 +540,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 收割者的黄金砍刀 (高级采集工具)
 Recipes_Locate["mone_harvester_staff_gold"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.harvester_staff,
@@ -538,6 +561,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 升级版·恐怖盾牌 (防御装备)
 Recipes_Locate["mone_shieldofterror"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.terraria,
@@ -559,6 +583,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 生命水球 (作物生长加速)
 Recipes_Locate["mone_waterballoon"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.waterballoon,
@@ -621,6 +646,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 小草帽 (基础头部防护)
 Recipes_Locate["mone_pith"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.pith,
@@ -641,6 +667,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 智慧帽 (精神增益)
 Recipes_Locate["mone_brainjelly"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.brainjelly,
@@ -662,6 +689,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 燃气帽 (特殊功能帽子)
 Recipes_Locate["mone_gashat"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.gashat,
@@ -683,6 +711,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 双层伞帽 (防雨防晒)
 Recipes_Locate["mone_double_umbrella"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.double_umbrella,
@@ -703,6 +732,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 蝙蝠帽·测试版 (特殊头部装备)
 Recipes_Locate["mone_bathat"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.bathat,
@@ -723,6 +753,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 升级版·眼面具 (特殊头部装备)
 Recipes_Locate["mone_eyemaskhat"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.terraria,
@@ -745,6 +776,7 @@ Recipes[#Recipes + 1] = {
 };
 
 -- BODY
+-- 铁甲 (身体防护)
 Recipes_Locate["mone_armor_metalplate"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.armor_metalplate,
@@ -769,6 +801,7 @@ Recipes[#Recipes + 1] = {
 -- BACK
 
 local new_anim = config_data.mone_seasack_new_anim;
+-- 海上麻袋 (便携存储)
 Recipes_Locate["mone_seasack"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.seasack,
@@ -789,6 +822,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 暗夜空间斗篷 (背部装备)
 Recipes_Locate["mone_nightspace_cape"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.nightspace_cape,
@@ -809,6 +843,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 妈妈放心种子袋 (种子存储)
 Recipes_Locate["mone_seedpouch"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mone_seedpouch,
@@ -940,6 +975,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 杂物箱 (存储箱)
 Recipes_Locate["mone_skull_chest"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.skull_chest,
@@ -970,6 +1006,7 @@ elseif MCB_capability == 3 then
 end
 
 -- 豪华箱子 (大容量存储箱)
+-- 豪华箱子 (大容量存储箱)
 Recipes_Locate["mone_treasurechest"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.chests_boxs,
@@ -995,6 +1032,7 @@ elseif MCB_capability == 3 then
     mone_dragonflychest_ingredients = { Ingredient("dragon_scales", 3), Ingredient("boards", 10), Ingredient("goldnugget", 30) }
 end
 
+-- 豪华龙鳞宝箱 (防火存储箱)
 Recipes_Locate["mone_dragonflychest"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.chests_boxs,
@@ -1020,6 +1058,7 @@ elseif MCB_capability == 3 then
     mone_icebox_ingredients = { Ingredient("goldnugget", 8), Ingredient("gears", 4), Ingredient("cutstone", 4) }
 end
 
+-- 豪华冰箱 (食物保鲜)
 Recipes_Locate["mone_icebox"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.chests_boxs,
@@ -1045,6 +1084,7 @@ elseif MCB_capability == 3 then
     mone_saltbox_ingredients = { Ingredient("saltrock", 40), Ingredient("bluegem", 4), Ingredient("cutstone", 4) }
 end
 
+-- 豪华盐箱 (食物保鲜)
 Recipes_Locate["mone_saltbox"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.chests_boxs,
@@ -1063,6 +1103,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 你的装备柜 (装备整理)
 Recipes_Locate["mone_wardrobe"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.wardrobe,
@@ -1125,6 +1166,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 皮痒傀儡 (训练假人)
 Recipes_Locate["mone_dummytarget"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mie_dummytarget,
@@ -1207,6 +1249,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 路灯 (照明建筑)
 Recipes_Locate["mone_city_lamp"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.city_lamp,
@@ -1227,6 +1270,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 单身狗 (装饰建筑)
 Recipes_Locate["mone_single_dog"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.single_dog,
@@ -1248,6 +1292,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 大蒜·建筑 (装饰建筑)
 Recipes_Locate["mone_garlic_structure"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.garlic_structure,
@@ -1269,6 +1314,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 腐化炉 (特殊火炉)
 Recipes_Locate["mone_chiminea"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.chiminea,
@@ -1289,6 +1335,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 树木栽培家 (自动种植)
 Recipes_Locate["mone_arborist"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.arborist,
@@ -1309,6 +1356,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 升级版·月晷 (时间显示)
 Recipes_Locate["mone_moondial"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.moondial,
@@ -1329,6 +1377,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 升级版·龙鳞火炉 (保暖建筑)
 Recipes_Locate["mone_dragonflyfurnace"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.dragonflyfurnace,
@@ -1349,6 +1398,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 升级版·雪球发射机 (灭火建筑)
 Recipes_Locate["mone_firesuppressor"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.firesuppressor,
@@ -1369,6 +1419,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 升级版·晾肉架 (食物处理)
 Recipes_Locate["mone_meatrack"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.meatrack,
@@ -1400,6 +1451,7 @@ end
 
 -- FOOD
 
+-- 强心素食堡 (回复生命)
 Recipes_Locate["mone_lifeinjector_vb"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mone_lifeinjector_vb,
@@ -1420,6 +1472,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 暖胃汉堡包 (回复饥饿)
 Recipes_Locate["mone_stomach_warming_hamburger"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mone_stomach_warming_hamburger,
@@ -1440,6 +1493,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 强san素食堡 (回复精神)
 Recipes_Locate["mone_sanity_hamburger"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mone_sanity_hamburger,
@@ -1460,6 +1514,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 蜜汁大肉棒 (食物)
 Recipes_Locate["mone_honey_ham_stick"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mone_honey_ham_stick,
@@ -1480,6 +1535,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 惠灵顿风干牛排 (高级食物)
 Recipes_Locate["mone_beef_wellington"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mone_beef_wellington,
@@ -1500,6 +1556,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 馊鸡汤 (回复食物)
 Recipes_Locate["mone_chicken_soup"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mone_chicken_soup,
@@ -1520,6 +1577,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 格罗姆拉肚子奶昔 (特殊食物)
 Recipes_Locate["mone_glommer_poop_food"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.glommer_poop_food,
@@ -1540,6 +1598,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 超级鳄梨酱 (特殊食物)
 Recipes_Locate["mone_guacamole"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mone_guacamole,
@@ -1583,6 +1642,7 @@ Recipes[#Recipes + 1] = {
 -- OTHER
 
 
+-- 素石 (怪物控制)
 Recipes_Locate["mone_pheromonestone"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.pheromonestone,
@@ -1604,6 +1664,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 荤石 (怪物控制)
 Recipes_Locate["mone_pheromonestone2"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.pheromonestone2,
@@ -1625,6 +1686,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 毒药膏 (毒药)
 Recipes_Locate["mone_poisonblam"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.poisonblam,
@@ -1645,7 +1707,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
--- 超级牛铃
+-- 超级牛铃 (召唤牛群)
 Recipes_Locate["mone_beef_bell"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.beef_bell,
@@ -1689,6 +1751,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 升级版·耕地机 (农田工具)
 Recipes_Locate["mone_farm_plow_item"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.farm_plow,
@@ -1803,7 +1866,7 @@ Recipes[#Recipes + 1] = {
 ---------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------
--- 施肥瓦器人
+-- 施肥瓦器人 (自动施肥)
 Recipes_Locate["mone_fertilizer_bot"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mone_fertilizer_bot,
