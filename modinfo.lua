@@ -85,8 +85,12 @@ if folder_name ~= nil and not folder_name:find("workshop%-") then
     name = name .. "·本地"
 end
 
+if folder_name ~= nil and folder_name:find("3406118037") then
+    name = name .. "·创意工坊·稳定版"
+end
+
 local function is_dev_branch()
-    return folder_name ~= nil and not folder_name:find("2916137510")
+    return folder_name ~= nil and not folder_name:find("2916137510") and not folder_name:find("3406118037")
 end
 
 -- 测试分支
@@ -526,7 +530,7 @@ configuration_options = {
     fns.common_item("__poisonblam", "毒药膏"),
     fns.common_item("__farm_plow", "升级版·耕地机"),
     fns.common_item("__mie_beefalofeed", "绝对吃不完的蒸树枝"),
-    
+
     fns.common_item("__mie_ordinary_bundle", "普通版·万物打包带"),
     fns.common_item("__beef_bell", "超级牛铃"), -- 待定，真的属于生活质量吗？
 
@@ -695,7 +699,7 @@ configuration_options = {
             option(vars.CLOSE, false),
         },
         default = false
-    }, 
+    },
 
     fns.blank();
     fns.common_item("moreitems_other", "总开关"),
@@ -971,9 +975,6 @@ configuration_options = {
     fns.common_item("__ph__disguiser", "伪装者", "佩戴后，可以制作人物通用专属制作的物品"),
 
     fns.blank(),
-
-
-
 
 
 }
