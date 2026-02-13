@@ -20,7 +20,10 @@ This project has no traditional build system. Testing is done via custom framewo
 require("moreitems.lib.shihao.module.unittest").run_unittests(module)
 
 # Run specific test file (from DST console)
-require("moreitems.tests.test_a")
+require("moreitems.lib.shihao.module.__unittests__.stl_string")
+
+# Run unittests for specific module
+require("moreitems.lib.shihao.module.unittest").run_unittests(require("moreitems.lib.shihao.module.stl_string"))
 
 # Debug logging (add to modinfo.lua)
 debug = true
