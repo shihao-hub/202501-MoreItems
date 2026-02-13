@@ -5,7 +5,7 @@
 local API = require("moreitems.chang_mone.dsts.API");
 local locale = LOC.GetLocaleCode();
 local L = (locale == "zh" or locale == "zht" or locale == "zhr") and true or false;
-local old_actions_fn = require("moreitems.definitionsmone.old_actions_fn");
+local old_actions_fn = require("moreitems.definitions.mone.old_actions_fn");
 local config_data = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA
 
 local function consumMaterials(invobject)

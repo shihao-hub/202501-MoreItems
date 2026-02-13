@@ -97,7 +97,6 @@ function module.invoke_safe(fn, ...)
     return res
 end
 
-
 ------------------------------------------------------------------------------------------------------------------------
 ---类型保护
 ------------------------------------------------------------------------------------------------------------------------
@@ -111,7 +110,11 @@ function module.check_function(value)
 end
 
 function module.require_not_nil(value, message)
-    message = base.if_then_else(message, message, "Expected " .. "not nil" .. ", got " .. "nil")
+    message = base.if_then_else(message, function()
+        return message
+    end, function()
+        return "Expected " .. "not nil" .. ", got " .. "nil"
+    end)
     if value == nil then
         error(message)
     end
@@ -121,7 +124,9 @@ if select("#", ...) == 0 then
     --[[ check_string ]]
     xpcall(function()
         module.check_string("string")
-    end, function(msg) io.stderr:write(msg, "\n") end)
+    end, function(msg)
+        io.stderr:write(msg, "\n")
+    end)
 end
 
 return module

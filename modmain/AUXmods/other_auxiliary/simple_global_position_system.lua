@@ -5,7 +5,7 @@
 -- 简易全球定位系统(GPS)：只在地图上面显示玩家图标和共享地图。
 
 -- 检测独立模组是否已启用
-local mi_deprecated_feature = require("mi_modules.mi_deprecated_feature")
+local mi_deprecated_feature = require("more_items_deprecated_feature")
 
 -- 如果独立模组已启用，跳过此文件的所有逻辑
 if mi_deprecated_feature.check_and_announce("简易全球定位", "3590648641", "简易全球定位", env) then

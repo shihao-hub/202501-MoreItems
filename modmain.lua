@@ -224,7 +224,7 @@ do
     local function extra_equip_slots()
         if config_data.extra_equip_slots then
             -- 检测四格装备栏模组是否已启用（ID: 3574405615）
-            local mi_deprecated_feature = require("mi_modules.mi_deprecated_feature")
+            local mi_deprecated_feature = require("more_items_deprecated_feature")
             if mi_deprecated_feature.check_and_announce("五格装备栏", "3574405615", "四格装备栏", env) then
                 return
             end

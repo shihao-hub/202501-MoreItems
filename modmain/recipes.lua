@@ -872,7 +872,7 @@ Recipes[#Recipes + 1] = {
 --[[ 更多物品·建筑 ]]
 ---------------------------------------------------------------------------------------------------------------
 
-
+-- 食人花宝箱 (特殊储物容器)
 Recipes_Locate["rmi_lureplant"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.lureplant,
@@ -1742,7 +1742,7 @@ Recipes[#Recipes + 1] = {
 
 
 
--- 猪鼻铸币
+-- 升级版·猪鼻铸币 (特殊货币)
 Recipes_Locate["rmi_pig_coin"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.pig_coin,
