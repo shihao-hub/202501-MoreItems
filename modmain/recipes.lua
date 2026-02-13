@@ -17,6 +17,8 @@ local key1 = "more_items1";
 RecipeTabs[key1] = {
     filter_def = {
         name = "MONE_MORE_ITEMS1",
+        atlas = "images/inventoryimages.xml",
+        image = "amulet.tex"
     },
     index = nil
 }
@@ -27,6 +29,8 @@ local key2 = "more_items2";
 RecipeTabs[key2] = {
     filter_def = {
         name = "MONE_MORE_ITEMS2",
+        atlas = "images/inventoryimages.xml",
+        image = "blueamulet.tex"
     },
     index = nil
 }
@@ -1862,92 +1866,38 @@ Recipes[#Recipes + 1] = {
     }
 };
 
--- ========== 开始处理配方注册 ==========
-print("[MoreItems] ========== 开始处理配方注册 ==========")
-print("[MoreItems] 配方总数: " .. #Recipes)
-print("[MoreItems] all_items_one_recipetab: " .. tostring(all_items_one_recipetab))
-
-local added_count = 0
-local skipped_count = 0
-
 for _, v in pairs(Recipes) do
-    print("[MoreItems] --- 处理配方: " .. tostring(v.name) .. " ---")
-    print("[MoreItems]   CanMake: " .. tostring(v.CanMake))
-
     if v.CanMake then
         -- 从资源映射表中获取 atlas 和 image（如果存在）
         local assets = recipe_assets[v.name]
-        print("[MoreItems]   查找资源: " .. tostring(assets ~= nil))
 
         if assets then
             -- 支持函数形式（用于条件判断）
             if type(assets) == "function" then
-                print("[MoreItems]   assets 是函数，调用中...")
                 assets = assets()
-                print("[MoreItems]   函数返回: " .. tostring(assets ~= nil))
             end
             if assets.atlas then
-                print("[MoreItems]   设置 atlas: " .. tostring(assets.atlas))
                 v.config.atlas = assets.atlas
-            else
-                print("[MoreItems]   assets.atlas 为 nil")
             end
             if assets.image then
-                print("[MoreItems]   设置 image: " .. tostring(assets.image))
                 v.config.image = assets.image
-            else
-                print("[MoreItems]   assets.image 为 nil")
             end
         end
-
-        print("[MoreItems]   原始 filters: " .. table.concat(v.filters, ", "))
 
         if all_items_one_recipetab then
             if not table.contains(v.filters, "CHARACTER")
                     and not table.contains(v.filters, "CRAFTING_STATION")
             then
-                print("[MoreItems]   修改 filters: { 'MONE_MORE_ITEMS1' }")
                 v.filters = { "MONE_MORE_ITEMS1" };
-            else
-                print("[MoreItems]   跳过修改 (CHARACTER 或 CRAFTING_STATION)")
             end
         end
 
-        print("[MoreItems]   最终 filters: " .. table.concat(v.filters, ", "))
-        print("[MoreItems]   调用 AddRecipe2...")
-        local success, result = pcall(function()
-            return env.AddRecipe2(v.name, v.ingredients, v.tech, v.config, v.filters)
-        end)
-
-        if success then
-            print("[MoreItems]   ✓ AddRecipe2 成功")
-            added_count = added_count + 1
-        else
-            print("[MoreItems]   ✗ AddRecipe2 失败: " .. tostring(result))
-        end
-    else
-        skipped_count = skipped_count + 1
-        print("[MoreItems]   跳过 (CanMake = false)")
+        env.AddRecipe2(v.name, v.ingredients, v.tech, v.config, v.filters);
     end
 end
 
-print("[MoreItems] ========== 配方注册完成 ==========")
-print("[MoreItems] 成功添加: " .. added_count .. ", 跳过: " .. skipped_count)
-
-print("[MoreItems] ========== 开始从 MODS 过滤器移除配方 ==========")
-local remove_count = 0
 for _, v in pairs(Recipes) do
     if v.CanMake then
-        print("[MoreItems] 从 MODS 移除: " .. tostring(v.name))
-        local success, result = pcall(function()
-            env.RemoveRecipeFromFilter(v.name, "MODS");
-        end)
-
-        if success then
-            remove_count = remove_count + 1
-        else
-            print("[MoreItems]   ✗ RemoveRecipeFromFilter 失败: " .. tostring(result))
-        end
+        env.RemoveRecipeFromFilter(v.name, "MODS");
     end
 end
-print("[MoreItems] 从 MODS 过滤器移除完成，共移除: " .. remove_count)
