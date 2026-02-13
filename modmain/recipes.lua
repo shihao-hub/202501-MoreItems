@@ -34,7 +34,7 @@ RecipeTabs[key2] = {
     },
     index = nil
 }
-STRINGS.UI.CRAFTING_FILTERS[RecipeTabs[key2].filter_def.name] = "更多物品·测试版"
+STRINGS.UI.CRAFTING_FILTERS[RecipeTabs[key2].filter_def.name] = "更多物品·迭代版"
 AddRecipeFilter(RecipeTabs[key2].filter_def, RecipeTabs[key2].index)
 
 local Recipes = {}
@@ -229,7 +229,7 @@ Recipes[#Recipes + 1] = {
         builder_tag = nil,
     },
     filters = {
-        "MONE_MORE_ITEMS2"
+        "MONE_MORE_ITEMS1"
     }
 };
 
@@ -342,31 +342,9 @@ Recipes[#Recipes + 1] = {
         builder_tag = nil,
     },
     filters = {
-        "MONE_MORE_ITEMS1"
+        "MONE_MORE_ITEMS2"
     }
 };
-
---Recipes_Locate["mone_spear_poison"] = true;
---Recipes[#Recipes + 1] = {
---    CanMake = config_data.spear_poison,
---    name = "mone_spear_poison",
---    ingredients = {
---        Ingredient("spear", 2), Ingredient("goldnugget", 5), Ingredient("purplegem", 1)
---    },
---    tech = TECH.SCIENCE_TWO,
---    config = {
---        placer = nil,
---        min_spacing = nil,
---        nounlock = nil,
---        numtogive = nil,
---        builder_tag = nil,
---        atlas = "images/DLC0002/inventoryimages.xml",
---        image = "spear_poison.tex"
---    },
---    filters = {
---        "MONE_MORE_ITEMS2"
---    }
---};
 
 -- 腐化火腿棒 (食物武器)
 Recipes_Locate["mone_hambat"] = true;
@@ -623,7 +601,7 @@ Recipes[#Recipes + 1] = {
         builder_tag = nil,
     },
     filters = {
-        "MONE_MORE_ITEMS1"
+        "MONE_MORE_ITEMS2"
     }
 };
 
@@ -644,7 +622,7 @@ Recipes[#Recipes + 1] = {
         builder_tag = nil,
     },
     filters = {
-        "MONE_MORE_ITEMS1"
+        "MONE_MORE_ITEMS2"
     }
 };
 
@@ -889,7 +867,7 @@ Recipes[#Recipes + 1] = {
         builder_tag = nil,
     },
     filters = {
-        "MONE_MORE_ITEMS2"
+        "MONE_MORE_ITEMS1"
     }
 };
 
@@ -1149,7 +1127,7 @@ Recipes[#Recipes + 1] = {
         builder_tag = nil,
     },
     filters = {
-        "MONE_MORE_ITEMS1"
+        "MONE_MORE_ITEMS2"
     }
 };
 
@@ -1170,7 +1148,7 @@ Recipes[#Recipes + 1] = {
         builder_tag = nil,
     },
     filters = {
-        "MONE_MORE_ITEMS1"
+        "MONE_MORE_ITEMS2"
     }
 };
 
@@ -1342,7 +1320,7 @@ Recipes[#Recipes + 1] = {
         builder_tag = nil,
     },
     filters = {
-        "MONE_MORE_ITEMS2"
+        "MONE_MORE_ITEMS1"
     }
 };
 
@@ -1363,7 +1341,7 @@ Recipes[#Recipes + 1] = {
         builder_tag = nil,
     },
     filters = {
-        "MONE_MORE_ITEMS1"
+        "MONE_MORE_ITEMS2"
     }
 };
 
@@ -1384,7 +1362,7 @@ Recipes[#Recipes + 1] = {
         builder_tag = nil,
     },
     filters = {
-        "MONE_MORE_ITEMS1"
+        "MONE_MORE_ITEMS2"
     }
 };
 
@@ -1405,7 +1383,7 @@ Recipes[#Recipes + 1] = {
         builder_tag = nil,
     },
     filters = {
-        "MONE_MORE_ITEMS1"
+        "MONE_MORE_ITEMS2"
     }
 };
 
@@ -1542,7 +1520,7 @@ Recipes[#Recipes + 1] = {
         builder_tag = nil,
     },
     filters = {
-        "MONE_MORE_ITEMS2"
+        "MONE_MORE_ITEMS1"
     }
 };
 
@@ -1736,7 +1714,7 @@ Recipes[#Recipes + 1] = {
         builder_tag = nil,
     },
     filters = {
-        "MONE_MORE_ITEMS2"
+        "MONE_MORE_ITEMS1"
     }
 };
 
@@ -1759,7 +1737,7 @@ Recipes[#Recipes + 1] = {
         builder_tag = nil,
     },
     filters = {
-        "MONE_MORE_ITEMS2"
+        "MONE_MORE_ITEMS1"
     }
 };
 
