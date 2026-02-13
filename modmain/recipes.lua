@@ -969,6 +969,7 @@ elseif MCB_capability == 3 then
     mone_treasurechest_ingredients = { Ingredient("boards", 12) }
 end
 
+-- 豪华箱子 (大容量存储箱)
 Recipes_Locate["mone_treasurechest"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.chests_boxs,
@@ -1415,31 +1416,9 @@ Recipes[#Recipes + 1] = {
         builder_tag = nil,
     },
     filters = {
-        "MONE_MORE_ITEMS1"
+        "MONE_MORE_ITEMS2"
     }
 };
-
---Recipes[#Recipes + 1] = {
---    CanMake = config_data.mone_lifeinjector_vb,
---    name = "mone_lifeinjector_vb_copy",
---    ingredients = {
---        Ingredient("spoiled_food", 100 * constants.LIFE_INJECTOR_VB__PER_ADD_NUM)
---    },
---    tech = TECH.NONE,
---    config = {
---        product = "mone_lifeinjector_vb",
---        placer = nil,
---        min_spacing = nil,
---        nounlock = nil,
---        numtogive = 10,
---        builder_tag = nil,
---        atlas = "images/foodimages/mone_lifeinjector_vb.xml",
---        image = "mone_lifeinjector_vb.tex"
---    },
---    filters = {
---        "MONE_MORE_ITEMS2"
---    }
---};
 
 Recipes_Locate["mone_stomach_warming_hamburger"] = true;
 Recipes[#Recipes + 1] = {
@@ -1457,7 +1436,7 @@ Recipes[#Recipes + 1] = {
         builder_tag = nil,
     },
     filters = {
-        "MONE_MORE_ITEMS1"
+        "MONE_MORE_ITEMS2"
     }
 };
 
@@ -1477,30 +1456,9 @@ Recipes[#Recipes + 1] = {
         builder_tag = nil,
     },
     filters = {
-        "MONE_MORE_ITEMS1"
+        "MONE_MORE_ITEMS2"
     }
 };
---Recipes[#Recipes + 1] = {
---    CanMake = config_data.mone_stomach_warming_hamburger,
---    name = "mone_stomach_warming_hamburger_copy",
---    ingredients = {
---        Ingredient("spoiled_food", 50)
---    },
---    tech = TECH.NONE,
---    config = {
---        product = "mone_stomach_warming_hamburger",
---        placer = nil,
---        min_spacing = nil,
---        nounlock = nil,
---        numtogive = 10,
---        builder_tag = nil,
---        atlas = "images/foodimages/bs_food_33.xml",
---        image = "bs_food_33.tex"
---    },
---    filters = {
---        "MONE_MORE_ITEMS2"
---    }
---};
 
 Recipes_Locate["mone_honey_ham_stick"] = true;
 Recipes[#Recipes + 1] = {
@@ -1862,7 +1820,7 @@ Recipes[#Recipes + 1] = {
         builder_tag = nil,
     },
     filters = {
-        "MONE_MORE_ITEMS1"
+        "MONE_MORE_ITEMS2"
     }
 };
 
