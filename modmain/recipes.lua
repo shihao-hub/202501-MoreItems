@@ -606,6 +606,7 @@ Recipes[#Recipes + 1] = {
 
 -- HEAD
 
+-- 升级版·灌木丛帽 (头部装备)
 Recipes_Locate["mie_bushhat"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mie_bushhat,
@@ -626,6 +627,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 沃尔夫冈的高礼帽 (头部装备)
 Recipes_Locate["mie_tophat"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mie_tophat,
@@ -893,6 +895,7 @@ Recipes[#Recipes + 1] = {
 
 -- CHEST
 
+-- 抽屉 (存储家具)
 Recipes_Locate["mie_wooden_drawer"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mie_wooden_drawer,
@@ -913,6 +916,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 熊皮保鲜柜 (保鲜存储)
 Recipes_Locate["mie_bear_skin_cabinet"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mie_bear_skin_cabinet,
@@ -934,6 +938,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 贮藏室 (存储建筑)
 Recipes_Locate["mie_fish_box"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mie_fish_box,
@@ -954,6 +959,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 水桶 (水源工具)
 Recipes_Locate["mie_watersource"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mie_watersource,
@@ -1126,6 +1132,7 @@ Recipes[#Recipes + 1] = {
 
 -- OTHER
 
+-- 倾家荡产赌博机 (娱乐建筑)
 Recipes_Locate["mie_relic_2"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mie_relic_2,
@@ -1146,6 +1153,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 黑曜石火坑 (照明建筑)
 Recipes_Locate["mie_obsidianfirepit"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mie_obsidianfirepit,
@@ -1188,6 +1196,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 升级版·消防泵 (灭火工具)
 Recipes_Locate["mie_waterpump"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mie_waterpump,
@@ -1209,6 +1218,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 沙坑 (特殊建筑)
 Recipes_Locate["mie_sand_pit"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mie_sand_pit,
@@ -1229,6 +1239,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 制冰机 (冰块制作)
 Recipes_Locate["mie_icemaker"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mie_icemaker,
@@ -1619,6 +1630,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 绝对吃不完的蒸树枝 (牛牛饲料)
 Recipes_Locate["mie_beefalofeed"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mie_beefalofeed,
@@ -1772,6 +1784,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 普通版·万物打包带 (物品打包)
 Recipes_Locate["mie_ordinary_bundle_state1"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mie_ordinary_bundle,
@@ -1792,6 +1805,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 万物打包带 (物品打包)
 Recipes_Locate["mie_bundle_state1"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mie_bundle,
@@ -1812,6 +1826,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 《论如何做一个懒人》 (书籍)
 Recipes_Locate["mie_book_silviculture"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mie_book_silviculture,
@@ -1832,6 +1847,7 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+-- 《论如何做一个懒人+》 (书籍)
 Recipes_Locate["mie_book_horticulture"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = config_data.mie_book_horticulture,
