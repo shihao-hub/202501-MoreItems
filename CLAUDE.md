@@ -1,15 +1,23 @@
 # CLAUDE.md
 
-本文件为 Claude Code (claude.ai/code) 提供代码库工作指南。
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## 项目概述
 
-这是"More Items"（更多物品）- 一个全面的《饥荒：联机版》模组，添加了 100+ 新物品、增强容器、装备和生活质量功能。模组使用 Lua 编写，遵循 Klei 的 DST 模组架构。
+**More Items（更多物品）** 是一个全面的《饥荒：联机版》(Don't Starve Together) 模组，使用 Lua 编写，遵循 Klei 的 DST 模组架构。
 
-**版本：** 6.0.2
+**版本：** 6.0.7
 **作者：** 心悦卿兮
 **Steam Workshop ID：** 2916137510
 **扩展包 ID：** 2928706576
+**反馈群：** 592159151
+
+### 项目特色
+
+- 添加了 100+ 种全新物品
+- 增强容器（升级版箱子、背包等）
+- 新装备（武器、护甲、帽子）
+- 生活质量功能（自动整理、升级建筑等）
 
 ## 架构
 
@@ -17,7 +25,6 @@
 
 - **modinfo.lua** - 模组元数据、配置选项（60+ 设置）和创意工坊展示信息
 - **modmain.lua** - 主初始化协调器，加载所有子系统
-- **modmain2.lua** & **modmain3.lua** - 额外的模块化入口点
 - **modtuning.lua** - modinfo 和代码之间的运行时配置桥接
 
 ### 初始化顺序
@@ -36,8 +43,9 @@ modmain.lua 执行顺序：
 10. modmain/containers.lua
 11. modmain/init/init_tooltips.lua
 12. modmain/recipes.lua, minimap.lua, actions.lua, reskin.lua
-13. AUXmods（条件功能模块）
-14. PostInit 模块（prefab 修改）
+13. modmain/shard_sync.lua（跨服数据同步）
+14. AUXmods（条件功能模块）
+15. PostInit 模块（prefab 修改）
 ```
 
 ### 目录结构
@@ -55,16 +63,24 @@ MoreItems/
 ├── scripts/                    # 高级功能
 │   ├── components/            # 自定义 DST 组件
 │   ├── prefabs/               # Prefab 定义（mone/, mie/, mi_modules/）
-│   ├── chang_mone/            # API 和工具
 │   ├── moreitems/             # 核心工具和库
-│   └── languages/mone/        # 本地化（中文）
+│   │   ├── chang_mone/        # API 和工具
+│   │   ├── lib/               # 第三方库和自定义库
+│   │   │   ├── shihao/        # 通用工具库
+│   │   │   ├── shihao2/       # 新一代工具库
+│   │   │   ├── dst/           # DST 特定工具
+│   │   │   └── thirdparty/    # 第三方库
+│   │   ├── definitions/       # 定义文件
+│   │   ├── languages/mone/    # 本地化（中文）
+│   │   └── new_scripts/       # 新脚本系统
+│   └── lib/                    # 底层库
 ├── images/                     # 资源文件（.tex, .xml, .scml, .zip）
 └── texts/                      # 文本资源
 ```
 
 ## 添加新物品
 
-按照 **NOTES.md** 中定义的顺序：
+按照 **.achieved_files/NOTES.md** 中定义的顺序：
 
 1. **modinfo.lua** - 添加配置选项
 2. **modtuning.lua** - 添加运行时配置访问
@@ -170,35 +186,40 @@ AddRecipe2(
 
 ## 工具函数
 
-### more_items_utils.lua
+### moreitems.main
 
-提供 `add_prefab()` 函数用于简化物品创建。
-
-### scripts/chang_mone/dsts/API.lua
-
-用于常见 DST 操作的扩展工具库。
-
-## 开发注意事项
-
-### 无创意工坊本地测试
-
-模组支持本地测试 - 检查 `folder_name` 是否有 "workshop-" 前缀，并为非创意工坊构建调整名称/图标。
-
-### 调试模式
-
-在 modinfo.lua 中启用：`debug = true`
-
-### 兼容性检查
+项目工具库入口，提供以下模块：
 
 ```lua
-local IsModEnabled = function(name)
-    -- 通过文件夹名或 modinfo 名称检查已启用的模组
-end
+local moreitems = require("moreitems.main")
+
+-- shihao: 通用工具库
+moreitems.shihao.utils      -- 通用工具函数
+moreitems.shihao.base       -- 基础函数和日志
+moreitems.shihao.assertion  -- 断言工具
+moreitems.shihao.module     -- 模块化工具
+
+-- dst: DST 特定工具
+moreitems.dst.dst_utils     -- DST 工具函数
+moreitems.dst.dst_service   -- DST 服务
+moreitems.dst.class         -- DST 类定义
+
+-- thirdparty: 第三方库
+moreitems.thirdparty.inspect    -- 调试输出
+moreitems.thirdparty.luafun     -- 函数式编程
+moreitems.thirdparty.middleclass -- 面向对象
 ```
 
-### 语言支持
+### chang_mone API
 
-主要语言是中文（`locale == "zh" or "zht" or "zhr"`）。提供英文字符串，但中文是重点。
+用于常见 DST 操作的扩展工具库：
+
+```lua
+local API = require("moreitems.chang_mone.dsts.API")
+
+API.reskin(original_prefab, build_name, {new_prefabs})  -- 皮肤支持
+API.arrangeContainer(inst)                             -- 容器整理
+```
 
 ## 常量系统
 
@@ -240,6 +261,25 @@ Ingredient("spoiled_food", 10 * constants.LIFE_INJECTOR_VB__PER_ADD_NUM)
 - 使用常量关联成本和效果：`Ingredient("material", multiplier * constants.FEATURE__PER_ADD_NUM)`
 - 示例：10 个腐烂食物 × 10 点 = 100 总计（或调整倍数以平衡）
 
+## 跨服数据同步
+
+**modmain/shard_sync.lua** 实现 Mod RPC 跨服务器数据同步：
+
+```lua
+-- 注册 RPC 处理器
+AddShardModRPCHandler("more_items", "rpc_name", function(shardid, userid, ...)
+    -- 处理来自其他服务器的数据
+end)
+
+-- 发送 RPC
+SendModRPCToShard(SHARDID, "more_items", "rpc_name", userid, ...)
+```
+
+**世界组件：** `scripts/components/mone_shard_sync.lua`
+- 统一管理跨服数据存储
+- 支持主服务器/洞穴架构
+- 自动同步玩家属性数据
+
 ## 重要约束
 
 - 永远不要修改子弹/投射物的堆叠限制（反向堆叠 bug）
@@ -248,10 +288,138 @@ Ingredient("spoiled_food", 10 * constants.LIFE_INJECTOR_VB__PER_ADD_NUM)
 - PostInit 文件实现行为，prefab 文件定义结构
 - 始终使用 `more_items_constants.lua` 中的常量作为物品参数
 
-## 已知问题
+## 开发注意事项
 
-查看 **DEFECTS.md** 了解已追踪的 bug（如：打包物品被食人花吃掉后消失）。
+### 无创意工坊本地测试
 
-## 路线图
+模组支持本地测试 - 检查 `folder_name` 是否有 "workshop-" 前缀，并为非创意工坊构建调整名称/图标。
 
-查看 **TODOLISTS.md** 了解计划功能和重构任务。
+### 调试模式
+
+在 modinfo.lua 中启用：`debug = true`
+
+### 兼容性检查
+
+```lua
+local IsModEnabled = function(name)
+    -- 通过文件夹名或 modinfo 名称检查已启用的模组
+end
+```
+
+### 语言支持
+
+主要语言是中文（`locale == "zh" or "zht" or "zhr"`）。提供英文字符串，但中文是重点。
+
+## 已知问题和路线图
+
+查看 `.achieved_files/` 中的文档：
+- **TODO_TRACKER.md** - 所有待办事项的详细追踪
+- **TODOLISTS.md** - 功能计划和架构优化
+- **UPDATELOGS.md** - 版本更新记录
+
+## 开发文档
+
+- **docs/dst-mod-development-guide.md** - DST 模组开发最佳实践
+
+## 代码约定
+
+### 命名规范
+
+- **文件名**: 使用小写字母和下划线 (snake_case)
+- **函数名**:
+  - 导出函数使用 PascalCase (如 `MyFunction`)
+  - 本地函数使用 snake_case (如 `local_function`)
+- **变量名**: 使用 snake_case (如 `local_variable`)
+- **常量**: 使用大写字母和下划线 (如 `CONSTANT_NAME`)
+- **预制体前缀**:
+  - `mone_` - 核心模组物品
+  - `mie_` - 扩展包物品
+  - `rmi_` - 特殊配方物品
+
+### 格式规范
+
+- 缩进: 4 个空格 (不使用制表符)
+- 行长度: 最大约 100 个字符
+- 注释: 优先使用中文，文档注释使用 `---`
+- 逻辑部分之间保留空行
+
+### 错误处理
+
+```lua
+-- 对风险操作使用 pcall
+xpcall(function()
+    risky_operation()
+end, function(msg)
+    print("[MoreItems] Error: " .. msg)
+end)
+
+-- 检查组件存在性
+if inst.components.fueled and not inst.components.fueled:IsEmpty() then
+    -- 可以安全使用
+end
+```
+
+### 调试技巧
+
+```lua
+-- 添加到 modinfo.lua
+debug = true
+
+-- 带前缀打印
+print(string.format("[MoreItems] %s", message))
+
+-- 使用 base.log
+local base = require("moreitems.main").shihao.base
+base.log.info("message")
+base.log.warn("warning")
+base.log.error("error")
+```
+
+## 本地化系统
+
+**scripts/more_items_language_loc.lua** 集中管理所有文本：
+
+```lua
+local TEXT = {
+    prefabsInfo = {
+        ["prefab_name"] = {
+            names = "物品名称",
+            describe = "物品描述",
+            recipe_desc = "配方描述"
+        }
+    },
+    HARVESTER_STAFF_USES = 100,
+    -- 其他常量...
+}
+```
+
+## 资源管理
+
+### Asset 声明
+
+在 `modmain/assets.lua` 中声明资源：
+
+```lua
+Asset("ANIM", "anim/anim_name.zip")
+Asset("IMAGE", "images/inventoryimages/item.tex")
+Asset("ATLAS", "images/inventoryimages/item.xml")
+Asset("ATLAS_BUILD", "images/inventoryimages/item.xml", 256)
+```
+
+### Prefab Files
+
+在 `modmain/prefabfiles.lua` 中声明预制体文件路径：
+
+```lua
+env.PrefabFiles = {
+    "mone/category/item_name",
+}
+```
+
+### Minimap Atlas
+
+在 `modmain/minimap.lua` 中添加小地图图标：
+
+```lua
+env.AddMinimapAtlas("images/minimapimages/item.xml")
+```
