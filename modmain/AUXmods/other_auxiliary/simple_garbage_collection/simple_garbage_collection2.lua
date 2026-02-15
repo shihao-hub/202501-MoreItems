@@ -262,13 +262,19 @@ env.AddPrefabPostInit("world", function(inst)
     end
 
     inst:DoTaskInTime(2, function(inst)
+        -- ERROR：attempt to perform arithmetic on field 'sgc_interval' (a boolean value) | 为什么会出现这个情况？
+        if type(config_data.sgc_interval) == "boolean" then
+            print("[MoreItems] 简易垃圾清理与`workshop-3377689002 (CNM - 崩溃？别在意)`冲突，原因未知")
+            return
+        end
         TheNet:Announce("更多物品：简易垃圾清理功能已开启。")
         local interval = TUNING.TOTAL_DAY_TIME * config_data.sgc_interval;
         local delay = 30;
 
         inst:DoPeriodicTask(interval, function(inst, delay)
             if config_data.sgc_delay_take_effect then
-                if TheWorld.state.cycles <= 30 then -- 2025/05/25: 莫非官方更新了？这个 cycles 失效了？
+                if TheWorld.state.cycles <= 30 then
+                    -- 2025/05/25: 莫非官方更新了？这个 cycles 失效了？
                     return ;
                 end
             end
