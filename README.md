@@ -5,7 +5,7 @@
 ## 基本信息
 
 - **作者：** 心悦卿兮
-- **当前版本：** 6.0.5
+- **当前版本：** 6.0.7
 - **Steam Workshop ID：** 2916137510
 - **扩展包 ID：** 2928706576
 - **反馈群：** 592159151
@@ -37,26 +37,24 @@ MoreItems/
 │   └── moreitems/        # 核心库
 ├── images/               # 资源文件
 └── update_logs/          # 更新日志
+└── docs/                 # 开发文档
+└── .achieved_files/      # 历史文档
 ```
 
 ## 开发相关
 
-- [NOTES.md](.achieved_files/NOTES.md) - 添加新物品的步骤说明
-- [CLAUDE.md](CLAUDE.md) - Claude Code 开发指南
-- [DEFECTS.md](DEFECTS.md) - 已知问题追踪
-- [TODOLISTS.md](.achieved_files/TODOLISTS.md) - 功能计划
-- [UPDATELOGS.md](.achieved_files/UPDATELOGS.md) - 版本更新日志
+- [CLAUDE.md](CLAUDE.md) - 项目开发指南和架构说明
+- [docs/dst-mod-development-guide.md](docs/dst-mod-development-guide.md) - DST 模组开发最佳实践
+- [.achieved_files/NOTES.md](.achieved_files/NOTES.md) - 添加新物品的步骤说明
+- [.achieved_files/TODO_TRACKER.md](.achieved_files/TODO_TRACKER.md) - 待办事项追踪
+- [.achieved_files/TODOLISTS.md](.achieved_files/TODOLISTS.md) - 功能计划
+- [.achieved_files/UPDATELOGS.md](.achieved_files/UPDATELOGS.md) - 版本更新日志
 
 ## 最近更新
 
-### v6.0.4 (2026-01-24)
+### v6.0.7 (当前版本)
 
-- 新增强san素食堡
-- 暖胃汉堡包支持换人继承
-- 完善跨服数据同步系统
-- 修复多个数据同步 bug
-
-完整更新日志请查看 [update_logs/2026-01-24-更新日志.md](.achieved_files/update_logs/2026-01-24-更新日志.md)
+完整更新日志请查看 [.achieved_files/UPDATELOGS.md](.achieved_files/UPDATELOGS.md)
 
 ## 许可证
 
